@@ -1,0 +1,979 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><style>:root{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style></head><body>
+<title>Mon plan de révision</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Fredoka:wght@500;600&display=swap">
+<style>
+/* Layout: one calm column, one thing at a time. Tabs: plan of the day > fiches > quiz > contrôles > bilan > parent. Subject colour = hue. */
+:root{
+  --bg:#edf0f6; --surface:#fafbfd; --ink:#1b2240; --muted:#586180; --line:#d3d9e6;
+  --accent:#3b4cd0; --accent-ink:#ffffff; --accent-soft:#e3e7fb;
+  --ok:#1c7548; --ok-bg:#e1f2e8; --mid:#8f5400; --mid-bg:#fcefd4; --ko:#a3283a; --ko-bg:#fbe3e6;
+  --subj-l:36%; --subj-bg-l:91%;
+  --display:"Fredoka","Trebuchet MS","Segoe UI",sans-serif;
+  --body:"Atkinson Hyperlegible","Verdana","Segoe UI",sans-serif;
+  --r:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#131728; --surface:#1c2136; --ink:#e8ebf6; --muted:#a2aac6; --line:#343b59;
+    --accent:#8d9aff; --accent-ink:#0f1328; --accent-soft:#262d52;
+    --ok:#74d5a3; --ok-bg:#163426; --mid:#f0ba5e; --mid-bg:#3a2c11; --ko:#ff8a98; --ko-bg:#3d1820;
+    --subj-l:74%; --subj-bg-l:21%; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#131728; --surface:#1c2136; --ink:#e8ebf6; --muted:#a2aac6; --line:#343b59;
+  --accent:#8d9aff; --accent-ink:#0f1328; --accent-soft:#262d52;
+  --ok:#74d5a3; --ok-bg:#163426; --mid:#f0ba5e; --mid-bg:#3a2c11; --ko:#ff8a98; --ko-bg:#3d1820;
+  --subj-l:74%; --subj-bg-l:21%; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.55;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 64px}
+.app{max-width:760px;margin-inline:auto;display:flex;flex-direction:column;gap:20px}
+h1,h2,h3,h4{font-family:var(--display);font-weight:600;line-height:1.2;margin:0;text-wrap:balance}
+h1{font-size:1.7rem} h2{font-size:1.35rem} h3{font-size:1.12rem} h4{font-size:1rem}
+p{margin:0} ul,ol{margin:0;padding-left:1.3em} li+li{margin-top:4px}
+a{color:var(--accent);font-weight:700}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.muted{color:var(--muted)} .small{font-size:.9rem}
+.stack{display:flex;flex-direction:column;gap:14px}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+
+.top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:10px 18px}
+.tag{display:inline-block;font-size:.8rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.progress{display:flex;flex-direction:column;gap:4px;min-width:190px;font-size:.9rem;color:var(--muted)}
+.bar{height:10px;border-radius:99px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--ok);border-radius:99px;transition:width .4s ease}
+
+.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}
+.tab{flex:0 0 auto;border:2px solid var(--line);background:var(--surface);border-radius:12px;padding:8px 14px;font-family:var(--display);font-weight:600;font-size:1rem}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.tab .badge{display:inline-block;min-width:1.4em;margin-left:6px;border-radius:99px;background:var(--ko);color:#fff;font-size:.78rem;padding:0 6px;text-align:center}
+
+.days{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin}
+.day{flex:0 0 auto;min-width:64px;border:2px solid var(--line);background:var(--surface);border-radius:12px;padding:6px 8px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:.85rem}
+.day b{font-family:var(--display);font-size:1.05rem;font-weight:600}
+.day[aria-current="date"]{border-color:var(--accent)}
+.day.sel{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.day .dots{display:flex;gap:3px;height:8px}
+.day .dots i{width:8px;height:8px;border-radius:50%;background:var(--line)}
+.dots i.g{background:var(--ok)} .dots i.o{background:var(--mid)} .dots i.r{background:var(--ko)}
+.day.sel .dots i{outline:1px solid var(--accent-ink)}
+.day .ev{font-size:.68rem;font-weight:700;color:var(--ko);line-height:1}
+.day.sel .ev{color:var(--accent-ink)}
+
+.callout{background:var(--accent-soft);border-radius:var(--r);padding:14px 16px;display:flex;flex-direction:column;gap:8px}
+.callout.warn{background:var(--mid-bg)} .callout.ok{background:var(--ok-bg)}
+.chip{border:2px solid var(--line);background:var(--surface);border-radius:99px;padding:6px 14px;font-weight:700;font-size:.95rem}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+.blocs{list-style:none;padding:0;display:flex;flex-direction:column;gap:12px}
+.bloc{background:var(--surface);border:2px solid var(--line);border-radius:var(--r);overflow:hidden}
+.bloc.g{border-color:var(--ok)} .bloc.o{border-color:var(--mid)} .bloc.r{border-color:var(--ko)}
+.bhead{width:100%;text-align:left;background:none;border:0;padding:14px 16px;display:grid;grid-template-columns:auto 1fr auto;gap:4px 14px;align-items:center}
+.num{grid-row:span 2;width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-family:var(--display);font-weight:600;background:hsl(var(--h) 60% var(--subj-bg-l));color:hsl(var(--h) 60% var(--subj-l))}
+.bhead .t{font-family:var(--display);font-weight:600;font-size:1.08rem;min-width:0}
+.bhead .s{font-size:.88rem;color:var(--muted);min-width:0}
+.state{grid-row:span 2;font-size:.85rem;font-weight:700;border-radius:99px;padding:4px 10px;white-space:nowrap}
+.state.g{background:var(--ok-bg);color:var(--ok)} .state.o{background:var(--mid-bg);color:var(--mid)} .state.r{background:var(--ko-bg);color:var(--ko)} .state.n{background:var(--bg);color:var(--muted)}
+.bbody{padding:0 16px 18px;display:flex;flex-direction:column;gap:14px}
+.where{font-size:.95rem;background:var(--bg);border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:6px}
+.steps{display:flex;flex-direction:column;gap:6px;padding-left:1.4em}
+.steps li::marker{font-family:var(--display);font-weight:600;color:var(--accent)}
+.check{border-left:4px solid var(--ok);padding:4px 0 4px 12px}
+.check b{color:var(--ok)}
+.tip{border-left:4px solid var(--accent);padding:4px 0 4px 12px;font-size:.95rem}
+.timer{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.clock{font-family:var(--display);font-size:2rem;font-weight:600;font-variant-numeric:tabular-nums;min-width:4.2ch}
+.btn{background:var(--accent);color:var(--accent-ink);border:0;border-radius:12px;padding:11px 18px;font-family:var(--display);font-weight:600;font-size:1.02rem}
+.btn.ghost{background:transparent;color:var(--accent);border:2px solid var(--accent)}
+.btn.small{padding:7px 13px;font-size:.92rem}
+.btn[disabled]{opacity:.5;cursor:default}
+.rb{border:2px solid var(--line);background:var(--surface);border-radius:12px;padding:9px 14px;font-weight:700}
+.rb.g[aria-pressed="true"]{background:var(--ok-bg);border-color:var(--ok);color:var(--ok)}
+.rb.o[aria-pressed="true"]{background:var(--mid-bg);border-color:var(--mid);color:var(--mid)}
+.rb.r[aria-pressed="true"]{background:var(--ko-bg);border-color:var(--ko);color:var(--ko)}
+label.note{display:flex;flex-direction:column;gap:4px;font-size:.92rem;color:var(--muted)}
+textarea,input[type=password],input[type=text]{font:inherit;font-size:1rem;color:var(--ink);background:var(--bg);border:2px solid var(--line);border-radius:10px;padding:8px 10px;width:100%}
+textarea{min-height:52px;resize:vertical}
+
+/* fiches */
+.fiche{background:var(--surface);border:2px solid var(--line);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;gap:16px}
+.fiche .fhead{display:flex;flex-direction:column;gap:6px;border-bottom:3px solid hsl(var(--h) 60% var(--subj-l));padding-bottom:10px}
+.fiche .fhead .tag{color:hsl(var(--h) 60% var(--subj-l))}
+.fsec{display:flex;flex-direction:column;gap:8px}
+.box{background:hsl(var(--h) 55% var(--subj-bg-l));border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+.key{font-weight:700;color:hsl(var(--h) 60% var(--subj-l))}
+.flow{display:flex;flex-direction:column;gap:0;align-items:stretch}
+.flow .st{background:var(--bg);border:2px solid var(--line);border-radius:12px;padding:8px 12px}
+.flow .ar{text-align:center;color:var(--muted);font-weight:700;line-height:1.4}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.two>*{min-width:0}
+@media (max-width:520px){.two{grid-template-columns:1fr}}
+.table-wrap{overflow-x:auto}
+table{border-collapse:collapse;font-size:.92rem;width:100%}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{font-weight:700;background:var(--bg)}
+td.n,th.n{text-align:center;font-variant-numeric:tabular-nums}
+.mem{font-family:var(--display);font-size:1.05rem;font-weight:600}
+.lumni{display:flex;flex-direction:column;gap:4px;font-size:.95rem}
+.sw{display:flex;gap:8px;flex-wrap:wrap}
+
+/* quiz */
+.qcard{background:var(--surface);border:2px solid var(--line);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;gap:14px}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{text-align:left;border:2px solid var(--line);background:var(--bg);border-radius:12px;padding:12px 14px;font-size:1.02rem}
+.opt.right{border-color:var(--ok);background:var(--ok-bg);color:var(--ok);font-weight:700}
+.opt.wrong{border-color:var(--ko);background:var(--ko-bg);color:var(--ko)}
+.qlist{list-style:none;padding:0;display:flex;flex-direction:column;gap:8px}
+.qlist li{background:var(--surface);border:2px solid var(--line);border-radius:12px;padding:10px 14px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 12px;align-items:center}
+.qlist li>span{min-width:0}
+.pill{display:inline-block;font-size:.82rem;font-weight:700;border-radius:99px;padding:3px 10px}
+.pill.g{background:var(--ok-bg);color:var(--ok)} .pill.o{background:var(--mid-bg);color:var(--mid)} .pill.r{background:var(--ko-bg);color:var(--ko)} .pill.n{background:var(--bg);color:var(--muted)}
+.dotsrow{display:flex;gap:4px}
+.dotsrow i{width:12px;height:12px;border-radius:50%;background:var(--line)}
+
+/* contrôles */
+.ctrl{background:var(--surface);border:2px solid var(--line);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:12px}
+.ctrl.g{border-color:var(--ok)} .ctrl.o{border-color:var(--mid)} .ctrl.r{border-color:var(--ko)}
+.cl{list-style:none;padding:0;display:flex;flex-direction:column;gap:6px}
+.cl label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.cl input{width:22px;height:22px;flex:0 0 auto;margin-top:2px;accent-color:var(--ok)}
+
+/* bilan */
+pre.bilan{white-space:pre-wrap;font-family:var(--body);font-size:.95rem;background:var(--surface);border:2px solid var(--line);border-radius:var(--r);padding:14px;margin:0}
+details.box2{background:var(--surface);border:2px solid var(--line);border-radius:var(--r);padding:12px 16px}
+details.box2 summary{cursor:pointer;font-family:var(--display);font-weight:600;font-size:1.05rem}
+details.box2[open] summary{margin-bottom:10px}
+@media (prefers-reduced-motion: reduce){.bar i{transition:none}}
+.kt{display:inline-block;font-family:var(--body);font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;border-radius:6px;padding:1px 7px;vertical-align:2px}
+.kt.devoir{background:var(--accent-soft);color:var(--accent)}
+.kt.revision{background:var(--ok-bg);color:var(--ok)}
+.kt.controle{background:var(--ko-bg);color:var(--ko)}
+.kt.fond{background:var(--accent-soft);color:var(--accent)}
+.kt.forme{background:var(--mid-bg);color:var(--mid)}
+.day .mn{font-size:.68rem;color:var(--muted)} .day.sel .mn{color:var(--accent-ink)}
+.prog{font-size:1.02rem}
+ul.cl2{list-style:none;padding:0;display:flex;flex-direction:column;gap:4px} ul.cl2 li.ok{color:var(--ok);font-weight:700}
+.item{font-family:var(--display);font-size:1.15rem;font-weight:500;background:var(--bg);border-radius:12px;padding:12px 14px}
+.calcq{font-family:var(--display);font-size:1.6rem;font-weight:600;font-variant-numeric:tabular-nums}
+#cform input{max-width:12ch;font-size:1.3rem;font-variant-numeric:tabular-nums}
+.support{margin:0;border-left:4px solid var(--line);padding:8px 12px;background:var(--bg);border-radius:0 10px 10px 0;font-style:italic}
+.model{background:var(--ok-bg);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+.box2b{background:var(--bg);border-radius:12px;padding:10px 14px;display:flex;flex-direction:column;gap:6px}
+.flash{background:var(--accent-soft);border-radius:var(--r);padding:28px 16px;text-align:center;display:flex;flex-direction:column;gap:10px}
+.flash .ff{font-family:var(--display);font-size:2rem;font-weight:600}
+.flash .fb{font-size:1.3rem;font-weight:700;color:var(--accent)}
+.steps.placed li{color:var(--ok);font-weight:700}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+</style>
+
+<div class="app">
+  <header class="top">
+    <div class="stack" style="gap:4px">
+      <span class="tag">Hugo · 4e5 · semaine du 3 au 10 novembre</span>
+      <h1>Mon plan de révision</h1>
+    </div>
+    <div class="progress" aria-live="polite">
+      <span><b id="pcount">0</b> blocs faits sur <span id="ptotal">0</span></span>
+      <div class="bar" role="img" aria-label="Progression de la semaine"><i id="pbar" style="width:0%"></i></div>
+    </div>
+  </header>
+  <nav class="tabs" role="tablist" aria-label="Rubriques">
+    <button class="tab" role="tab" data-tab="plan">Mon programme</button>
+    <button class="tab" role="tab" data-tab="fiches">Fiches</button>
+    <button class="tab" role="tab" data-tab="quiz">Quiz</button>
+    <button class="tab" role="tab" data-tab="ex">Entraînement</button>
+    <button class="tab" role="tab" data-tab="ctrl">Contrôles</button>
+    <button class="tab" role="tab" data-tab="bilan">Bilan pour maman</button>
+    <button class="tab" role="tab" data-tab="parent">Parent</button>
+  </nav>
+  <main id="view" class="stack" style="gap:18px"></main>
+</div>
+<script>
+/* ================= DONNÉES ================= */
+const H={Maths:225,"Français":340,Anglais:10,Espagnol:45,"Histoire-Géo-EMC":28,SVT:145,"Physique-Chimie":190,Technologie:265,Musique:300,"Préparation":250};
+const LUMNI=q=>"https://www.lumni.fr/recherche?query="+encodeURIComponent(q);
+
+/* ---------- Fiches ---------- */
+const FICHES=[
+{id:"fr-fant",s:"Français",t:"Le Horla et le récit fantastique",src:"Cours du 3 novembre",
+ lumni:[["Le registre fantastique (« Fais pas genre ! », 2 min)",LUMNI("registre fantastique")],["Cours Lumni collège : récit fantastique",LUMNI("récit fantastique collège")]],
+ short:[
+  "<b>Horla</b> = <b>hors</b> (dehors) + <b>là</b> (ici) : un être venu d'ailleurs qui s'installe chez nous.",
+  "Le fantastique en 5 étapes : <b>cadre normal → événement étrange → peur, surprise, incompréhension → doute → 2 explications</b>.",
+  "Les 2 explications : <b>surnaturelle</b> (un esprit, un être invisible) ou <b>rationnelle</b> (folie, hallucination, rêve).",
+  "<b>Fantastique</b> = monde réel + doute. <b>Merveilleux</b> = fées, magie acceptée (« Il était une fois »). <b>Science-fiction</b> = futur, technologies.",
+  "<b>Imparfait</b> = décor, habitude, action longue. <b>Passé simple</b> = action soudaine, brève, qui fait avancer l'histoire."],
+ full:`
+ <div class="fsec"><h3>1. Ce que veut dire « Horla »</h3>
+  <div class="box"><p class="mem">HORS + LÀ</p><p><b>Hors</b> = dehors, en dehors de notre monde. <b>Là</b> = ici, tout près de nous.</p><p>Le Horla est donc un être <b>qui vient d'ailleurs mais qui est là, chez nous</b>. C'est un mot inventé par Maupassant (un néologisme).</p></div></div>
+ <div class="fsec"><h3>2. Comment on reconnaît un récit fantastique</h3>
+  <p class="muted small">Mémo : <b>C.E.R.D.D.</b> = Cadre, Événement, Réactions, Doute, Deux explications.</p>
+  <div class="flow">
+   <div class="st"><b>C</b>adre normal : le monde réel, la vie de tous les jours, nos lois physiques.</div><div class="ar">↓</div>
+   <div class="st"><b>É</b>vénement étrange qu'on ne peut pas expliquer (un objet bouge seul, une présence invisible).</div><div class="ar">↓</div>
+   <div class="st"><b>R</b>éactions du personnage : <b>peur</b>, <b>surprise</b>, <b>incompréhension</b>.</div><div class="ar">↓</div>
+   <div class="st"><b>D</b>oute jusqu'à la fin : on ne sait pas ce qui est vrai.</div><div class="ar">↓</div>
+   <div class="st"><b>D</b>eux explications possibles :<br>• <b>surnaturelle</b> : un esprit, un revenant, un être invisible existe vraiment ;<br>• <b>rationnelle</b> : le narrateur devient fou, il hallucine, il rêve.</div>
+  </div>
+  <p class="tip">En classe : le fantastique ne commence <b>pas</b> dans un autre monde. Il commence dans <b>notre</b> monde, puis quelque chose de bizarre arrive.</p></div>
+ <div class="fsec"><h3>3. Ne pas confondre trois genres</h3>
+  <div class="table-wrap"><table>
+   <tr><th>Genre</th><th>Le surnaturel</th><th>Où, quand</th><th>Le personnage…</th></tr>
+   <tr><td><b>Fantastique</b></td><td>présence invisible, double, hallucination</td><td>notre monde, aujourd'hui</td><td>a peur et <b>doute</b></td></tr>
+   <tr><td><b>Merveilleux</b></td><td>fées, sorcières, ogres, baguette magique</td><td>« Il était une fois », pas d'époque</td><td>trouve ça <b>normal</b></td></tr>
+   <tr><td><b>Science-fiction</b></td><td>machines, robots, voyages dans le temps</td><td>le futur</td><td>l'explique par la <b>science</b></td></tr>
+  </table></div>
+  <p class="tip">Question posée en classe : « Des fées, c'est fantastique ? » Non : les fées appartiennent au <b>merveilleux</b>, car personne ne s'en étonne.</p></div>
+ <div class="fsec"><h3>4. Les temps du récit</h3>
+  <div class="two">
+   <div class="box"><p class="key">Imparfait = le fond du décor</p><ul><li>décrire un lieu, une personne</li><li>une habitude (« chaque soir, il buvait… »)</li><li>une action longue (« pendant que je <b>méditais</b>… »)</li></ul></div>
+   <div class="box"><p class="key">Passé simple = ce qui arrive d'un coup</p><ul><li>action soudaine, brève, terminée</li><li>action qui fait avancer l'histoire</li><li>(« soudain, la porte <b>s'ouvrit</b> »)</li></ul></div>
+  </div>
+  <p class="tip">Méthode : je me demande « ça <b>dure</b> ou ça <b>arrive d'un coup</b> ? » Ça dure → imparfait. D'un coup → passé simple.</p></div>
+ <div class="fsec"><h3>5. Questions possibles au contrôle</h3>
+  <ol><li>Quelles sont les 5 caractéristiques d'un récit fantastique ? → C.E.R.D.D.</li><li>Quelle différence entre fantastique, merveilleux et science-fiction ? → le tableau.</li><li>Que veut dire le mot « Horla » ? → hors + là.</li><li>Pourquoi l'imparfait et le passé simple dans un récit fantastique ? → l'imparfait installe le calme, le passé simple fait surgir l'étrange.</li></ol></div>`},
+
+{id:"ma-rel",s:"Maths",t:"Calculer avec les nombres relatifs",src:"Cours du 3 novembre + cours de septembre-octobre",
+ lumni:[["Nombres relatifs (vidéos Lumni)",LUMNI("nombres relatifs")],["Priorités opératoires",LUMNI("priorités opératoires")]],
+ short:["Ordre : <b>parenthèses</b>, puis <b>× et ÷</b>, puis <b>+ et −</b>.","× et ÷ : <b>signes pareils → +</b>, <b>signes différents → −</b>.","+ : signes différents → je <b>soustrais</b> les distances à zéro et je garde le signe du plus « loin de zéro ».","Le « − » peut être le signe d'un <b>nombre</b> (−4) ou d'une <b>opération</b> (5 − 4). Je mets des parenthèses : 9 + (−4)."],
+ full:`
+ <div class="fsec"><h3>1. L'ordre des calculs</h3>
+  <div class="box"><p class="mem">1. ( )  →  2. × ÷  →  3. + −</p><p>Exemple : 5 − 2 × (−3) = 5 − (−6) = 5 + 6 = <b>11</b>. On fait d'abord 2 × (−3).</p></div></div>
+ <div class="fsec"><h3>2. Deux règles différentes</h3>
+  <div class="two">
+   <div class="box"><p class="key">Multiplier et diviser</p><p>Je compte les signes −.</p><ul><li>(+) × (+) = +</li><li>(−) × (−) = +</li><li>(+) × (−) = −</li><li>(−) × (+) = −</li></ul><p>7 × (−3) = <b>−21</b><br>(−12) ÷ 4 = <b>−3</b></p></div>
+   <div class="box"><p class="key">Additionner</p><ul><li>Même signe : j'additionne et je garde le signe.<br>(−3) + (−5) = −8</li><li>Signes différents : je fais la différence des distances à zéro, je garde le signe du plus loin de zéro.<br>9 + (−4) = <b>5</b> (9 est plus loin de zéro)</li></ul></div>
+  </div>
+  <p class="tip">Piège vu en classe : la règle des signes de la multiplication ne marche <b>pas</b> pour l'addition. (−3) + (−5) n'est pas +8.</p></div>
+ <div class="fsec"><h3>3. Traduire une phrase en calcul</h3>
+  <div class="table-wrap"><table>
+   <tr><th>La phrase</th><th>Le calcul</th><th>Résultat</th></tr>
+   <tr><td>Le <b>produit</b> de −3 par la <b>somme</b> de 9 et de −4</td><td>−3 × (9 + (−4))</td><td class="n">−15</td></tr>
+   <tr><td>La <b>somme</b> de −7 et du <b>produit</b> de 3 par 5</td><td>−7 + 3 × 5</td><td class="n">8</td></tr>
+   <tr><td>Le <b>quotient</b> de la somme de −5 et 9 par −10</td><td>(−5 + 9) ÷ (−10)</td><td class="n">−0,4</td></tr>
+  </table></div>
+  <p class="tip">Produit = ×. Somme = +. Différence = −. Quotient = ÷. Le premier mot dit la <b>dernière</b> opération. Et je n'oublie pas le signe : un élève a répondu 0,4 au lieu de <b>−0,4</b>.</p></div>`},
+
+{id:"ma-stat",s:"Maths",t:"Statistiques : effectif et fréquence",src:"Cours du 3 novembre (chapitre 6)",
+ lumni:[["Statistiques, effectifs et fréquences",LUMNI("fréquence statistiques")]],
+ short:["<b>Population</b> = qui on étudie. <b>Caractère</b> = ce qu'on regarde chez chacun.","<b>Effectif</b> d'une valeur = combien de fois elle apparaît. <b>Effectif total</b> = tout le monde.","<b>Fréquence = effectif ÷ effectif total</b>. Fraction, décimal ou % (× 100).","Une fréquence est <b>entre 0 et 1</b>. La somme des fréquences = <b>1</b> (ou 100 %)."],
+ full:`
+ <div class="fsec"><h3>1. L'exemple du cours</h3>
+  <p>On a demandé aux 28 élèves d'une classe de 4e combien ils ont de frères et sœurs :</p>
+  <p class="box" style="font-variant-numeric:tabular-nums">2 ; 1 ; 0 ; 1 ; 4 ; 0 ; 3 ; 2 ; 0 ; 1 ; 2 ; 5 ; 1 ; 2 ; 2 ; 3 ; 0 ; 0 ; 1 ; 3 ; 1 ; 2 ; 4 ; 3 ; 0 ; 4 ; 1 ; 2</p>
+  <ul><li><b>Population</b> : les 28 élèves de cette classe de 4e.</li><li><b>Caractère étudié</b> : le nombre de frères et sœurs.</li></ul></div>
+ <div class="fsec"><h3>2. Le tableau complété</h3>
+  <div class="table-wrap"><table>
+   <tr><th>Frères et sœurs</th><th class="n">0</th><th class="n">1</th><th class="n">2</th><th class="n">3</th><th class="n">4</th><th class="n">5</th><th class="n">Total</th></tr>
+   <tr><th>Effectif</th><td class="n">6</td><td class="n">7</td><td class="n">7</td><td class="n">4</td><td class="n">3</td><td class="n">1</td><td class="n"><b>28</b></td></tr>
+   <tr><th>Fréquence (fraction)</th><td class="n">6/28</td><td class="n">7/28</td><td class="n">7/28</td><td class="n">4/28</td><td class="n">3/28</td><td class="n">1/28</td><td class="n"><b>28/28 = 1</b></td></tr>
+   <tr><th>Décimal (au centième)</th><td class="n">0,21</td><td class="n">0,25</td><td class="n">0,25</td><td class="n">0,14</td><td class="n">0,11</td><td class="n">0,04</td><td class="n">1</td></tr>
+   <tr><th>Pourcentage (à l'unité)</th><td class="n">21 %</td><td class="n">25 %</td><td class="n">25 %</td><td class="n">14 %</td><td class="n">11 %</td><td class="n">4 %</td><td class="n"><b>100 %</b></td></tr>
+  </table></div>
+  <p class="tip">Méthode pour compter sans me tromper : je barre chaque nombre de la liste au crayon en faisant un bâton dans la bonne colonne. À la fin, je vérifie que le total fait 28.</p></div>
+ <div class="fsec"><h3>3. Les formules</h3>
+  <div class="box"><p class="mem">fréquence = effectif ÷ effectif total</p><p>6 ÷ 28 ≈ 0,214… → <b>0,21</b> → × 100 → <b>21 %</b></p></div>
+  <ul><li>Une fréquence est toujours <b>entre 0 et 1</b> (entre 0 % et 100 %).</li><li>Toutes les fréquences ensemble font <b>1</b> (ou 100 %). C'est ma vérification.</li></ul></div>`},
+
+{id:"svt",s:"SVT",t:"Photosynthèse, stomates et microscope",src:"Bilans 2 et 3 + TP du 13 octobre · évaluation le mardi 10",
+ lumni:[["La photosynthèse",LUMNI("photosynthèse")],["Utiliser un microscope",LUMNI("microscope")]],
+ short:["eau + dioxyde de carbone → (lumière) → matière organique + dioxygène : c'est la <b>photosynthèse</b>.","Elle se fait dans les <b>chloroplastes</b> des cellules des feuilles (pigment vert : chlorophylle).","Le <b>Lugol</b> (eau iodée) colore l'<b>amidon</b> en <b>bleu-noir</b>.","Un <b>stomate</b> = 2 <b>cellules de garde</b> autour d'un trou, l'<b>ostiole</b>.","Dessin : crayon, titre, grossissement, légendes à la règle, traits horizontaux, pas de couleur."],
+ full:`
+ <div class="fsec"><h3>1. La photosynthèse (bilan 2)</h3>
+  <div class="box"><p class="mem">eau + dioxyde de carbone  —lumière→  matière organique + dioxygène</p><p class="small">6 H₂O + 6 CO₂ → C₆H₁₂O₆ + 6 O₂</p></div>
+  <ul><li>Les plantes fabriquent de l'<b>amidon</b> (matière organique).</li><li>On le repère avec l'<b>eau iodée</b> (le <b>Lugol</b>) : les zones riches en amidon deviennent <b>bleu-noir</b>.</li><li>Ça se passe dans les <b>chloroplastes</b>, de petits compartiments des cellules des feuilles qui contiennent la <b>chlorophylle</b> (pigment vert).</li><li>Il faut de la <b>lumière</b>. La plante rejette du <b>dioxygène</b> dans l'air.</li></ul>
+  <p class="tip">L'expérience des deux sacs : la <b>potasse</b> absorbe le CO₂, l'<b>eau de chaux</b> se trouble s'il y a du CO₂. La feuille privée de CO₂ ne fabrique pas d'amidon : le CO₂ est <b>indispensable</b>.</p></div>
+ <div class="fsec"><h3>2. Le stomate (bilan 3)</h3>
+  <div class="two">
+   <svg viewBox="0 0 260 170" role="img" aria-label="Schéma d'un stomate : deux cellules de garde autour de l'ostiole" style="width:100%;max-width:320px">
+    <rect x="4" y="4" width="252" height="162" rx="12" fill="var(--bg)" stroke="var(--line)" stroke-width="2"/>
+    <ellipse cx="108" cy="85" rx="28" ry="58" fill="hsl(145 55% var(--subj-bg-l))" stroke="hsl(145 60% var(--subj-l))" stroke-width="3"/>
+    <ellipse cx="152" cy="85" rx="28" ry="58" fill="hsl(145 55% var(--subj-bg-l))" stroke="hsl(145 60% var(--subj-l))" stroke-width="3"/>
+    <ellipse cx="130" cy="85" rx="7" ry="34" fill="var(--surface)" stroke="hsl(145 60% var(--subj-l))" stroke-width="2"/>
+    <circle cx="100" cy="70" r="7" fill="hsl(145 60% var(--subj-l))"/><circle cx="160" cy="100" r="7" fill="hsl(145 60% var(--subj-l))"/>
+    <line x1="137" y1="85" x2="214" y2="85" stroke="var(--ink)" stroke-width="1.5"/><text x="216" y="89" font-size="13" fill="var(--ink)">ostiole</text>
+    <line x1="84" y1="120" x2="30" y2="150" stroke="var(--ink)" stroke-width="1.5"/><text x="10" y="164" font-size="12" fill="var(--ink)">cellule de garde</text>
+   </svg>
+   <div class="stack" style="gap:6px"><p>Un <b>stomate</b> = deux <b>cellules de garde</b> en forme de haricot, avec un trou au milieu : l'<b>ostiole</b>. C'est par là que les gaz (CO₂, O₂) entrent et sortent de la feuille.</p><p>Autour : les <b>cellules épidermiques</b>, avec une <b>membrane</b>, un <b>noyau</b> et du <b>cytoplasme</b>.</p></div>
+  </div></div>
+ <div class="fsec"><h3>3. Le microscope : la préparation</h3>
+  <ol class="steps"><li>Je mets une goutte d'eau sur la lame.</li><li>Je pose un petit morceau d'épiderme de feuille (poireau) bien à plat.</li><li>Je pose la lamelle doucement, en biais, pour ne pas faire de bulles.</li><li>Je commence au <b>plus petit grossissement</b>, je fais la mise au point, puis je passe au fort grossissement.</li></ol></div>
+ <div class="fsec"><h3>4. Le dessin d'observation : les règles</h3>
+  <ul><li><b>Crayon à papier</b> bien taillé, pas de couleur.</li><li>Un <b>titre</b> (ce que j'observe) et le <b>grossissement</b> (ex. × 400).</li><li>Je dessine <b>seulement ce que je vois</b>, en grand, au milieu de la feuille.</li><li><b>Légendes</b> sur le côté, reliées par des <b>traits tirés à la règle</b>, horizontaux, qui ne se croisent pas.</li></ul>
+  <p class="tip">Pour le contrôle : dessine 3 fois le stomate à partir du schéma, en chronométrant 5 minutes, et coche les règles une par une.</p></div>`},
+
+{id:"pc",s:"Physique-Chimie",t:"Les interactions",src:"Chapitre 2 · exercices pour le vendredi 6",
+ lumni:[["La gravitation",LUMNI("gravitation")],["Les actions mécaniques",LUMNI("action mécanique")]],
+ short:["<b>Système</b> = l'objet que j'étudie.","Une action mécanique peut <b>déformer</b>, <b>mettre en mouvement</b> ou <b>changer le mouvement</b>.","Si A agit sur B, B agit sur A : c'est une <b>interaction</b>.","<b>Contact</b> ou <b>à distance</b>. Contact <b>localisé</b> (petite zone) ou <b>réparti</b> (grande surface).","<b>DOI</b> : le système au centre, les objets autour, un trait par interaction."],
+ full:`
+ <div class="fsec"><h3>1. Le vocabulaire</h3>
+  <ul><li><b>Système</b> : l'objet que je choisis d'étudier (le ballon, la charge, le grimpeur).</li><li>Si le système est <b>déformé</b>, <b>mis en mouvement</b> ou si son <b>mouvement change</b>, c'est qu'il subit une <b>action mécanique</b>.</li><li>Quand A agit sur B, B agit aussi sur A : c'est une <b>interaction</b>.</li></ul></div>
+ <div class="fsec"><h3>2. Les types d'interactions</h3>
+  <div class="two">
+   <div class="box"><p class="key">De contact</p><p>Les objets se touchent.</p><ul><li><b>localisée</b> : sur une petite zone (la main sur le ballon)</li><li><b>répartie</b> : sur une grande surface (le vent sur la voile, l'eau sur la coque)</li></ul></div>
+   <div class="box"><p class="key">À distance</p><p>Les objets ne se touchent pas.</p><ul><li>la <b>gravitation</b> (la Terre attire le bateau, la charge, le grimpeur)</li><li>l'interaction magnétique (aimant)</li></ul></div>
+  </div></div>
+ <div class="fsec"><h3>3. Le DOI (diagramme objets-interactions)</h3>
+  <svg viewBox="0 0 320 150" role="img" aria-label="Exemple de DOI pour la charge d'une grue" style="width:100%;max-width:420px">
+   <rect x="120" y="55" width="80" height="40" rx="8" fill="hsl(190 55% var(--subj-bg-l))" stroke="hsl(190 60% var(--subj-l))" stroke-width="3"/><text x="160" y="80" text-anchor="middle" font-size="14" font-weight="700" fill="var(--ink)">Charge</text>
+   <ellipse cx="50" cy="35" rx="42" ry="20" fill="var(--bg)" stroke="var(--line)" stroke-width="2"/><text x="50" y="40" text-anchor="middle" font-size="13" fill="var(--ink)">Câble</text>
+   <ellipse cx="270" cy="35" rx="42" ry="20" fill="var(--bg)" stroke="var(--line)" stroke-width="2"/><text x="270" y="40" text-anchor="middle" font-size="13" fill="var(--ink)">Terre</text>
+   <ellipse cx="160" cy="128" rx="42" ry="18" fill="var(--bg)" stroke="var(--line)" stroke-width="2"/><text x="160" y="133" text-anchor="middle" font-size="13" fill="var(--ink)">Air</text>
+   <line x1="88" y1="44" x2="120" y2="62" stroke="var(--ink)" stroke-width="2.5"/>
+   <line x1="232" y1="44" x2="200" y2="62" stroke="var(--ink)" stroke-width="2.5" stroke-dasharray="6 5"/>
+   <line x1="160" y1="95" x2="160" y2="110" stroke="var(--ink)" stroke-width="2.5"/>
+  </svg>
+  <p class="small muted">Trait plein = contact. Pointillés = à distance. L'interaction avec l'air est très faible : on peut la <b>négliger</b>.</p></div>
+ <div class="fsec"><h3>4. La gravitation</h3>
+  <p>C'est une interaction <b>attractive à distance</b> entre deux objets qui ont une masse. Elle est <b>plus forte</b> si les masses sont <b>plus grandes</b> et si les objets sont <b>plus proches</b>. Elle fait tourner la Lune autour de la Terre et la Terre autour du Soleil.</p></div>`},
+
+{id:"te",s:"Technologie",t:"Le protocole de test",src:"Évaluation le jeudi 5 (écrit + pratique)",
+ lumni:[["La démarche expérimentale",LUMNI("démarche expérimentale")]],
+ short:["Un protocole a <b>7 parties</b> : but, matériel, ce que je change, ce que je garde pareil, étapes, tableau, conclusion.","Je ne change qu'<b>une seule chose</b> à la fois.","Étapes <b>numérotées</b>, une action par ligne, avec un verbe (« Allumer », « Mesurer »).","Pratique : je lis <b>toute</b> la consigne avant de commencer, puis je coche chaque étape."],
+ full:`
+ <div class="fsec"><h3>1. Les 7 parties d'un protocole</h3>
+  <p class="muted small">Mémo : <b>B.M.C.G.É.T.C.</b> = « <b>B</b>ien <b>M</b>esurer, <b>C</b>'est <b>G</b>agner : <b>É</b>tapes, <b>T</b>ableau, <b>C</b>onclusion ».</p>
+  <ol class="steps">
+   <li><b>But</b> : ce que je veux savoir (« Quelle ampoule éclaire le plus ? »).</li>
+   <li><b>Matériel</b> : la liste de ce qu'il faut.</li>
+   <li><b>Ce que je change</b> : une seule chose (le type d'ampoule).</li>
+   <li><b>Ce que je garde pareil</b> : tout le reste (même distance, même durée, même appareil de mesure).</li>
+   <li><b>Étapes</b> numérotées, dans l'ordre, avec un verbe d'action.</li>
+   <li><b>Tableau</b> pour noter les résultats.</li>
+   <li><b>Conclusion</b> : je réponds au but.</li></ol></div>
+ <div class="fsec"><h3>2. Exemple : comparer la chaleur de deux ampoules</h3>
+  <div class="box"><p><b>But</b> : quelle ampoule chauffe le plus ?</p><p><b>Matériel</b> : 2 ampoules (LED, halogène), 1 lampe, 1 thermomètre, 1 chronomètre, 1 règle.</p><p><b>Je change</b> : l'ampoule. <b>Je garde</b> : thermomètre à 10 cm, 5 minutes allumée, même pièce.</p><p><b>Étapes</b> : 1. Placer le thermomètre à 10 cm. 2. Noter la température de départ. 3. Allumer l'ampoule 1 pendant 5 min. 4. Noter la température. 5. Éteindre, attendre que tout refroidisse. 6. Recommencer avec l'ampoule 2.</p><p><b>Tableau</b> : ampoule | température départ | après 5 min | différence.</p><p><b>Conclusion</b> : « L'ampoule … chauffe le plus car … ».</p></div></div>
+ <div class="fsec"><h3>3. Pour la partie pratique</h3>
+  <ul><li>Je lis tout le protocole une fois, sans rien toucher.</li><li>Je fais les étapes <b>dans l'ordre</b>, et je coche au crayon chaque étape finie.</li><li>Je note les mesures <b>tout de suite</b> dans le tableau.</li></ul></div>`},
+
+{id:"an",s:"Anglais",t:"The Roaring Twenties et le prétérit",src:"Séquence 3 · interro du DST et verbes irréguliers",
+ lumni:[["Les années folles / la crise de 1929",LUMNI("crise de 1929")],["Le prétérit en anglais",LUMNI("prétérit anglais")]],
+ short:["<b>Roaring Twenties</b> = les années 1920 aux États-Unis : jazz, fêtes, croissance.","<b>Prohibition</b> (1920-1933) : alcool interdit → bars cachés (<b>speakeasies</b>) et <b>gangsters</b>.","<b>1929</b> : le krach de Wall Street (<b>Wall Street Crash</b>).","Prétérit régulier : verbe + <b>-ed</b>. Irréguliers : à apprendre (go → <b>went</b>).","Négation : <b>didn't</b> + verbe de base. Question : <b>Did</b> + sujet + verbe de base ?"],
+ full:`
+ <div class="fsec"><h3>1. The Roaring Twenties</h3>
+  <ul><li>Les « années rugissantes » : les <b>années 1920</b> aux <b>États-Unis</b>. L'économie va bien, on écoute du <b>jazz</b>, on danse, on achète des voitures.</li><li><b>Prohibition</b> (1920-1933) : l'alcool est interdit. On boit en cachette dans des <b>speakeasies</b>. Les <b>gangsters</b> vendent l'alcool illégalement (Al Capone).</li><li><b>John Dillinger</b> : un célèbre braqueur de banques des années 1930, recherché par le FBI.</li><li><b>1929</b> : le <b>Wall Street Crash</b>, la Bourse s'effondre. C'est la fin des années folles.</li></ul></div>
+ <div class="fsec"><h3>2. Le prétérit (parler du passé terminé)</h3>
+  <div class="two">
+   <div class="box"><p class="key">Affirmation</p><p>Réguliers : <b>-ed</b><br>play → played, watch → watched</p><p>Irréguliers :<br>go → went, have → had, be → was/were, make → made, take → took</p></div>
+   <div class="box"><p class="key">Négation et question</p><p>He <b>didn't</b> rob the bank.<br>(didn't + verbe <b>de base</b>)</p><p><b>Did</b> he rob the bank?<br>Yes, he <b>did</b>. / No, he <b>didn't</b>.</p></div>
+  </div>
+  <p class="tip">Mots qui appellent le prétérit : <b>yesterday</b>, <b>last</b> year, in <b>1929</b>, <b>ago</b>.</p></div>
+ <div class="fsec"><h3>3. Les verbes irréguliers (interros à partir du 9 novembre)</h3>
+  <ol class="steps"><li>Je prends <b>5 verbes</b> du planning, pas plus.</li><li>Je les lis à voix haute en tapant dans les mains à chaque forme : <i>go – went – gone</i>.</li><li>Je cache et je les dis. Je recopie seulement ceux que j'ai ratés (avec Cantoo si besoin).</li><li>Le lendemain, je recommence avec les 5 d'avant + 5 nouveaux.</li></ol></div>`},
+
+{id:"es",s:"Espagnol",t:"Soler et comparer",src:"Fiche « Husos y usos horarios » · pour le vendredi 6",
+ lumni:[["Espagnol : les habitudes",LUMNI("espagnol habitudes")]],
+ short:["<b>Soler</b> + infinitif = avoir l'habitude de.","suelo, sueles, suele, solemos, soléis, suelen.","Opposer : <b>mientras que</b> (alors que), <b>sin embargo</b> (cependant), <b>en cambio</b> (en revanche)."],
+ full:`
+ <div class="fsec"><h3>1. Soler = avoir l'habitude de</h3>
+  <div class="table-wrap"><table><tr><th>yo</th><th>tú</th><th>él/ella</th><th>nosotros</th><th>vosotros</th><th>ellos</th></tr><tr><td>suelo</td><td>sueles</td><td>suele</td><td>solemos</td><td>soléis</td><td><b>suelen</b></td></tr></table></div>
+  <p>Los españoles <b>suelen</b> cenar a las diez. (Les Espagnols dînent en général à 22 h.)</p></div>
+ <div class="fsec"><h3>2. Comparer et opposer</h3>
+  <ul><li><b>mientras que</b> = alors que</li><li><b>sin embargo</b> = cependant</li><li><b>en cambio</b> = en revanche</li></ul>
+  <div class="box"><p>Los españoles suelen comer a las dos <b>mientras que</b> los ingleses suelen comer a la una.</p><p>En España el telediario es a las nueve. <b>En cambio</b>, en Inglaterra es a las seis.</p></div>
+  <p class="tip">Pour les 5 phrases : 1 phrase = 1 moment de la journée (desayuno, comida, cena, telediario, dormir). Je change seulement l'heure et le pays.</p></div>`},
+
+{id:"emc",s:"Histoire-Géo-EMC",t:"Les libertés et Simone Veil",src:"EMC chapitre 1 · leçon à apprendre pour le jeudi 5",
+ lumni:[["Simone Veil, une vie héroïque (parcours donné par le professeur)","https://enseignants.lumni.fr/parcours/1122/simone-veil-une-vie-heroique.html"],["Simone Veil sur Lumni",LUMNI("Simone Veil")]],
+ short:["La leçon du cahier reste la référence : je la lis à voix haute 2 fois.","1789 : <b>Déclaration des droits de l'homme et du citoyen</b> (« Les hommes naissent et demeurent libres et égaux en droits »).","<b>Simone Veil</b> : rescapée d'Auschwitz, ministre de la Santé, loi de <b>1975</b> sur l'IVG, première présidente du Parlement européen élu (<b>1979</b>), au Panthéon en <b>2018</b>."],
+ full:`
+ <div class="fsec"><h3>1. Comment les libertés ont été gagnées</h3>
+  <p class="tip">Ce chapitre suit la leçon du professeur : c'est <b>ton cahier</b> qui compte pour le contrôle. Cette fiche t'aide à retenir les repères.</p>
+  <ul><li><b>1789</b> : la Déclaration des droits de l'homme et du citoyen. Article 1 : « Les hommes naissent et demeurent libres et égaux en droits. »</li><li>Les libertés fondamentales : liberté d'expression, d'opinion, de religion, de circuler…</li><li>Elles ont été gagnées petit à petit, grâce à des lois et à des personnes qui se sont battues pour elles.</li></ul></div>
+ <div class="fsec"><h3>2. Simone Veil (1927-2017)</h3>
+  <div class="flow">
+   <div class="st"><b>1944</b> : déportée à <b>Auschwitz-Birkenau</b> parce que juive. Elle survit.</div><div class="ar">↓</div>
+   <div class="st"><b>1974</b> : ministre de la Santé.</div><div class="ar">↓</div>
+   <div class="st"><b>1975</b> : la <b>loi Veil</b> autorise l'IVG (interruption volontaire de grossesse).</div><div class="ar">↓</div>
+   <div class="st"><b>1979</b> : première présidente du <b>Parlement européen</b> élu par les citoyens.</div><div class="ar">↓</div>
+   <div class="st"><b>2018</b> : elle entre au <b>Panthéon</b>.</div>
+  </div></div>`}
+];
+
+/* ---------- Quiz ---------- */
+const QUIZ=[
+{id:"q-fant",s:"Français",t:"Le récit fantastique",fiche:"fr-fant",qs:[
+ ["« Horla » est formé de…",["hors + là","horreur + là","hors + la lune","un prénom ancien"],0,"Hors (dehors) + là (ici) : un être d'ailleurs qui vient chez nous.","le titre"],
+ ["Un récit fantastique commence…",["dans le monde réel, ordinaire","dans un pays imaginaire","dans le futur","par « Il était une fois »"],0,"Le fantastique part de notre monde normal, puis l'étrange arrive.","le cadre"],
+ ["Le fantastique repose surtout sur…",["le doute","les monstres","la magie","les machines"],0,"Le doute jusqu'au bout : réel ou pas ?","le doute"],
+ ["Quelles sont les deux explications possibles ?",["surnaturelle ou rationnelle (folie, rêve)","drôle ou triste","vraie ou inventée par l'auteur","passé ou futur"],0,"Soit un être surnaturel existe, soit le narrateur hallucine ou devient fou.","les 2 explications"],
+ ["Une fée transforme une citrouille en carrosse. C'est…",["merveilleux","fantastique","de la science-fiction","réaliste"],0,"La magie est acceptée, personne n'a peur : merveilleux.","fantastique / merveilleux"],
+ ["Un robot voyage dans le temps en 3050. C'est…",["de la science-fiction","du fantastique","du merveilleux","réaliste"],0,"Futur + technologie = science-fiction.","fantastique / SF"],
+ ["Face à l'étrange, le personnage fantastique ressent…",["peur, surprise, incompréhension","joie et calme","rien du tout","de l'ennui"],0,"Les 3 réactions du cours.","les réactions"]]},
+{id:"q-temps",s:"Français",t:"Imparfait ou passé simple",fiche:"fr-fant",qs:[
+ ["Pendant que je ___, la porte s'ouvrit.",["méditais","méditai","médite","méditerai"],0,"Méditer dure : c'est l'arrière-plan → imparfait.","choisir le temps"],
+ ["Soudain, un cri ___ dans la nuit.",["retentit","retentissait","retentira","retentisse"],0,"« Soudain » : action brève → passé simple.","choisir le temps"],
+ ["Chaque soir, il ___ un verre d'eau.",["buvait","but","boit","boira"],0,"« Chaque soir » = habitude → imparfait.","choisir le temps"],
+ ["Le passé simple sert à raconter…",["les actions soudaines et brèves","les descriptions","les habitudes","ce qui se passera"],0,"Actions de premier plan, rapides.","rôle des temps"],
+ ["Passé simple de « venir », il :",["il vint","il venit","il venait","il vena"],0,"Venir → je vins, il vint, ils vinrent.","conjugaison PS"],
+ ["Passé simple de « faire », ils :",["ils firent","ils faisèrent","ils fairent","ils faisaient"],0,"Faire → je fis, il fit, ils firent.","conjugaison PS"]]},
+{id:"q-rel",s:"Maths",t:"Calculs avec les relatifs",fiche:"ma-rel",qs:[
+ ["7 × (−3) = ?",["−21","21","4","−4"],0,"Signes différents → résultat négatif.","règle des signes ×"],
+ ["9 + (−4) = ?",["5","−13","13","−5"],0,"9 est plus loin de zéro : 9 − 4 = 5, positif.","addition"],
+ ["(−6) × (−5) = ?",["30","−30","−11","11"],0,"Deux signes − → +.","règle des signes ×"],
+ ["(−3) + (−5) = ?",["−8","8","2","−2"],0,"Même signe : j'additionne et je garde le −.","addition"],
+ ["5 − 2 × (−3) = ?",["11","−9","9","−1"],0,"D'abord 2 × (−3) = −6, puis 5 − (−6) = 11.","priorités"],
+ ["−7 + 3 × 5 = ?",["8","−20","22","−8"],0,"3 × 5 = 15 d'abord, puis −7 + 15 = 8.","priorités"],
+ ["(−5 + 9) ÷ (−10) = ?",["−0,4","0,4","−4","0,04"],0,"4 ÷ (−10) = −0,4. Attention au signe !","signe du quotient"]]},
+{id:"q-stat",s:"Maths",t:"Statistiques",fiche:"ma-stat",qs:[
+ ["On demande aux 28 élèves d'une 4e leur nombre de frères et sœurs. La population est…",["les 28 élèves de la classe","le nombre de frères et sœurs","28","les familles"],0,"La population = qui on étudie.","population / caractère"],
+ ["Dans le même exemple, le caractère étudié est…",["le nombre de frères et sœurs","les élèves","la classe","28"],0,"Le caractère = ce qu'on regarde chez chacun.","population / caractère"],
+ ["6 élèves n'ont ni frère ni sœur. 6 est…",["l'effectif de la valeur 0","la fréquence de 0","l'effectif total","la moyenne"],0,"L'effectif = combien de fois la valeur apparaît.","effectif"],
+ ["La fréquence de la valeur 0 est…",["6/28","28/6","6","1/6"],0,"Effectif ÷ effectif total.","fréquence"],
+ ["6/28 ≈ 0,21. En pourcentage, ça fait…",["21 %","0,21 %","2,1 %","6 %"],0,"0,21 × 100 = 21 %.","pourcentage"],
+ ["La somme de toutes les fréquences est égale à…",["1 (100 %)","28","0","ça dépend"],0,"C'est la vérification du tableau.","propriétés"],
+ ["Une fréquence peut-elle valoir 1,3 ?",["Non, elle est toujours entre 0 et 1","Oui","Oui si l'effectif est grand","Seulement en %"],0,"Une fréquence est entre 0 et 1.","propriétés"]]},
+{id:"q-svt",s:"SVT",t:"Photosynthèse et microscope",fiche:"svt",qs:[
+ ["Les plantes fabriquent de la matière organique appelée…",["amidon","sel","calcaire","dioxygène"],0,"L'amidon est la matière organique fabriquée.","photosynthèse"],
+ ["Le Lugol (eau iodée) colore l'amidon en…",["bleu-noir","rouge","vert","jaune"],0,"Bleu-noir = présence d'amidon.","Lugol"],
+ ["La photosynthèse a lieu dans…",["les chloroplastes des cellules des feuilles","les racines","le noyau","les fleurs"],0,"Les chloroplastes contiennent la chlorophylle.","chloroplastes"],
+ ["Pour la photosynthèse, la plante a besoin de…",["eau + dioxyde de carbone + lumière","sucre + dioxygène","sel + eau","obscurité"],0,"Eau + CO₂, avec de la lumière.","équation"],
+ ["La photosynthèse rejette dans l'air…",["du dioxygène","du dioxyde de carbone","de l'amidon","de l'azote"],0,"Elle libère du dioxygène.","équation"],
+ ["Un stomate, c'est…",["2 cellules de garde autour d'un ostiole","un noyau","un chloroplaste","une racine"],0,"Deux cellules de garde + l'ostiole (le trou).","stomate"],
+ ["Au microscope, je commence par…",["le plus petit grossissement","le plus fort grossissement","enlever la lamelle","colorier"],0,"Faible grossissement d'abord, puis fort.","microscope"],
+ ["Dans un dessin d'observation, les légendes sont…",["reliées par des traits à la règle","écrites dans le dessin","en couleur","facultatives"],0,"Traits à la règle, horizontaux, sans se croiser.","dessin"],
+ ["Dans l'expérience des sacs, la potasse sert à…",["absorber le dioxyde de carbone","colorer l'amidon","éclairer la plante","arroser"],0,"Sans CO₂, pas d'amidon : le CO₂ est indispensable.","expérience"]]},
+{id:"q-pc",s:"Physique-Chimie",t:"Les interactions",fiche:"pc",qs:[
+ ["Le « système », c'est…",["l'objet que l'on étudie","tous les objets autour","la Terre","une flèche"],0,"On choisit le système.","vocabulaire"],
+ ["La main qui frappe le ballon : interaction…",["de contact, localisée","à distance","de contact, répartie","il n'y en a pas"],0,"Ça se touche, sur une petite zone.","contact / distance"],
+ ["Le vent sur la voile : interaction…",["de contact, répartie","de contact, localisée","à distance","magnétique"],0,"Le vent agit sur toute la surface.","localisée / répartie"],
+ ["Pour un bateau, la seule interaction à distance est avec…",["la Terre","l'eau","le vent","le mât"],0,"La gravitation : la Terre attire le bateau.","contact / distance"],
+ ["La gravitation est plus forte quand…",["les masses sont grandes et les objets proches","les objets sont loin","les objets sont petits","il fait nuit"],0,"Plus de masse, moins de distance → plus forte.","gravitation"],
+ ["Dans un DOI, une interaction à distance se dessine…",["en pointillés","en trait plein","en rouge","on ne la dessine pas"],0,"Trait plein = contact, pointillés = à distance.","DOI"]]},
+{id:"q-te",s:"Technologie",t:"Le protocole de test",fiche:"te",qs:[
+ ["Un protocole commence par…",["le but du test","la conclusion","le tableau","la date"],0,"D'abord : ce que je veux savoir.","les 7 parties"],
+ ["Pour que le test soit juste, je change…",["une seule chose à la fois","tout en même temps","rien","deux choses"],0,"Un seul paramètre change.","paramètre"],
+ ["Je compare deux ampoules. Ce que je garde pareil :",["la distance, la durée, l'appareil de mesure","le type d'ampoule","rien","la couleur de la table"],0,"Tout sauf l'ampoule.","paramètre"],
+ ["Les résultats se notent dans…",["un tableau","la conclusion","le but","le matériel"],0,"Le tableau sert à comparer.","les 7 parties"],
+ ["La conclusion…",["répond au but du test","répète le matériel","donne mon avis","raconte ma journée"],0,"Elle répond à la question de départ.","les 7 parties"],
+ ["Les étapes s'écrivent…",["numérotées, avec un verbe d'action","en un seul paragraphe","dans le désordre","sans verbe"],0,"1. Placer… 2. Allumer… 3. Mesurer…","étapes"]]},
+{id:"q-an",s:"Anglais",t:"Roaring Twenties et prétérit",fiche:"an",qs:[
+ ["The Roaring Twenties, ce sont…",["les années 1920 aux États-Unis","les années 2020","une chanson","une guerre"],0,"Les années folles américaines.","Roaring Twenties"],
+ ["Prohibition, c'est…",["l'interdiction de l'alcool","une danse","une banque","un gangster"],0,"1920-1933.","Roaring Twenties"],
+ ["En 1929, il y a…",["le Wall Street Crash","la fin de la Prohibition","la naissance du jazz","la 1re guerre mondiale"],0,"La Bourse s'effondre.","Roaring Twenties"],
+ ["Prétérit de « go » :",["went","goed","gone","goes"],0,"go – went – gone.","verbes irréguliers"],
+ ["Yesterday, I ___ a film.",["watched","watch","watches","watching"],0,"Yesterday → prétérit, régulier en -ed.","prétérit"],
+ ["La bonne négation :",["He didn't rob the bank.","He didn't robbed the bank.","He not robbed the bank.","He doesn't robbed."],0,"didn't + verbe de base.","négation"],
+ ["Prétérit de « be » avec they :",["were","was","been","be"],0,"I/he was, you/we/they were.","verbes irréguliers"]]},
+{id:"q-es",s:"Espagnol",t:"Soler et comparer",fiche:"es",qs:[
+ ["« Soler » veut dire…",["avoir l'habitude de","dormir","manger","seul"],0,"Soler + infinitif.","soler"],
+ ["Los españoles ___ cenar tarde.",["suelen","solen","suelan","sueles"],0,"Ellos → suelen.","soler"],
+ ["Yo ___ desayunar a las ocho.",["suelo","solo","suele","solemos"],0,"Yo → suelo.","soler"],
+ ["« mientras que » veut dire…",["alors que","après","jamais","parce que"],0,"Pour opposer deux pays.","opposition"],
+ ["« sin embargo » veut dire…",["cependant","sans argent","toujours","demain"],0,"Cependant.","opposition"]]}
+];
+
+/* ---------- Entraînements ---------- */
+const PASSAGE="Cette nuit-là, je lisais tranquillement dans mon fauteuil. La maison était silencieuse. Soudain, la page de mon livre se tourna toute seule. Je regardai autour de moi : personne. Avais-je rêvé ? Ou quelqu'un, invisible, se tenait-il près de moi ?";
+const EX=[
+{id:"fr-sort-genre",s:"Français",fiche:"fr-fant",kind:"fond",type:"sort",t:"Fantastique, merveilleux ou science-fiction ?",
+ cats:["Fantastique","Merveilleux","Science-fiction"],items:[
+ ["Chaque nuit, un homme sent une présence invisible qui boit son eau.",0],["Une fée transforme une citrouille en carrosse.",1],["En 2300, un vaisseau emmène des familles vivre sur Mars.",2],["Les yeux d'un portrait semblent bouger. Le héros se demande s'il est juste fatigué.",0],["« Il était une fois » un ogre qui vivait dans un château enchanté.",1],["Un robot devient l'ami d'un enfant dans une ville du futur.",2],["Seul dans sa chambre, un garçon entend des pas. Rêve-t-il ?",0],["Une sorcière donne une pomme magique à une princesse.",1]],
+ expl:["Fantastique : monde réel + doute.","Merveilleux : la magie est normale.","Science-fiction : futur et technologie."]},
+{id:"fr-sort-temps",s:"Français",fiche:"fr-fant",kind:"forme",type:"sort",t:"Imparfait ou passé simple ?",
+ cats:["Imparfait : ça dure (décor, habitude)","Passé simple : ça arrive d'un coup"],items:[
+ ["Il pleuvait depuis des heures.",0],["Soudain, la vitre se brisa.",1],["Chaque nuit, je me réveillais vers deux heures.",0],["Il ouvrit brusquement la porte.",1],["La maison était silencieuse.",0],["Un cri retentit dans le couloir.",1],["Pendant que je méditais, …",0],["Je sentis une main sur mon épaule.",1]],
+ expl:["Imparfait : ça dure, c'est le décor ou une habitude.","Passé simple : une action brève qui fait avancer l'histoire."]},
+{id:"fr-order",s:"Français",fiche:"fr-fant",kind:"fond",type:"order",t:"Remets le récit fantastique dans l'ordre",
+ steps:["Un cadre normal, dans le monde réel","Un événement étrange arrive","Le personnage a peur, il est surpris, il ne comprend pas","Le doute dure jusqu'à la fin","Deux explications restent possibles : surnaturelle ou rationnelle"]},
+{id:"fr-write",s:"Français",fiche:"fr-fant",kind:"forme",type:"write",t:"Réponse rédigée : en quoi ce passage est-il fantastique ?",
+ support:PASSAGE,prompt:"En quoi ce passage est-il fantastique ? Justifie avec le texte. Écris sur papier, avec Cantoo ou à l'oral.",
+ method:["1re phrase : je réponds à la question (« Ce passage est fantastique car… »).","Ensuite 3 preuves : le cadre normal, l'événement étrange, le doute.","Chaque preuve = une citation entre guillemets + ce qu'elle montre.","Je relie avec D'abord, Ensuite, Enfin."],
+ model:"Ce passage est fantastique car un événement étrange arrive dans un cadre normal et le narrateur doute.\nD'abord, le cadre est ordinaire : le narrateur « lisai[t] tranquillement dans [son] fauteuil ».\nEnsuite, un événement inexplicable arrive : « la page de mon livre se tourna toute seule ».\nEnfin, le narrateur hésite entre deux explications : le rêve (« Avais-je rêvé ? ») ou une présence surnaturelle (« quelqu'un, invisible »).",
+ check:["Ma 1re phrase répond à la question","J'ai cité le texte entre guillemets","J'ai parlé du cadre normal","J'ai parlé de l'événement étrange","J'ai parlé du doute et des 2 explications","J'ai utilisé D'abord / Ensuite / Enfin"]},
+{id:"ma-calc-rel",s:"Maths",fiche:"ma-rel",kind:"fond",type:"calc",gen:"rel",n:10,t:"10 calculs avec les relatifs (toujours nouveaux)"},
+{id:"ma-calc-freq",s:"Maths",fiche:"ma-stat",kind:"fond",type:"calc",gen:"freq",n:8,t:"Calculer des fréquences (toujours nouvelles)"},
+{id:"ma-sort-stat",s:"Maths",fiche:"ma-stat",kind:"fond",type:"sort",t:"Population ou caractère étudié ?",
+ cats:["Population (qui on étudie)","Caractère (ce qu'on regarde)"],items:[
+ ["Les 28 élèves d'une classe de 4e",0],["Le nombre de frères et sœurs",1],["Les 180 élèves de 3e",0],["La note au brevet blanc",1],["Les clients d'une boulangerie un samedi",0],["Le nombre de croissants achetés",1],["Les joueurs d'un club de foot",0],["La taille en centimètres",1]],
+ expl:["La population, ce sont des personnes ou des objets.","Le caractère, c'est ce qu'on mesure ou observe chez chacun."]},
+{id:"ma-write-calc",s:"Maths",fiche:"ma-rel",kind:"forme",type:"write",t:"Présenter un calcul ligne par ligne",
+ prompt:"Calcule en écrivant une étape par ligne :  A = 5 − 2 × (−3)   puis   B = (−5 + 9) ÷ (−10)",
+ method:["Je recopie le calcul en commençant par « A = ».","Je souligne l'opération prioritaire.","Une seule opération par ligne, je recopie le reste.","Chaque ligne commence par « A = »."],
+ model:"A = 5 − 2 × (−3)\nA = 5 − (−6)\nA = 5 + 6\nA = 11\n\nB = (−5 + 9) ÷ (−10)\nB = 4 ÷ (−10)\nB = −0,4",
+ check:["Chaque ligne commence par A = ou B =","Une seule opération par ligne","J'ai fait la priorité en premier","Mes signes sont justes (A = 11, B = −0,4)"]},
+{id:"ma-write-stat",s:"Maths",fiche:"ma-stat",kind:"forme",type:"write",t:"Répondre par une phrase en statistiques",
+ prompt:"Dans une classe de 28 élèves, 7 élèves ont 2 frères et sœurs. Quelle est la fréquence de la valeur 2 ? Donne-la en fraction, en décimal et en pourcentage, puis réponds par une phrase.",
+ method:["Fréquence = effectif ÷ effectif total.","J'écris la fraction, puis je fais la division.","× 100 pour avoir le pourcentage.","Je finis par une phrase qui reprend les mots de la question."],
+ model:"7 ÷ 28 = 0,25\n0,25 × 100 = 25\nLa fréquence des élèves qui ont 2 frères et sœurs est 7/28, soit 0,25, soit 25 %.",
+ check:["J'ai écrit la fraction 7/28","J'ai trouvé 0,25","J'ai trouvé 25 %","J'ai fait une phrase réponse complète"]},
+{id:"svt-order",s:"SVT",fiche:"svt",kind:"fond",type:"order",t:"Les étapes de la préparation microscopique",
+ steps:["Déposer une goutte d'eau sur la lame","Poser un petit morceau d'épiderme bien à plat","Poser la lamelle en biais, sans faire de bulles","Placer la lame sur la platine du microscope","Observer au plus petit grossissement et faire la mise au point","Passer au fort grossissement"]},
+{id:"svt-sort",s:"SVT",fiche:"svt",kind:"fond",type:"sort",t:"Photosynthèse : ce qu'il faut, ce qui est produit",
+ cats:["Il en faut pour la photosynthèse","C'est produit par la photosynthèse"],items:[
+ ["L'eau",0],["Le dioxyde de carbone (CO₂)",0],["La lumière",0],["Le dioxygène (O₂)",1],["L'amidon (matière organique)",1],["La chlorophylle des chloroplastes",0]],
+ expl:["eau + dioxyde de carbone  —lumière→  matière organique + dioxygène"]},
+{id:"svt-dessin",s:"SVT",fiche:"svt",kind:"forme",type:"write",t:"Dessin d'observation d'un stomate",
+ prompt:"Sur une feuille blanche, au crayon, dessine un stomate et 2 cellules épidermiques autour, sans regarder le schéma. Minuteur : 5 minutes.",
+ method:["Crayon à papier bien taillé, pas de couleur.","Un titre et le grossissement (ex. × 400).","Dessin grand, au milieu, seulement ce que je vois.","Légendes sur le côté, traits à la règle, horizontaux, qui ne se croisent pas."],
+ model:"Je compare avec le schéma de la fiche SVT : 2 cellules de garde en forme de haricot, l'ostiole au milieu, et autour des cellules épidermiques avec une membrane, un noyau et du cytoplasme.",
+ check:["Titre","Grossissement","Crayon à papier, pas de couleur","Dessin grand et centré","Légendes : cellule de garde, ostiole","Légendes : membrane, noyau, cytoplasme","Traits de légende à la règle, sans se croiser"]},
+{id:"svt-concl",s:"SVT",fiche:"svt",kind:"forme",type:"write",t:"Rédiger la conclusion d'une expérience",
+ support:"Deux sacs contiennent chacun une plante, à la lumière. Sac 1 : avec de la potasse, qui absorbe le CO₂. Sac 2 : sans potasse. Après quelques heures, on teste une feuille de chaque sac au Lugol. Feuille du sac 1 : elle reste jaune-orangé. Feuille du sac 2 : elle devient bleu-noir.",
+ prompt:"Écris ce que tu observes, puis ce que tu en déduis.",
+ method:["J'observe que… (je décris les 2 résultats).","Or… (je rappelle ce que montre le Lugol).","J'en déduis que… (je réponds au problème)."],
+ model:"J'observe que la feuille du sac 2 devient bleu-noir avec le Lugol, alors que la feuille du sac 1 (sans CO₂) reste jaune-orangé.\nOr le Lugol colore l'amidon en bleu-noir.\nJ'en déduis que la feuille privée de dioxyde de carbone ne fabrique pas d'amidon : le CO₂ est indispensable pour que la plante produise de la matière organique.",
+ check:["J'ai décrit les 2 résultats","J'ai rappelé ce que montre le Lugol","J'ai écrit « J'en déduis que »","Ma conclusion dit que le CO₂ est indispensable"]},
+{id:"pc-sort",s:"Physique-Chimie",fiche:"pc",kind:"fond",type:"sort",t:"Contact localisé, contact réparti ou à distance ?",
+ cats:["Contact localisé","Contact réparti","À distance"],items:[
+ ["La main qui frappe le ballon",0],["Le vent sur la voile",1],["La Terre qui attire le grimpeur",2],["Le pied qui tape dans le ballon",0],["L'eau sur toute la coque du bateau",1],["L'aimant qui attire un trombone sans le toucher",2],["Le crochet du câble qui tient la charge",0],["La Terre qui attire la Lune",2]],
+ expl:["Localisé : sur une petite zone. Réparti : sur une grande surface. À distance : sans se toucher."]},
+{id:"pc-doi",s:"Physique-Chimie",fiche:"pc",kind:"forme",type:"write",t:"Dessiner un DOI",
+ prompt:"Système : un ballon de foot posé sur le sol. Dessine son DOI sur une feuille.",
+ method:["Le système au centre, dans un rectangle.","Chaque objet en interaction autour, dans un ovale.","Trait plein = contact. Pointillés = à distance.","Je dis quelle interaction on peut négliger."],
+ model:"Au centre : BALLON (rectangle).\nRelié par un trait plein à : SOL (contact).\nRelié par des pointillés à : TERRE (à distance, la gravitation).\nL'interaction avec l'air est très faible : on la néglige.",
+ check:["Le ballon est au centre","Le sol est relié par un trait plein","La Terre est reliée en pointillés","J'ai dit qu'on néglige l'air"]},
+{id:"te-order",s:"Technologie",fiche:"te",kind:"fond",type:"order",t:"Les 7 parties d'un protocole",
+ steps:["But","Matériel","Ce que je change (une seule chose)","Ce que je garde pareil","Étapes numérotées","Tableau de résultats","Conclusion"]},
+{id:"te-write",s:"Technologie",fiche:"te",kind:"forme",type:"write",t:"Écrire un protocole complet",
+ prompt:"Écris le protocole pour répondre à : « Quelle boîte garde le mieux un glaçon : la boîte en plastique ou la boîte en polystyrène ? » Minuteur : 10 minutes.",
+ method:["Les 7 parties dans l'ordre, chacune avec son titre.","Étapes numérotées, qui commencent par un verbe.","Une seule chose change : la matière de la boîte."],
+ model:"But : savoir quelle boîte garde le mieux un glaçon.\nMatériel : 2 glaçons identiques, 1 boîte en plastique, 1 boîte en polystyrène, 1 chronomètre.\nJe change : la matière de la boîte.\nJe garde pareil : la taille des glaçons, la taille des boîtes, la pièce, le moment de départ.\nÉtapes : 1. Mettre un glaçon dans chaque boîte en même temps. 2. Fermer les deux boîtes. 3. Lancer le chronomètre. 4. Ouvrir les boîtes toutes les 15 minutes et regarder les glaçons. 5. Noter le temps quand chaque glaçon a fondu.\nTableau : boîte | temps pour fondre.\nConclusion : la boîte en … garde le mieux le froid, car son glaçon a fondu en dernier.",
+ check:["But","Matériel","Une seule chose change","Ce que je garde pareil","Étapes numérotées avec un verbe","Tableau","Conclusion qui répond au but"]},
+{id:"an-flash",s:"Anglais",fiche:"an",kind:"fond",type:"flash",t:"Verbes irréguliers (30 verbes courants)",
+ note:"Vérifie avec le planning de la professeure : sa liste peut être différente.",
+ cards:[["be","was / were – been"],["begin","began – begun"],["break","broke – broken"],["bring","brought – brought"],["buy","bought – bought"],["come","came – come"],["do","did – done"],["drink","drank – drunk"],["eat","ate – eaten"],["find","found – found"],["get","got – got"],["give","gave – given"],["go","went – gone"],["have","had – had"],["know","knew – known"],["leave","left – left"],["make","made – made"],["meet","met – met"],["read","read – read"],["run","ran – run"],["say","said – said"],["see","saw – seen"],["sell","sold – sold"],["speak","spoke – spoken"],["steal","stole – stolen"],["take","took – taken"],["tell","told – told"],["think","thought – thought"],["win","won – won"],["write","wrote – written"]]},
+{id:"an-write",s:"Anglais",fiche:"an",kind:"forme",type:"write",t:"3 phrases au prétérit sur les années 1920",
+ prompt:"Dis ou écris 3 phrases au prétérit : une sur le jazz, une sur la Prohibition, une sur les gangsters. Une des phrases doit être négative.",
+ method:["Je commence par un repère de temps : In the 1920s, In 1929…","Verbe régulier : -ed. Irrégulier : la 2e forme (go → went).","Négation : didn't + verbe de base."],
+ model:"In the 1920s, Americans listened to jazz and danced a lot.\nDuring Prohibition, people didn't buy alcohol in shops: they drank in speakeasies.\nGangsters like Al Capone sold alcohol illegally.",
+ check:["3 phrases au prétérit","Un repère de temps","Au moins un verbe irrégulier juste","Une négation avec didn't + verbe de base"]},
+{id:"es-flash",s:"Espagnol",fiche:"es",kind:"fond",type:"flash",t:"Soler et les mots pour comparer",
+ cards:[["yo (soler)","suelo"],["tú (soler)","sueles"],["él / ella (soler)","suele"],["nosotros (soler)","solemos"],["vosotros (soler)","soléis"],["ellos (soler)","suelen"],["mientras que","alors que"],["sin embargo","cependant"],["en cambio","en revanche"],["el desayuno","le petit-déjeuner"],["la comida","le déjeuner"],["la cena","le dîner"],["el telediario","le journal télévisé"]]},
+{id:"es-write",s:"Espagnol",fiche:"es",kind:"forme",type:"write",t:"5 phrases pour comparer l'Espagne et un autre pays",
+ prompt:"Choisis l'Angleterre ou l'Allemagne. Écris 5 phrases qui comparent les horaires avec l'Espagne (petit-déjeuner, déjeuner, dîner, journal télévisé, coucher).",
+ method:["Modèle : Los españoles suelen + verbe + heure, mientras que los ingleses suelen + verbe + heure.","Une phrase = un moment de la journée.","J'utilise au moins une fois sin embargo et une fois en cambio."],
+ model:"Los españoles suelen comer a las dos, mientras que los ingleses suelen comer a la una.\nLos españoles suelen cenar a las diez. En cambio, los ingleses suelen cenar a las siete.",
+ check:["5 phrases","soler bien conjugué (suelen)","mientras que","sin embargo ou en cambio","Les accents et le -n de suelen"]},
+{id:"emc-order",s:"Histoire-Géo-EMC",fiche:"emc",kind:"fond",type:"order",t:"La vie de Simone Veil dans l'ordre",
+ steps:["1944 : déportée à Auschwitz-Birkenau","1974 : ministre de la Santé","1975 : la loi Veil sur l'IVG","1979 : présidente du Parlement européen élu","2018 : entrée au Panthéon"]}
+];
+
+/* ---------- Contrôles ---------- */
+const CTRL=[
+ {id:"c-te",d:"2026-11-05",s:"Technologie",t:"Évaluation : protocoles de test",what:"Une partie écrite (élaborer un protocole) et une partie pratique (suivre un protocole).",quiz:["q-te"],ex:["te-order","te-write"],fiche:"te",
+  cl:["Je récite les 7 parties d'un protocole sans regarder.","J'ai écrit un protocole complet seul en 10 minutes.","Je sais expliquer pourquoi on ne change qu'une chose à la fois."]},
+ {id:"c-an",d:"2026-11-09",s:"Anglais",t:"Interrogation : verbes irréguliers",what:"Les verbes du planning distribué par la professeure (liste du 9 novembre).",quiz:["q-an"],ex:["an-flash"],fiche:"an",
+  cl:["J'ai trouvé la liste du 9 novembre dans mon cahier.","Je dis les 3 formes de chaque verbe sans regarder.","Je les ai écrits une fois sans erreur (avec Cantoo si besoin)."]},
+ {id:"c-svt",d:"2026-11-10",s:"SVT",t:"Évaluation : microscope + dessin + cours",what:"Mardi 10 novembre, 11 h-12 h 35, salle 120. Préparation, observation, dessin d'observation, questions de cours.",quiz:["q-svt"],ex:["svt-order","svt-sort","svt-dessin","svt-concl"],fiche:"svt",
+  cl:["Je dis les étapes de la préparation microscopique.","Je connais les règles du dessin d'observation.","J'ai dessiné un stomate légendé sans modèle.","Je récite l'équation de la photosynthèse.","Je sais à quoi sert le Lugol."]}
+];
+
+/* ---------- Programme ---------- */
+const PLAN=[
+{d:"2026-11-03",kind:"Soir de cours",note:"",blocs:[
+ {id:"d3a",k:"devoir",s:"Anglais",t:"Remédiation du DST et Roaring Twenties",due:"2026-11-04",fiche:"an",quiz:"q-an",
+  st:["Je relis la feuille de remédiation du DST et je surligne ce que j'avais raté.","Je lis la fiche « Roaring Twenties ».","Je ferme tout et je dis 3 phrases au prétérit sur les années 1920.","Je fais le quiz."],c:"Mes 3 phrases sans regarder et au moins 5/7 au quiz."},
+ {id:"d3b",k:"devoir",s:"Français",t:"Exercice imparfait / passé simple (séance 2)",due:"2026-11-04",fiche:"fr-fant",ex:["fr-sort-temps"],
+  st:["Je fais l'entraînement « Imparfait ou passé simple ? » (3 min).","Pour chaque verbe de l'exercice, je me demande : ça dure ou ça arrive d'un coup ?","J'écris avec Cantoo, ou je dicte à maman si c'est long.","Je mets le livre « Le Horla » dans mon sac."],c:"L'exercice est fini."},
+ {id:"d3c",k:"revision",s:"Maths",t:"Révision du cours d'aujourd'hui : relatifs et statistiques",fiche:"ma-stat",ex:["ma-calc-rel"],
+  st:["Je lis « L'essentiel » des fiches relatifs et statistiques (5 min).","Je dis à voix haute : effectif = …, fréquence = …","Je fais les 10 calculs avec les relatifs."],c:"Au moins 8/10 aux calculs."}]},
+{d:"2026-11-04",kind:"Mercredi · veille de l'évaluation de techno",note:"",blocs:[
+ {id:"d4a",k:"controle",s:"Technologie",t:"Je révise le protocole de test",due:"2026-11-05",fiche:"te",quiz:"q-te",ex:["te-order"],
+  st:["Je lis la fiche « Le protocole de test ».","Je fais l'entraînement « Les 7 parties d'un protocole ».","Je récite les 7 parties à voix haute.","Je fais le quiz."],c:"Les 7 parties dans l'ordre sans regarder et au moins 5/6 au quiz."},
+ {id:"d4b",k:"controle",s:"Technologie",t:"Je rédige un protocole complet",due:"2026-11-05",fiche:"te",ex:["te-write"],
+  st:["Je fais l'entraînement « Écrire un protocole complet » (10 min).","Je compare avec le modèle et je coche la grille.","Je vais dans « Contrôles » et je coche ce que je sais."],c:"Toutes les cases de la grille cochées."},
+ {id:"d4c",k:"devoir",s:"Maths",t:"Statistiques + exercice 34 p. 45",due:"2026-11-05",fiche:"ma-stat",quiz:"q-stat",ex:["ma-sort-stat"],
+  st:["Je fais l'entraînement « Population ou caractère ? ».","Je refais le tableau de l'exemple sur une feuille (je barre chaque nombre).","Je fais l'exercice 34 p. 45.","Je fais le quiz."],c:"Tableau juste (6, 7, 7, 4, 3, 1), exercice fait et au moins 5/7 au quiz."},
+ {id:"d4d",k:"devoir",s:"Histoire-Géo-EMC",t:"J'apprends la leçon d'EMC",due:"2026-11-05",fiche:"emc",ex:["emc-order"],
+  st:["Je lis la leçon du cahier à voix haute, 2 fois.","Je regarde le parcours Lumni sur Simone Veil (5 min).","Je fais l'entraînement « La vie de Simone Veil ».","Je raconte la leçon à maman en 5 phrases."],c:"Je raconte la leçon sans regarder, avec au moins 2 dates."}]},
+{d:"2026-11-05",kind:"Soir de cours",note:"Évaluation de techno ce matin.",blocs:[
+ {id:"d5a",k:"devoir",s:"Physique-Chimie",t:"Exercices 1, 2 et 3 sur les interactions",due:"2026-11-06",fiche:"pc",ex:["pc-sort"],
+  st:["Je fais l'entraînement « Contact ou à distance ? » (3 min).","Exercice 1 (le smash), exercice 2 (le voilier).","Exercice 3 : je dessine le DOI de la charge."],c:"Les 3 exercices sont écrits."},
+ {id:"d5b",k:"devoir",s:"Physique-Chimie",t:"Exercice 4 + corriger le contrôle",due:"2026-11-06",fiche:"pc",quiz:"q-pc",
+  st:["Exercice 4 : le grimpeur (on néglige l'air).","Je corrige chaque erreur du contrôle en vert.","Je fais le quiz."],c:"Contrôle corrigé et au moins 5/6 au quiz."},
+ {id:"d5c",k:"revision",s:"Français",t:"Espagnol, chant et révision du Horla",due:"2026-11-06",fiche:"fr-fant",quiz:"q-fant",
+  st:["Espagnol (5 min) : je vérifie mes 5 phrases avec soler (suelen) et mientras que / sin embargo / en cambio.","Musique (3 min) : « L'oiseau et l'enfant » jusqu'à 0'33, je chante avec.","Révision (7 min) : je récite C.E.R.D.D. puis je fais le quiz « Le récit fantastique »."],c:"5 phrases d'espagnol vérifiées et au moins 5/7 au quiz."}]},
+{d:"2026-11-06",kind:"Soir de cours",note:"",blocs:[
+ {id:"d6a",k:"devoir",s:"Anglais",t:"Verbes irréguliers : la 1re moitié de la liste",due:"2026-11-09",fiche:"an",ex:["an-flash"],
+  st:["Je cherche la liste du 9 novembre dans le planning.","Je dis les verbes 5 par 5 en tapant dans les mains : go – went – gone.","Je fais les cartes « Verbes irréguliers » : je retourne, je dis si je savais."],c:"La 1re moitié de la liste juste sans regarder."},
+ {id:"d6b",k:"controle",s:"SVT",t:"J'apprends : photosynthèse et microscope",due:"2026-11-10",fiche:"svt",quiz:"q-svt",ex:["svt-sort"],
+  st:["Je lis la fiche SVT en entier (7 min).","Je récite l'équation de la photosynthèse 3 fois.","Je fais l'entraînement « Ce qu'il faut, ce qui est produit ».","Je fais le quiz."],c:"Au moins 7/9 au quiz."},
+ {id:"d6c",k:"revision",s:"Maths",t:"Révision espacée : relatifs et fantastique",fiche:"ma-rel",ex:["ma-calc-rel","fr-sort-genre"],
+  st:["Je fais 10 nouveaux calculs avec les relatifs.","Je fais l'entraînement « Fantastique, merveilleux ou science-fiction ? »."],c:"Au moins 8/10 aux calculs et 7/8 au classement."}]},
+{d:"2026-11-07",kind:"Samedi",note:"",blocs:[
+ {id:"d7a",k:"controle",s:"SVT",t:"Dessin d'observation : je m'entraîne",due:"2026-11-10",fiche:"svt",ex:["svt-dessin"],
+  st:["Je regarde le schéma du stomate dans la fiche (2 min).","Je fais l'entraînement « Dessin d'observation » sans regarder (5 min).","Je coche la grille, puis je recommence une 2e fois."],c:"Mon 2e dessin a toutes les cases de la grille."},
+ {id:"d7b",k:"controle",s:"Anglais",t:"Verbes irréguliers : la 2e moitié",due:"2026-11-09",fiche:"an",ex:["an-flash"],
+  st:["Je redis la 1re moitié (2 min).","J'apprends la 2e moitié, 5 par 5.","Je refais les cartes jusqu'à toutes les savoir."],c:"Toute la liste juste sans regarder."},
+ {id:"d7c",k:"revision",s:"Physique-Chimie",t:"Révision : les interactions",fiche:"pc",quiz:"q-pc",ex:["pc-doi"],
+  st:["Je fais l'entraînement « Dessiner un DOI ».","Je fais le quiz « Les interactions »."],c:"Grille du DOI complète et au moins 5/6 au quiz."}]},
+{d:"2026-11-08",kind:"Dimanche · veille de l'interro de verbes",note:"",blocs:[
+ {id:"d8a",k:"controle",s:"Anglais",t:"Verbes irréguliers : toute la liste",due:"2026-11-09",fiche:"an",ex:["an-flash"],
+  st:["Je fais les cartes une fois en entier.","Un adulte m'interroge à l'oral sur toute la liste.","Je coche la préparation dans « Contrôles »."],c:"Toute la liste juste à l'oral."},
+ {id:"d8b",k:"controle",s:"SVT",t:"Le microscope et la conclusion d'expérience",due:"2026-11-10",fiche:"svt",ex:["svt-order","svt-concl"],
+  st:["Je fais l'entraînement « Préparation microscopique ».","Je fais l'entraînement « Rédiger la conclusion d'une expérience »."],c:"Étapes dans l'ordre et grille de la conclusion complète."},
+ {id:"d8c",k:"revision",s:"Français",t:"Le Horla : lecture et réponse rédigée",fiche:"fr-fant",ex:["fr-write"],
+  st:["Je lis 7 minutes dans « Le Horla ».","Je fais l'entraînement « En quoi ce passage est-il fantastique ? »."],c:"Grille de la réponse rédigée complète."},
+ {id:"d8d",k:"revision",s:"Maths",t:"Statistiques + mon sac",fiche:"ma-stat",ex:["ma-calc-freq","ma-write-stat"],
+  st:["Je fais 8 calculs de fréquences.","Je fais l'entraînement « Répondre par une phrase ».","Je prépare le sac de lundi avec l'emploi du temps."],c:"Au moins 6/8 et le sac est prêt."}]},
+{d:"2026-11-09",kind:"Lundi · veille de l'évaluation de SVT",note:"Interro de verbes aujourd'hui.",blocs:[
+ {id:"d9a",k:"controle",s:"SVT",t:"Contrôle blanc de SVT",due:"2026-11-10",fiche:"svt",quiz:"q-svt",ex:["svt-dessin"],
+  st:["Sans fiche : je dis les étapes de la préparation.","Je fais le dessin d'observation sans modèle (5 min).","Je fais le quiz SVT."],c:"Au moins 7/9 au quiz et grille du dessin complète."},
+ {id:"d9b",k:"controle",s:"SVT",t:"Je vérifie que je suis prêt",due:"2026-11-10",fiche:"svt",ex:["svt-sort","svt-order"],
+  st:["Je relis « L'essentiel » de la fiche SVT.","Je refais les 2 entraînements rapides.","Je vais dans « Contrôles » : je coche ce que je sais. S'il reste du orange, je révise ce point."],c:"Le contrôle SVT est « Prêt » ou « Presque prêt »."},
+ {id:"d9c",k:"revision",s:"Maths",t:"Révision espacée : les relatifs",fiche:"ma-rel",quiz:"q-rel",ex:["ma-write-calc","ma-calc-rel"],
+  st:["Je fais l'entraînement « Présenter un calcul ligne par ligne ».","Je fais 10 nouveaux calculs."],c:"Au moins 8/10."},
+ {id:"d9d",k:"revision",s:"Histoire-Géo-EMC",t:"Révision espacée : EMC et espagnol",fiche:"emc",ex:["emc-order","es-flash"],
+  st:["Je remets la vie de Simone Veil dans l'ordre.","Je fais les cartes « Soler et les mots pour comparer »."],c:"Tout dans l'ordre du premier coup."}]},
+{d:"2026-11-10",kind:"Soir de cours",note:"Évaluation de SVT ce matin. Le programme de la semaine suivante arrive bientôt.",blocs:[
+ {id:"d10a",k:"revision",s:"Français",t:"Révision espacée : le fantastique",fiche:"fr-fant",quiz:"q-fant",ex:["fr-order"],
+  st:["Je remets le récit fantastique dans l'ordre.","Je refais le quiz « Le récit fantastique »."],c:"Au moins 6/7."},
+ {id:"d10b",k:"revision",s:"Anglais",t:"Révision espacée : le prétérit",fiche:"an",quiz:"q-an",ex:["an-write"],
+  st:["Je fais l'entraînement « 3 phrases au prétérit ».","Je refais le quiz."],c:"Grille complète et au moins 6/7."},
+ {id:"d10c",k:"revision",s:"Physique-Chimie",t:"Révision espacée : interactions et statistiques",fiche:"pc",ex:["pc-sort","ma-calc-freq"],
+  st:["Je refais le classement « Contact ou à distance ? ».","Je fais 8 calculs de fréquences."],c:"Au moins 7/8 aux deux."}]}
+];
+
+/* ================= ÉTAT ================= */
+const KEY="hugoApp.v2";
+let S={rate:{},notes:{},quiz:{},ex:{},checks:{},sent:{},mood:{},pin:null,updated:0};
+try{const raw=localStorage.getItem(KEY); if(raw) S=Object.assign(S,JSON.parse(raw)); S.ex=S.ex||{};}catch(e){}
+function save(){S.updated=Date.now(); try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const pad=n=>String(n).padStart(2,"0");
+const keyOf=d=>d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());
+const todayKey=keyOf(new Date());
+const dateOf=k=>{const [y,m,d]=k.split("-").map(Number);return new Date(y,m-1,d);};
+const fmt=(k,o)=>dateOf(k).toLocaleDateString("fr-FR",o);
+const longDay=k=>fmt(k,{weekday:"long",day:"numeric",month:"long"});
+const RL={g:"Je sais",o:"Presque",r:"Pas encore"};
+const KL={devoir:"Devoir",revision:"Révision",controle:"Contrôle"};
+const FI=id=>FICHES.find(f=>f.id===id), QI=id=>QUIZ.find(q=>q.id===id), EI=id=>EX.find(e=>e.id===id);
+const mins=day=>day.blocs.length*15;
+
+let tab="plan";
+let sel=(PLAN.find(p=>p.d===todayKey)||(todayKey<PLAN[0].d?PLAN[0]:todayKey>PLAN[PLAN.length-1].d?PLAN[PLAN.length-1]:PLAN.find(p=>p.d>todayKey))).d;
+let openId=null, ficheId=FICHES[0].id, ficheShort=false, playing=null, R=null, parentOk=false, exFilter="Tous";
+
+/* ================= ÉVALUATION ================= */
+const attempts=qid=>S.quiz[qid]||[];
+const exAtt=id=>S.ex[id]||[];
+function lastPct(qid){const a=attempts(qid);return a.length?a[a.length-1].score/a[a.length-1].total:null;}
+function exLast(id){const a=exAtt(id);return a.length?a[a.length-1].score/a[a.length-1].total:null;}
+function daysPlayed(qid){return new Set(attempts(qid).filter(x=>x.score/x.total>=.8).map(x=>x.d)).size;}
+function pillPct(p,label){ if(p===null) return '<span class="pill n">pas encore fait</span>'; const c=p>=.8?"g":p>=.6?"o":"r"; return '<span class="pill '+c+'">'+label+'</span>'; }
+function pillQ(qid){const a=attempts(qid); if(!a.length) return pillPct(null); const l=a[a.length-1]; return pillPct(l.score/l.total,"dernier : "+l.score+"/"+l.total);}
+function pillE(id){const a=exAtt(id); if(!a.length) return pillPct(null); const l=a[a.length-1]; return pillPct(l.score/l.total,l.score+"/"+l.total);}
+function readiness(c){
+  const ch=S.checks[c.id]||{}; const nCh=c.cl.filter((_,i)=>ch[i]).length;
+  const miss=[]; let level="g"; const down=l=>{ if(l==="r") level="r"; else if(level==="g") level="o"; };
+  c.quiz.forEach(q=>{const l=lastPct(q);
+    if(l===null){miss.push("faire le quiz « "+QI(q).t+" »"); down("r");}
+    else if(l<.6){miss.push("refaire le quiz « "+QI(q).t+" » (moins de 60 %)"); down("r");}
+    else if(l<.8){miss.push("atteindre 80 % au quiz « "+QI(q).t+" »"); down("o");}
+    else if(daysPlayed(q)<2){miss.push("réussir le quiz encore une fois, un autre jour"); down("o");} });
+  (c.ex||[]).forEach(e=>{const l=exLast(e); if(l===null){miss.push("faire l'entraînement « "+EI(e).t+" »"); down("o");} else if(l<.8){miss.push("refaire l'entraînement « "+EI(e).t+" »"); down("o");} });
+  if(nCh<c.cl.length){miss.push("cocher "+(c.cl.length-nCh)+" case(s) « je sais »"); down("o");}
+  if(nCh===0&&c.quiz.every(q=>lastPct(q)===null)) level="r";
+  return {level,miss};
+}
+const LV={g:"Prêt",o:"Presque prêt",r:"Pas encore prêt"};
+
+/* ================= RENDU ================= */
+function progress(){let tot=0,done=0; PLAN.forEach(p=>p.blocs.forEach(b=>{tot++; if(S.rate[b.id]) done++;})); $("#pcount").textContent=done; $("#ptotal").textContent=tot; $("#pbar").style.width=(tot?Math.round(done/tot*100):0)+"%";}
+function render(){
+  document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-selected",t.dataset.tab===tab));
+  progress();
+  const v=$("#view");
+  if(tab==="plan") v.innerHTML=viewPlan();
+  else if(tab==="fiches") v.innerHTML=viewFiches();
+  else if(tab==="quiz") v.innerHTML=playing?viewPlay():viewQuizList();
+  else if(tab==="ex") v.innerHTML=R?viewRun():viewExList();
+  else if(tab==="ctrl") v.innerHTML=viewCtrl();
+  else if(tab==="bilan") v.innerHTML=viewBilan();
+  else v.innerHTML=viewParent();
+  wire();
+}
+
+/* ---- Programme ---- */
+function viewPlan(){
+  const day=PLAN.find(p=>p.d===sel), list=day.blocs;
+  const days=PLAN.map(p=>{const ev=CTRL.find(c=>c.d===p.d);return '<button type="button" class="day'+(p.d===sel?" sel":"")+'" data-d="'+p.d+'"'+(p.d===todayKey?' aria-current="date"':"")+' aria-label="'+esc(longDay(p.d))+'"><span>'+esc(fmt(p.d,{weekday:"short"}))+'</span><b>'+dateOf(p.d).getDate()+'</b><span class="dots">'+p.blocs.map(b=>'<i class="'+(S.rate[b.id]||"")+'"></i>').join("")+'</span><span class="mn">'+mins(p)+' min</span>'+(ev?'<span class="ev">'+esc(ev.s.slice(0,5))+'</span>':'')+'</button>';}).join("");
+  const evToday=CTRL.filter(c=>c.d===day.d);
+  const done=list.filter(b=>S.rate[b.id]).length, allDone=done===list.length, sent=S.sent[day.d];
+  const count=k=>list.filter(b=>b.k===k).length;
+  const parts=["devoir","revision","controle"].filter(k=>count(k)).map(k=>count(k)+" "+KL[k].toLowerCase()+(count(k)>1?"s":""));
+  return '<nav class="days" aria-label="Choisir un jour">'+days+'</nav>'+
+   '<div class="stack" style="gap:6px"><span class="tag">'+esc(day.kind)+(day.d===todayKey?" · aujourd'hui":"")+'</span><h2>'+esc(longDay(day.d))+'</h2>'+
+   '<p class="prog"><b>Mon programme : '+mins(day)+' minutes</b>, '+list.length+' blocs de 15 min ('+parts.join(", ")+'). <span class="muted">Tout est obligatoire. 5 min de pause debout entre chaque bloc.</span></p>'+
+   (day.note?'<p class="muted">'+esc(day.note)+'</p>':'')+'</div>'+
+   evToday.map(c=>'<div class="callout warn"><b>Aujourd\'hui : '+esc(c.s)+'. '+esc(c.t)+'</b><span class="small">'+esc(c.what)+'</span></div>').join("")+
+   '<ol class="blocs">'+list.map((b,i)=>blocHTML(b,i)).join("")+'</ol>'+
+   '<div class="callout '+(sent?"ok":allDone?"":"warn")+'"><b>Ma séance est finie quand :</b><ul class="cl2"><li class="'+(allDone?"ok":"")+'">'+(allDone?"✓":"○")+' les '+list.length+' blocs ont un feu ('+done+'/'+list.length+')</li><li class="'+(sent?"ok":"")+'">'+(sent?"✓":"○")+' mon bilan est envoyé à maman</li></ul>'+
+   (allDone&&!sent?'<div><button class="btn" type="button" data-goto="bilan">Faire mon bilan</button></div>':'')+(sent?'<span>Séance terminée. Bravo.</span>':'')+'</div>'+
+   '<p class="small muted">Bonus, seulement si tout est fini : un entraînement au choix dans l\'onglet « Entraînement ».</p>'+
+   '<details class="box2"><summary>Comment je fais une séance</summary><div class="stack" style="gap:10px">'+
+    '<p><b>Avant (2 min)</b> : un verre d\'eau, les toilettes, le téléphone dans une autre pièce. J\'ouvre le bloc 1 et j\'appuie sur « Démarrer 15 min ».</p>'+
+    '<p><b>Les 3 sortes de blocs</b> : <span class="kt devoir">Devoir</span> ce qui est demandé par le prof. <span class="kt revision">Révision</span> je revois un cours pour ne pas l\'oublier. <span class="kt controle">Contrôle</span> je prépare une évaluation.</p>'+
+    '<p><b>Pendant</b> : je fais les étapes dans l\'ordre. Quand ça sonne, j\'arrête et j\'écris où je me suis arrêté.</p>'+
+    '<p><b>Comment je sais si je sais</b> : je cache la fiche et je fais le « Je sais si… ». Vert = bon sans regarder. Orange = j\'ai hésité. Rouge = j\'ai dû regarder.</p>'+
+    '<p><b>Pour écrire</b> : Cantoo Scribe ou la dictée vocale. Si c\'est long, je dicte à maman.</p>'+
+    '<p><b>Si je n\'arrive pas à démarrer</b> : « Juste 2 minutes ». Souvent, après 2 minutes, ça roule.</p>'+
+    '<p><b>Si je rate un jour</b> : je fais le jour où je suis. Les blocs ratés apparaissent dans mon bilan.</p></div></details>';
+}
+function blocHTML(b,i){
+  const r=S.rate[b.id], open=openId===b.id;
+  const links=[]; if(b.fiche) links.push('<button type="button" class="btn ghost small" data-fiche="'+b.fiche+'">Fiche : '+esc(FI(b.fiche).t)+'</button>');
+  (b.ex||[]).forEach(e=>links.push('<span class="row"><button type="button" class="btn ghost small" data-ex="'+e+'">Entraînement : '+esc(EI(e).t)+'</button> '+pillE(e)+'</span>'));
+  if(b.quiz) links.push('<span class="row"><button type="button" class="btn ghost small" data-play="'+b.quiz+'">Quiz : '+esc(QI(b.quiz).t)+'</button> '+pillQ(b.quiz)+'</span>');
+  return '<li class="bloc '+(r||"")+'" id="b-'+b.id+'"><button type="button" class="bhead" data-open="'+b.id+'" aria-expanded="'+open+'" style="--h:'+(H[b.s]||220)+'">'+
+   '<span class="num">'+(i+1)+'</span><span class="t"><span class="kt '+b.k+'">'+KL[b.k]+'</span> '+esc(b.t)+'</span><span class="state '+(r||"n")+'">'+(r?RL[r]:"15 min")+'</span>'+
+   '<span class="s">'+esc(b.s)+(b.due?' · pour le '+esc(fmt(b.due,{weekday:"long",day:"numeric"})):"")+'</span></button>'+
+   (open?'<div class="bbody">'+
+    (links.length?'<div class="where"><b>J\'ouvre :</b><div class="stack" style="gap:6px">'+links.join("")+'</div></div>':'')+
+    '<ol class="steps">'+b.st.map(s=>'<li>'+esc(s)+'</li>').join("")+'</ol>'+
+    '<p class="check"><b>Je sais si…</b> '+esc(b.c)+'</p>'+
+    '<div class="timer"><span class="clock" id="clock">'+clockText()+'</span><button type="button" class="btn" id="tgo">'+(T.running&&T.id===b.id?"Pause":"Démarrer 15 min")+'</button><button type="button" class="btn ghost small" id="t2">Juste 2 minutes</button></div>'+
+    '<div class="stack" style="gap:8px"><span class="small muted">Après le « Je sais si… », je choisis mon feu :</span><div class="row">'+["g","o","r"].map(k=>'<button type="button" class="rb '+k+'" data-r="'+k+'" aria-pressed="'+(r===k)+'">'+RL[k]+'</button>').join("")+'</div></div>'+
+    '<label class="note" for="n-'+b.id+'">Où je me suis arrêté (pour reprendre plus tard)<textarea id="n-'+b.id+'" data-note="'+b.id+'">'+esc(S.notes[b.id]||"")+'</textarea></label>'+
+   '</div>':'')+'</li>';
+}
+
+/* ---- Fiches ---- */
+function viewFiches(){
+  const f=FI(ficheId);
+  const exs=EX.filter(e=>e.fiche===f.id), qs=QUIZ.filter(q=>q.fiche===f.id);
+  return '<div class="row" role="group" aria-label="Choisir une fiche">'+FICHES.map(x=>'<button type="button" class="chip" data-fsel="'+x.id+'" aria-pressed="'+(x.id===ficheId)+'">'+esc(x.s)+' · '+esc(x.t)+'</button>').join("")+'</div>'+
+   '<article class="fiche" style="--h:'+(H[f.s]||220)+'"><div class="fhead"><span class="tag">'+esc(f.s)+' · '+esc(f.src)+'</span><h2>'+esc(f.t)+'</h2>'+
+   '<div class="row"><button type="button" class="chip" data-fshort="0" aria-pressed="'+!ficheShort+'">Fiche complète</button><button type="button" class="chip" data-fshort="1" aria-pressed="'+ficheShort+'">L\'essentiel (recto-verso)</button></div></div>'+
+   (ficheShort?'<div class="box"><ul>'+f.short.map(x=>'<li>'+x+'</li>').join("")+'</ul></div>':f.full)+
+   '<div class="lumni"><h4>Pour mieux comprendre (Lumni)</h4>'+f.lumni.map(l=>'<a href="'+l[1]+'" target="_blank" rel="noopener">'+esc(l[0])+'</a>').join("")+'</div>'+
+   '<div class="stack" style="gap:8px"><h4>Je m\'entraîne</h4><div class="row">'+qs.map(q=>'<button type="button" class="btn" data-play="'+q.id+'">Quiz : '+esc(q.t)+'</button>').join("")+exs.map(e=>'<button type="button" class="btn ghost" data-ex="'+e.id+'">'+esc(e.t)+'</button>').join("")+'</div></div></article>';
+}
+
+/* ---- Quiz ---- */
+function viewQuizList(){
+  return '<p class="muted">Un quiz = quelques minutes. Les questions ratées vont dans mon bilan pour que maman sache quoi revoir.</p>'+
+   '<ul class="qlist">'+QUIZ.map(q=>'<li><span><b>'+esc(q.t)+'</b><br><span class="small muted">'+esc(q.s)+' · '+q.qs.length+' questions · '+attempts(q.id).length+' essai(s)</span></span><span class="row">'+pillQ(q.id)+'<button type="button" class="btn small" data-play="'+q.id+'">Jouer</button></span></li>').join("")+'</ul>';
+}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function startQuiz(id){const q=QI(id); R=null; playing={id,i:0,score:0,miss:[],ans:null,order:q.qs.map(x=>shuffle(x[1].map((t,k)=>({t,ok:k===x[2]}))))}; tab="quiz"; render(); window.scrollTo(0,0);}
+function viewPlay(){
+  const q=QI(playing.id);
+  if(playing.i>=q.qs.length){
+    const pct=playing.score/q.qs.length, c=pct>=.8?"g":pct>=.6?"o":"r";
+    return '<div class="qcard"><span class="tag">'+esc(q.s)+' · '+esc(q.t)+'</span><h2>'+playing.score+' / '+q.qs.length+'</h2><p><span class="pill '+c+'">'+(c==="g"?"Je sais":c==="o"?"Presque":"À revoir")+'</span></p>'+
+     (playing.miss.length?'<p>À revoir : <b>'+esc([...new Set(playing.miss)].join(", "))+'</b>. Je relis cette partie de la fiche.</p>':'<p>Tout juste. Bravo.</p>')+
+     '<div class="row"><button type="button" class="btn" data-play="'+q.id+'">Rejouer</button><button type="button" class="btn ghost" data-fiche="'+q.fiche+'">Voir la fiche</button><button type="button" class="btn ghost" data-goto="plan">Retour au programme</button></div></div>';
+  }
+  const item=q.qs[playing.i], opts=playing.order[playing.i];
+  return '<div class="qcard"><div class="row" style="justify-content:space-between"><span class="tag">'+esc(q.t)+' · question '+(playing.i+1)+' sur '+q.qs.length+'</span><button type="button" class="btn ghost small" id="qback">Arrêter</button></div>'+
+   '<h3>'+esc(item[0])+'</h3><div class="opts">'+opts.map((o,k)=>{let cls=""; if(playing.ans!==null){ if(o.ok) cls="right"; else if(k===playing.ans) cls="wrong"; } return '<button type="button" class="opt '+cls+'" data-ans="'+k+'"'+(playing.ans!==null?' disabled':'')+'>'+esc(o.t)+'</button>';}).join("")+'</div>'+
+   (playing.ans!==null?'<p class="tip">'+(opts[playing.ans].ok?'<b>Oui.</b> ':'<b>Pas tout à fait.</b> ')+esc(item[3])+'</p><div><button type="button" class="btn" id="qnext">'+(playing.i+1<q.qs.length?"Question suivante":"Voir mon score")+'</button></div>':'')+'</div>';
+}
+function answer(k){const q=QI(playing.id), item=q.qs[playing.i], o=playing.order[playing.i][k]; if(playing.ans!==null) return; playing.ans=k; if(o.ok) playing.score++; else playing.miss.push(item[4]); render();}
+function next(){const q=QI(playing.id); playing.i++; playing.ans=null; if(playing.i>=q.qs.length){ (S.quiz[q.id]=S.quiz[q.id]||[]).push({d:todayKey,score:playing.score,total:q.qs.length,miss:[...new Set(playing.miss)]}); save(); } render();}
+
+/* ---- Entraînement ---- */
+const rnd=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const nz=()=>{let n=0;while(!n)n=rnd(-9,9);return n;};
+const P=n=>n<0?"(−"+(-n)+")":String(n);
+const N=n=>{const s=String(Math.round(n*100)/100).replace(".",",");return s.startsWith("-")?"−"+s.slice(1):s;};
+function genRel(){
+  const t=rnd(0,5); let a=nz(),b=nz(),c=nz(),q,ans,ex;
+  if(t===0){q=N(a)+" × "+P(b);ans=a*b;ex=(a*b<0?"Signes différents → négatif.":"Signes pareils → positif.");}
+  else if(t===1){q=N(a)+" + "+P(b);ans=a+b;ex=(Math.sign(a)===Math.sign(b)?"Même signe : j'additionne et je garde le signe.":"Signes différents : je soustrais les distances à zéro, je garde le signe du plus loin de zéro.");}
+  else if(t===2){q=N(a)+" − "+P(b);ans=a-b;ex="Soustraire "+P(b)+", c'est ajouter son opposé : "+N(a)+" + "+P(-b)+".";}
+  else if(t===3){q=N(a)+" + "+N(Math.abs(b))+" × "+P(c);b=Math.abs(b);ans=a+b*c;ex="D'abord "+b+" × "+P(c)+" = "+N(b*c)+", puis "+N(a)+" + "+P(b*c)+".";}
+  else if(t===4){q="("+N(a)+" + "+P(b)+") × "+P(c);ans=(a+b)*c;ex="D'abord la parenthèse : "+N(a+b)+", puis × "+P(c)+".";}
+  else {const k=nz(); c=nz(); b=c*k-a; if(!b||Math.abs(b)>30) return genRel(); q="("+N(a)+" + "+P(b)+") ÷ "+P(c);ans=k;ex="D'abord la parenthèse : "+N(c*k)+", puis ÷ "+P(c)+". Attention au signe.";}
+  return {q:q+" = ?",ans,ex:ex+" Résultat : "+N(ans)+"."};
+}
+function genFreq(){
+  const tot=[10,20,25,50][rnd(0,3)], eff=rnd(1,tot-1), pct=Math.random()<.6;
+  const dec=eff/tot;
+  return {q:"Une valeur a un effectif de "+eff+" sur un effectif total de "+tot+". Quelle est sa fréquence "+(pct?"en pourcentage ?":"en nombre décimal ?"),ans:pct?dec*100:dec,ex:eff+" ÷ "+tot+" = "+N(dec)+(pct?", puis × 100 = "+N(dec*100)+" %":"")+"."};
+}
+function startEx(id){
+  const e=EI(id); playing=null; tab="ex";
+  R={id,i:0,score:0,ans:null,err:0,done:false,miss:[]};
+  if(e.type==="sort") R.items=shuffle(e.items);
+  if(e.type==="order"){R.pool=shuffle(e.steps); R.placed=[]; R.wrong=null;}
+  if(e.type==="calc"){R.qs=Array.from({length:e.n},()=>e.gen==="rel"?genRel():genFreq()); R.val="";}
+  if(e.type==="write"){R.shown=false; R.ck={};}
+  if(e.type==="flash"){R.queue=shuffle(e.cards.map((_,k)=>k)); R.first={}; R.flip=false; R.total=e.cards.length;}
+  render(); window.scrollTo(0,0);
+}
+function finishEx(score,total){const e=EI(R.id); (S.ex[e.id]=S.ex[e.id]||[]).push({d:todayKey,score,total}); save(); R.done=true; R.final=[score,total]; render();}
+function viewExList(){
+  const subs=["Tous",...new Set(EX.map(e=>e.s))];
+  const list=EX.filter(e=>exFilter==="Tous"||e.s===exFilter);
+  return '<p class="muted">Pour vérifier que j\'ai compris (le <b>fond</b>) et que je sais le présenter comme au contrôle (la <b>forme</b>). Les calculs changent à chaque fois : je peux en refaire autant que je veux.</p>'+
+   '<div class="row" role="group" aria-label="Matière">'+subs.map(s=>'<button type="button" class="chip" data-exf="'+esc(s)+'" aria-pressed="'+(s===exFilter)+'">'+esc(s)+'</button>').join("")+'</div>'+
+   '<ul class="qlist">'+list.map(e=>'<li><span><span class="kt '+(e.kind==="forme"?"forme":"fond")+'">'+(e.kind==="forme"?"Forme":"Fond")+'</span> <b>'+esc(e.t)+'</b><br><span class="small muted">'+esc(e.s)+' · '+({sort:"je classe",order:"je remets dans l'ordre",calc:"je calcule",write:"je rédige puis je compare",flash:"cartes à retourner"}[e.type])+' · '+exAtt(e.id).length+' essai(s)</span></span><span class="row">'+pillE(e.id)+'<button type="button" class="btn small" data-ex="'+e.id+'">Faire</button></span></li>').join("")+'</ul>';
+}
+function exHead(e,extra){return '<div class="row" style="justify-content:space-between"><span class="tag">'+esc(e.s)+' · '+(e.kind==="forme"?"Forme":"Fond")+(extra?' · '+extra:'')+'</span><button type="button" class="btn ghost small" id="xback">Arrêter</button></div><h3>'+esc(e.t)+'</h3>';}
+function viewRun(){
+  const e=EI(R.id);
+  if(R.done){const [s,t]=R.final, p=s/t, c=p>=.8?"g":p>=.6?"o":"r";
+    return '<div class="qcard"><span class="tag">'+esc(e.s)+' · '+esc(e.t)+'</span><h2>'+s+' / '+t+'</h2><p><span class="pill '+c+'">'+(c==="g"?"Je sais":c==="o"?"Presque":"À revoir")+'</span></p>'+
+     (R.miss.length?'<p class="small">À revoir : '+esc(R.miss.slice(0,6).join(" ; "))+'</p>':'')+
+     '<div class="row"><button type="button" class="btn" data-ex="'+e.id+'">Recommencer</button><button type="button" class="btn ghost" data-fiche="'+e.fiche+'">Voir la fiche</button><button type="button" class="btn ghost" data-goto="plan">Retour au programme</button></div></div>';}
+  if(e.type==="sort"){
+    const it=R.items[R.i];
+    return '<div class="qcard">'+exHead(e,(R.i+1)+" sur "+R.items.length)+'<p class="muted small">Je choisis la bonne case.</p><p class="item">'+esc(it[0])+'</p>'+
+     '<div class="opts">'+e.cats.map((c,k)=>{let cls=""; if(R.ans!==null){ if(k===it[1]) cls="right"; else if(k===R.ans) cls="wrong"; } return '<button type="button" class="opt '+cls+'" data-sort="'+k+'"'+(R.ans!==null?" disabled":"")+'>'+esc(c)+'</button>';}).join("")+'</div>'+
+     (R.ans!==null?'<p class="tip">'+(R.ans===it[1]?"<b>Oui.</b> ":"<b>Non :</b> c'est « "+esc(e.cats[it[1]])+" ». ")+esc((e.expl||[])[it[1]]||e.expl?.[0]||"")+'</p><div><button type="button" class="btn" id="xnext">'+(R.i+1<R.items.length?"Suivant":"Voir mon score")+'</button></div>':'')+'</div>';
+  }
+  if(e.type==="order"){
+    return '<div class="qcard">'+exHead(e)+'<p class="muted small">Je touche les étiquettes dans le bon ordre.</p>'+
+     '<ol class="steps placed">'+R.placed.map(s=>'<li>'+esc(s)+'</li>').join("")+'</ol>'+
+     (R.wrong?'<p class="tip"><b>Pas encore.</b> « '+esc(R.wrong)+' » vient plus tard.</p>':'')+
+     '<div class="opts">'+R.pool.filter(s=>!R.placed.includes(s)).map(s=>'<button type="button" class="opt" data-ord="'+esc(s)+'">'+esc(s)+'</button>').join("")+'</div></div>';
+  }
+  if(e.type==="calc"){
+    const q=R.qs[R.i];
+    return '<div class="qcard">'+exHead(e,(R.i+1)+" sur "+R.qs.length)+'<p class="calcq">'+esc(q.q)+'</p>'+
+     '<form id="cform" class="row"><label for="cin" class="sr">Ma réponse</label><input type="text" id="cin" inputmode="decimal" autocomplete="off" value="'+esc(R.val)+'"'+(R.ans!==null?" disabled":"")+' placeholder="ma réponse"><button class="btn" type="submit"'+(R.ans!==null?" disabled":"")+'>Vérifier</button></form>'+
+     '<p class="small muted">Pour un nombre négatif, je tape le signe moins. La virgule ou le point marchent.</p>'+
+     (R.ans!==null?'<p class="tip">'+(R.ans?"<b>Juste.</b> ":"<b>Pas tout à fait.</b> ")+esc(q.ex)+'</p><div><button type="button" class="btn" id="xnext">'+(R.i+1<R.qs.length?"Calcul suivant":"Voir mon score")+'</button></div>':'')+'</div>';
+  }
+  if(e.type==="write"){
+    return '<div class="qcard">'+exHead(e)+(e.support?'<blockquote class="support">'+esc(e.support)+'</blockquote>':'')+
+     '<p><b>Consigne :</b> '+esc(e.prompt)+'</p><div class="box2b"><b>Méthode</b><ol class="steps">'+e.method.map(m=>'<li>'+esc(m)+'</li>').join("")+'</ol></div>'+
+     (!R.shown?'<div class="row"><button type="button" class="btn" id="xshow">J\'ai fini, je compare avec le modèle</button></div>':
+      '<div class="model"><b>Modèle de réponse</b><p>'+esc(e.model).replace(/\n/g,"<br>")+'</p></div>'+
+      '<div class="stack" style="gap:6px"><b>Ma grille : je coche ce qui est dans MA réponse</b><ul class="cl">'+e.check.map((c,k)=>'<li><label for="wc'+k+'"><input type="checkbox" id="wc'+k+'" data-wc="'+k+'"'+(R.ck[k]?" checked":"")+'><span>'+esc(c)+'</span></label></li>').join("")+'</ul></div>'+
+      '<div><button type="button" class="btn" id="xsave">Enregistrer ('+Object.keys(R.ck).length+'/'+e.check.length+')</button></div>')+'</div>';
+  }
+  if(e.type==="flash"){
+    const k=R.queue[0], card=e.cards[k];
+    return '<div class="qcard">'+exHead(e,(R.total-R.queue.length)+" sues sur "+R.total)+(e.note?'<p class="small muted">'+esc(e.note)+'</p>':'')+
+     '<div class="flash"><p class="ff">'+esc(card[0])+'</p>'+(R.flip?'<p class="fb">'+esc(card[1])+'</p>':'')+'</div>'+
+     (!R.flip?'<p class="small muted">Je dis la réponse à voix haute, puis je retourne la carte.</p><div><button type="button" class="btn" id="xflip">Retourner la carte</button></div>':
+      '<div class="row"><button type="button" class="rb g" aria-pressed="true" id="xyes">Je savais</button><button type="button" class="rb r" aria-pressed="true" id="xno">Pas encore</button></div>')+'</div>';
+  }
+  return "";
+}
+function exWire(){
+  const e=R&&EI(R.id); if(!e||R.done) return;
+  const xb=$("#xback"); if(xb) xb.onclick=()=>{R=null; render();};
+  document.querySelectorAll("[data-sort]").forEach(b=>b.onclick=()=>{ if(R.ans!==null) return; R.ans=+b.dataset.sort; const it=R.items[R.i]; if(R.ans===it[1]) R.score++; else R.miss.push(it[0]); render(); });
+  document.querySelectorAll("[data-ord]").forEach(b=>b.onclick=()=>{ const s=b.dataset.ord; if(s===e.steps[R.placed.length]){R.placed.push(s); R.wrong=null; if(R.placed.length===e.steps.length) return finishEx(Math.max(0,e.steps.length-R.err),e.steps.length);} else {R.err++; R.wrong=s; R.miss.push(s);} render(); });
+  const cf=$("#cform"); if(cf){ const ci=$("#cin"); if(R.ans===null&&ci) ci.focus(); cf.onsubmit=ev=>{ev.preventDefault(); if(R.ans!==null) return; const raw=ci.value; R.val=raw; const v=Number(raw.replace(/[\s%]/g,"").replace(",",".").replace(/[−–]/g,"-")); if(raw.trim()===""||isNaN(v)) return; const q=R.qs[R.i]; R.ans=Math.abs(v-q.ans)<0.006; if(R.ans) R.score++; else R.miss.push(q.q.replace(" = ?","")); render();}; }
+  const xn=$("#xnext"); if(xn) xn.onclick=()=>{ R.i++; R.ans=null; R.val=""; const n=e.type==="sort"?R.items.length:R.qs.length; if(R.i>=n) finishEx(R.score,n); else render(); };
+  const xs=$("#xshow"); if(xs) xs.onclick=()=>{R.shown=true; render();};
+  document.querySelectorAll("[data-wc]").forEach(c=>c.onchange=()=>{ if(c.checked) R.ck[c.dataset.wc]=true; else delete R.ck[c.dataset.wc]; render(); });
+  const xv=$("#xsave"); if(xv) xv.onclick=()=>{ R.miss=e.check.filter((_,k)=>!R.ck[k]); finishEx(Object.keys(R.ck).length,e.check.length); };
+  const xf=$("#xflip"); if(xf) xf.onclick=()=>{R.flip=true; render();};
+  const xy=$("#xyes"); if(xy) xy.onclick=()=>{ const k=R.queue.shift(); if(!(k in R.first)) R.first[k]=true; R.flip=false; if(!R.queue.length){ const s=Object.values(R.first).filter(Boolean).length; return finishEx(s,R.total);} render(); };
+  const xo=$("#xno"); if(xo) xo.onclick=()=>{ const k=R.queue.shift(); if(!(k in R.first)){R.first[k]=false; R.miss.push(e.cards[k][0]);} R.queue.push(k); R.flip=false; render(); };
+}
+
+/* ---- Contrôles ---- */
+function viewCtrl(){
+  const list=CTRL.filter(c=>c.d>=todayKey), past=CTRL.filter(c=>c.d<todayKey);
+  return '<p class="muted">Je suis prêt quand : je réussis le quiz deux jours différents, je réussis les entraînements, et je coche ce que je sais faire sans regarder.</p>'+
+   (list.length?list.map(ctrlHTML).join(""):'<p>Pas de contrôle prévu cette semaine.</p>')+
+   (past.length?'<details class="box2"><summary>Contrôles passés</summary><div class="stack">'+past.map(ctrlHTML).join("")+'</div></details>':'');
+}
+function ctrlHTML(c){
+  const Rd=readiness(c), ch=S.checks[c.id]||{}, n=Math.round((dateOf(c.d)-dateOf(todayKey))/864e5);
+  return '<section class="ctrl '+Rd.level+'"><div class="row" style="justify-content:space-between"><span class="tag">'+esc(c.s)+' · '+esc(longDay(c.d))+(n>0?' · dans '+n+' jour'+(n>1?'s':''):n===0?" · aujourd'hui":"")+'</span><span class="pill '+Rd.level+'">'+LV[Rd.level]+'</span></div>'+
+   '<h3>'+esc(c.t)+'</h3><p class="small muted">'+esc(c.what)+'</p>'+
+   '<ul class="cl">'+c.cl.map((t,i)=>'<li><label for="ck-'+c.id+'-'+i+'"><input type="checkbox" id="ck-'+c.id+'-'+i+'" data-ck="'+c.id+'|'+i+'"'+(ch[i]?' checked':'')+'><span>'+esc(t)+'</span></label></li>').join("")+'</ul>'+
+   (Rd.miss.length?'<p class="small"><b>Il manque :</b> '+esc(Rd.miss.join(" ; "))+'.</p>':'<p class="small"><b>Tout est bon.</b> Je dors bien la veille.</p>')+
+   '<div class="stack" style="gap:6px">'+c.quiz.map(q=>'<span class="row"><button type="button" class="btn small" data-play="'+q+'">Quiz : '+esc(QI(q).t)+'</button> '+pillQ(q)+'</span>').join("")+(c.ex||[]).map(e=>'<span class="row"><button type="button" class="btn ghost small" data-ex="'+e+'">'+esc(EI(e).t)+'</button> '+pillE(e)+'</span>').join("")+'<span><button type="button" class="btn ghost small" data-fiche="'+c.fiche+'">Fiche</button></span></div></section>';
+}
+
+/* ---- Bilan ---- */
+function bilanText(k){
+  const L=["Bilan d'Hugo – "+longDay(k)], day=PLAN.find(p=>p.d===k);
+  if(day){ const done=day.blocs.filter(b=>S.rate[b.id]);
+    L.push("Programme : "+mins(day)+" min. Blocs faits : "+done.length+" sur "+day.blocs.length);
+    day.blocs.forEach(b=>L.push("- ["+KL[b.k]+"] "+b.s+" : "+b.t+" → "+(S.rate[b.id]?RL[S.rate[b.id]]:"PAS FAIT")+(S.notes[b.id]?" (arrêté à : "+S.notes[b.id].trim()+")":"")));
+  } else L.push("Pas de programme prévu ce jour.");
+  const qs=[]; QUIZ.forEach(q=>attempts(q.id).filter(a=>a.d===k).forEach(a=>qs.push("- Quiz "+q.t+" : "+a.score+"/"+a.total+(a.miss.length?" (raté : "+a.miss.join(", ")+")":""))));
+  EX.forEach(e=>exAtt(e.id).filter(a=>a.d===k).forEach(a=>qs.push("- Entraînement "+e.t+" : "+a.score+"/"+a.total)));
+  L.push("Quiz et entraînements du jour :"+(qs.length?"":" aucun")); qs.forEach(x=>L.push(x));
+  const late=[]; PLAN.forEach(p=>{ if(p.d<k) p.blocs.forEach(b=>{ if(!S.rate[b.id]) late.push(fmt(p.d,{weekday:"short",day:"numeric"})+" – "+b.s+" : "+b.t); }); });
+  if(late.length){L.push("Blocs des jours d'avant pas faits :"); late.forEach(x=>L.push("- "+x));}
+  const rev=[]; PLAN.forEach(p=>p.blocs.forEach(b=>{ if(S.rate[b.id]==="r") rev.push(b.s+" : "+b.t); }));
+  if(rev.length){L.push("En rouge (à revoir) :"); rev.forEach(x=>L.push("- "+x));}
+  const cs=CTRL.filter(c=>c.d>=k); if(cs.length){L.push("Contrôles :"); cs.forEach(c=>{const Rd=readiness(c); L.push("- "+c.s+" ("+fmt(c.d,{weekday:"short",day:"numeric"})+") : "+LV[Rd.level]+(Rd.miss.length?" – il manque : "+Rd.miss.join(" ; "):""));});}
+  if(S.mood[k]) L.push("Aujourd'hui c'était : "+S.mood[k]);
+  return L.join("\n");
+}
+function viewBilan(){
+  const txt=bilanText(todayKey), sent=S.sent[todayKey], day=PLAN.find(p=>p.d===todayKey);
+  const allDone=day?day.blocs.every(b=>S.rate[b.id]):true;
+  return '<div class="stack" style="gap:6px"><span class="tag">Dernière étape de la séance</span><h2>Mon bilan pour maman</h2><p class="muted">Je dis comment c\'était, je copie le bilan et je l\'envoie à maman par SMS ou WhatsApp.</p></div>'+
+   (!allDone?'<div class="callout warn"><b>Il reste des blocs sans feu aujourd\'hui.</b><span>J\'envoie quand même le bilan : maman verra ce qui manque.</span></div>':'')+
+   '<div class="stack" style="gap:8px"><b>Aujourd\'hui, le travail c\'était :</b><div class="row" role="group" aria-label="Comment c\'était">'+["facile","ça va","dur"].map(m=>'<button type="button" class="chip" data-mood="'+m+'" aria-pressed="'+(S.mood[todayKey]===m)+'">'+m+'</button>').join("")+'</div></div>'+
+   '<pre class="bilan" id="btext">'+esc(txt)+'</pre>'+
+   '<div class="row"><button type="button" class="btn" id="bcopy">1. Copier le bilan</button><span id="bmsg" class="small muted" aria-live="polite"></span></div>'+
+   '<div class="row"><button type="button" class="btn '+(sent?"ghost":"")+'" id="bsent">'+(sent?"Bilan envoyé à maman":"2. J'ai envoyé le bilan à maman")+'</button></div>'+
+   (sent?'<div class="callout ok"><b>Séance terminée.</b><span>Bravo. Tu peux montrer cet écran à maman.</span></div>':'<p class="small muted">Si le bouton Copier ne marche pas, je sélectionne le texte avec le doigt ou la souris.</p>');
+}
+
+/* ---- Parent ---- */
+function viewParent(){
+  if(!S.pin) return '<div class="stack"><h2>Espace parent</h2><p>Choisissez un code à 4 chiffres. Il est enregistré seulement sur cet appareil.</p><label class="note" for="pinnew">Nouveau code<input type="password" inputmode="numeric" maxlength="4" id="pinnew"></label><div><button class="btn" id="pinset" type="button">Enregistrer le code</button></div><p id="pinmsg" class="small"></p></div>';
+  if(!parentOk) return '<div class="stack"><h2>Espace parent</h2><label class="note" for="pinin">Code<input type="password" inputmode="numeric" maxlength="4" id="pinin"></label><div><button class="btn" id="pinok" type="button">Ouvrir</button></div><p id="pinmsg" class="small"></p></div>';
+  const rows=PLAN.map(p=>'<tr><td>'+esc(fmt(p.d,{weekday:"short",day:"numeric"}))+'<br><span class="small muted">'+mins(p)+' min</span></td><td>'+p.blocs.map(b=>'<span class="pill '+(S.rate[b.id]||"n")+'">'+KL[b.k]+' '+esc(b.s)+' : '+(S.rate[b.id]?RL[S.rate[b.id]]:"—")+'</span>').join(" ")+'</td><td>'+(S.sent[p.d]?"oui":"—")+'</td><td>'+(S.mood[p.d]||"—")+'</td></tr>').join("");
+  const qrows=QUIZ.map(q=>{const a=attempts(q.id);return '<tr><td>'+esc(q.t)+'</td><td>'+(a.length?a.map(x=>x.score+"/"+x.total+" ("+fmt(x.d,{day:"numeric",month:"numeric"})+")").join(", "):"—")+'</td><td>'+esc([...new Set(a.flatMap(x=>x.miss))].join(", ")||"—")+'</td></tr>';}).join("");
+  const erows=EX.map(e=>{const a=exAtt(e.id);return '<tr><td>'+esc(e.t)+' <span class="small muted">('+(e.kind==="forme"?"forme":"fond")+')</span></td><td>'+(a.length?a.map(x=>x.score+"/"+x.total+" ("+fmt(x.d,{day:"numeric",month:"numeric"})+")").join(", "):"—")+'</td></tr>';}).join("");
+  const notes=Object.entries(S.notes).filter(([,v])=>v&&v.trim()).map(([id,v])=>{let b=null;PLAN.forEach(p=>p.blocs.forEach(x=>{if(x.id===id)b=x;}));return b?'<li><b>'+esc(b.t)+'</b> : '+esc(v)+'</li>':'';}).join("");
+  return '<div class="stack" style="gap:6px"><span class="tag">Espace parent</span><h2>Où en est Hugo</h2><p class="small muted">Données enregistrées dans le navigateur de cet appareil uniquement. Elles disparaissent en navigation privée ou si les données du site sont effacées.</p></div>'+
+   '<h3>Contrôles</h3>'+CTRL.map(c=>{const Rd=readiness(c);return '<p><span class="pill '+Rd.level+'">'+LV[Rd.level]+'</span> <b>'+esc(c.s)+'</b>, '+esc(longDay(c.d))+' : '+esc(c.t)+(Rd.miss.length?'<br><span class="small muted">Il manque : '+esc(Rd.miss.join(" ; "))+'</span>':'')+'</p>';}).join("")+
+   '<h3>Jour par jour</h3><div class="table-wrap"><table><tr><th>Jour</th><th>Blocs</th><th>Bilan</th><th>Ressenti</th></tr>'+rows+'</table></div>'+
+   '<h3>Quiz</h3><div class="table-wrap"><table><tr><th>Quiz</th><th>Scores</th><th>Notions ratées</th></tr>'+qrows+'</table></div>'+
+   '<h3>Entraînements</h3><div class="table-wrap"><table><tr><th>Entraînement</th><th>Scores</th></tr>'+erows+'</table></div>'+
+   (notes?'<h3>Notes d\'Hugo</h3><ul>'+notes+'</ul>':'')+
+   '<details class="box2"><summary>Réglages</summary><div class="stack"><div class="row"><button class="btn ghost small" id="lock" type="button">Fermer l\'espace parent</button><button class="btn ghost small" id="reset" type="button">Tout remettre à zéro</button></div><p id="resetmsg" class="small"></p></div></details>';
+}
+
+/* ================= INTERACTIONS ================= */
+let armed=false;
+function wire(){
+  document.querySelectorAll("[data-d]").forEach(b=>b.onclick=()=>{sel=b.dataset.d;openId=null;render();});
+  document.querySelectorAll("[data-open]").forEach(b=>b.onclick=()=>{openId=openId===b.dataset.open?null:b.dataset.open;render();const el=document.getElementById("b-"+b.dataset.open);if(el&&openId)el.scrollIntoView({block:"nearest"});});
+  document.querySelectorAll("[data-r]").forEach(b=>b.onclick=()=>{ if(!openId) return; if(S.rate[openId]===b.dataset.r) delete S.rate[openId]; else S.rate[openId]=b.dataset.r; save(); stopTimer(); render(); });
+  document.querySelectorAll("[data-note]").forEach(t=>t.oninput=()=>{S.notes[t.dataset.note]=t.value; save();});
+  document.querySelectorAll("[data-fiche]").forEach(b=>b.onclick=()=>{ficheId=b.dataset.fiche; ficheShort=false; playing=null; R=null; tab="fiches"; render(); window.scrollTo(0,0);});
+  document.querySelectorAll("[data-fsel]").forEach(b=>b.onclick=()=>{ficheId=b.dataset.fsel; render();});
+  document.querySelectorAll("[data-fshort]").forEach(b=>b.onclick=()=>{ficheShort=b.dataset.fshort==="1"; render();});
+  document.querySelectorAll("[data-play]").forEach(b=>b.onclick=()=>startQuiz(b.dataset.play));
+  document.querySelectorAll("[data-ex]").forEach(b=>b.onclick=()=>startEx(b.dataset.ex));
+  document.querySelectorAll("[data-exf]").forEach(b=>b.onclick=()=>{exFilter=b.dataset.exf; render();});
+  document.querySelectorAll("[data-ans]").forEach(b=>b.onclick=()=>answer(+b.dataset.ans));
+  document.querySelectorAll("[data-goto]").forEach(b=>b.onclick=()=>{tab=b.dataset.goto; playing=null; R=null; render(); window.scrollTo(0,0);});
+  const qn=$("#qnext"); if(qn) qn.onclick=next;
+  const qb=$("#qback"); if(qb) qb.onclick=()=>{playing=null; render();};
+  exWire();
+  document.querySelectorAll("[data-ck]").forEach(c=>c.onchange=()=>{const [id,i]=c.dataset.ck.split("|"); S.checks[id]=S.checks[id]||{}; if(c.checked) S.checks[id][i]=true; else delete S.checks[id][i]; save(); render();});
+  document.querySelectorAll("[data-mood]").forEach(b=>b.onclick=()=>{S.mood[todayKey]=b.dataset.mood; save(); render();});
+  const bc=$("#bcopy"); if(bc) bc.onclick=()=>{const t=bilanText(todayKey); const ok=()=>{$("#bmsg").textContent="Copié. Je le colle dans le message à maman.";}; const ko=()=>{const r=document.createRange(); r.selectNodeContents($("#btext")); const s=getSelection(); s.removeAllRanges(); s.addRange(r); $("#bmsg").textContent="Le texte est sélectionné : je fais Copier.";}; try{navigator.clipboard.writeText(t).then(ok,ko);}catch(e){ko();}};
+  const bs=$("#bsent"); if(bs) bs.onclick=()=>{ if(S.sent[todayKey]) delete S.sent[todayKey]; else S.sent[todayKey]=true; save(); render(); };
+  const go=$("#tgo"), t2=$("#t2");
+  if(go) go.onclick=()=>{ if(T.running&&T.id===openId) pauseTimer(); else startTimer(openId, T.id===openId&&T.left>0&&T.left<900?T.left:900); render(); };
+  if(t2) t2.onclick=()=>{ startTimer(openId,120); render(); };
+  const ps=$("#pinset"); if(ps) ps.onclick=()=>{const v=$("#pinnew").value.trim(); if(!/^\d{4}$/.test(v)){$("#pinmsg").textContent="Le code doit avoir 4 chiffres."; return;} S.pin=v; save(); parentOk=true; render();};
+  const po=$("#pinok"); if(po) po.onclick=()=>{ if($("#pinin").value.trim()===S.pin){parentOk=true; render();} else $("#pinmsg").textContent="Code incorrect."; };
+  const lk=$("#lock"); if(lk) lk.onclick=()=>{parentOk=false; render();};
+  const rs=$("#reset"); if(rs) rs.onclick=()=>{ if(!armed){armed=true; rs.textContent="Confirmer : tout effacer"; $("#resetmsg").textContent="Feux, quiz, entraînements, cases et notes seront effacés (le code parent est gardé)."; return;} const pin=S.pin; S={rate:{},notes:{},quiz:{},ex:{},checks:{},sent:{},mood:{},pin,updated:0}; armed=false; save(); render(); };
+}
+document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{tab=t.dataset.tab; playing=null; R=null; render(); window.scrollTo(0,0);});
+
+/* ================= MINUTEUR ================= */
+const T={id:null,left:900,running:false,iv:null,end:0};
+function clockText(){const s=Math.max(0,Math.round(T.left));return pad(Math.floor(s/60))+":"+pad(s%60);}
+function startTimer(id,secs){stopTimer(); T.id=id; T.left=secs; T.running=true; T.end=Date.now()+secs*1000; T.iv=setInterval(tick,500);}
+function pauseTimer(){T.running=false; clearInterval(T.iv); T.left=Math.max(0,(T.end-Date.now())/1000);}
+function stopTimer(){clearInterval(T.iv); T.running=false; T.id=null; T.left=900;}
+function beep(){try{const a=new (window.AudioContext||window.webkitAudioContext)(); [0,.35].forEach(t=>{const o=a.createOscillator(),g=a.createGain(); o.frequency.value=660; g.gain.value=.15; o.connect(g); g.connect(a.destination); o.start(a.currentTime+t); o.stop(a.currentTime+t+.2);});}catch(e){}}
+function tick(){T.left=Math.max(0,(T.end-Date.now())/1000); const c=$("#clock"); if(c&&openId===T.id) c.textContent=clockText(); if(T.left<=0){clearInterval(T.iv); T.running=false; beep(); if(c&&openId===T.id) c.textContent="Fini !"; const g=$("#tgo"); if(g&&openId===T.id) g.textContent="Encore un peu"; T.left=900;}}
+
+render();
+
+</script>
+
+</body></html>
