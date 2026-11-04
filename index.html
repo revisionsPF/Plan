@@ -582,6 +582,24 @@ const EX_ADD=[
  model:"This photo shows a man wearing a suit, a shirt and a tie. He has short, straight hair and he looks serious.\nHis name is John Dillinger. He was one of the most famous American bank robbers. His nickname was Public Enemy Number One.\nHe was born on June 22nd, 1903, in Indianapolis, Indiana.\nHe robbed a grocery, he was arrested and he went to prison.\nWhen he got out, he formed a gang. They robbed police arsenals and banks in the Midwest.\nThe FBI wanted to catch him.",
  check:["It shows a man wearing…","He looks… (une impression)","Bank robber + Public Enemy Number One","He was born on June 22nd, 1903, in Indianapolis","Au moins 3 verbes au prétérit","J'ai parlé sans lire ma feuille"]}
 ];
+(function(){const f=FICHES.find(x=>x.id==="svt");
+f.short.push("Pour l'évaluation : apprendre les <b>bilans 2 et 3</b> + les <b>schémas</b> (la plante et le stomate). <b>Apporter une calculatrice.</b>");
+f.full+=`<div class="fsec"><h3>5. Le schéma de la plante (à savoir refaire)</h3>
+ <svg viewBox="0 0 320 220" role="img" aria-label="Schéma de la photosynthèse dans une plante" style="width:100%;max-width:420px">
+  <rect x="4" y="4" width="312" height="212" rx="12" fill="var(--bg)" stroke="var(--line)" stroke-width="2"/>
+  <line x1="160" y1="190" x2="160" y2="80" stroke="hsl(145 60% var(--subj-l))" stroke-width="5"/>
+  <ellipse cx="125" cy="95" rx="34" ry="14" fill="hsl(145 55% var(--subj-bg-l))" stroke="hsl(145 60% var(--subj-l))" stroke-width="3"/>
+  <ellipse cx="195" cy="120" rx="34" ry="14" fill="hsl(145 55% var(--subj-bg-l))" stroke="hsl(145 60% var(--subj-l))" stroke-width="3"/>
+  <path d="M160 190 l-25 18 M160 190 l25 18 M160 190 l0 20" stroke="var(--muted)" stroke-width="3" fill="none"/>
+  <text x="16" y="28" font-size="13" font-weight="700" fill="var(--ink)">lumière ☀</text><line x1="70" y1="34" x2="110" y2="80" stroke="var(--ink)" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="16" y="135" font-size="13" fill="var(--ink)">CO₂ entre</text><text x="16" y="150" font-size="12" fill="var(--muted)">par les stomates</text><line x1="80" y1="128" x2="160" y2="120" stroke="var(--ink)" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="232" y="62" font-size="13" fill="var(--ink)">O₂ sort</text><line x1="205" y1="105" x2="240" y2="68" stroke="var(--ink)" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="200" y="178" font-size="13" fill="var(--ink)">eau (racines)</text><line x1="200" y1="182" x2="168" y2="160" stroke="var(--ink)" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="222" y="150" font-size="12" fill="var(--ink)">amidon fabriqué</text><text x="222" y="164" font-size="12" fill="var(--ink)">dans les feuilles</text>
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="var(--ink)"/></marker></defs>
+ </svg>
+ <p class="tip">Vérifie avec le schéma collé dans ton cahier : c'est celui de la professeure qui compte. Pense à mettre la <b>calculatrice</b> dans le sac pour mardi.</p></div>`;
+})();
 
 /* ---------- Entraînements ---------- */
 const PASSAGE="Cette nuit-là, je lisais tranquillement dans mon fauteuil. La maison était silencieuse. Soudain, la page de mon livre se tourna toute seule. Je regardai autour de moi : personne. Avais-je rêvé ? Ou quelqu'un, invisible, se tenait-il près de moi ?";
@@ -677,7 +695,7 @@ const CTRL=[
  {id:"c-an",d:"2026-11-09",s:"Anglais",t:"Interrogation : verbes irréguliers",what:"Les verbes du planning distribué par la professeure (liste du 9 novembre).",quiz:["q-an"],ex:["an-flash"],fiche:"an",
   cl:["J'ai trouvé la liste du 9 novembre dans mon cahier.","Je dis les 3 formes de chaque verbe sans regarder.","Je les ai écrits une fois sans erreur (avec Cantoo si besoin)."]},
  {id:"c-svt",d:"2026-11-10",s:"SVT",t:"Évaluation : microscope + dessin + cours",what:"Mardi 10 novembre, 11 h-12 h 35, salle 120. Préparation, observation, dessin d'observation, questions de cours.",quiz:["q-svt"],ex:["svt-order","svt-sort","svt-dessin","svt-concl"],fiche:"svt",
-  cl:["Je dis les étapes de la préparation microscopique.","Je connais les règles du dessin d'observation.","J'ai dessiné un stomate légendé sans modèle.","Je récite l'équation de la photosynthèse.","Je sais à quoi sert le Lugol."]}
+  cl:["Je dis les étapes de la préparation microscopique.","Je connais les règles du dessin d'observation.","J'ai dessiné un stomate légendé sans modèle.","Je refais le schéma de la plante (ce qui entre, ce qui sort).","Je récite l'équation de la photosynthèse.","Je sais à quoi sert le Lugol.","Ma calculatrice est dans mon sac."]}
 ];
 
 /* ---------- Programme ---------- */
@@ -726,15 +744,15 @@ const PLAN=[
   st:["Je fais les cartes une fois en entier.","Un adulte m'interroge à l'oral sur toute la liste.","Je coche la préparation dans « Contrôles »."],c:"Toute la liste juste à l'oral."},
  {id:"d8b",k:"controle",s:"SVT",t:"Le microscope et la conclusion d'expérience",due:"2026-11-10",fiche:"svt",ex:["svt-order","svt-concl"],
   st:["Je fais l'entraînement « Préparation microscopique ».","Je fais l'entraînement « Rédiger la conclusion d'une expérience »."],c:"Étapes dans l'ordre et grille de la conclusion complète."},
- {id:"d8c",k:"revision",s:"Français",t:"Le Horla : lecture et analyse en 3 temps",fiche:"fr-horla2",ex:["fr-sort-journal","fr-nce"],
-  st:["Je lis 5 minutes dans « Le Horla ».","Je fais le classement « Journal de bord, intime ou fictif ? ».","Je fais l'entraînement « Nommer, citer, expliquer »."],c:"Grille de l'analyse complète."},
+ {id:"d8c",k:"devoir",s:"Français",t:"Finir la question 2 : trois procédés du 8 mai",due:"2026-11-10",fiche:"fr-horla2",ex:["fr-nce"],
+  st:["Je fais d'abord l'entraînement « Nommer, citer, expliquer » (5 min).","Je relis l'entrée du 8 mai dans le livre.","Le 1er procédé est corrigé : les phrases exclamatives. J'en trouve 2 autres : l'énumération (« aux usages comme aux nourritures… ») et un champ lexical (le bonheur, la nature ou les sens).","Pour chacun : je nomme, je cite entre guillemets, j'explique l'effet. En phrases complètes, avec Cantoo ou en dictant."],c:"3 procédés, chacun nommé, cité et expliqué, sans tirets."},
  {id:"d8d",k:"revision",s:"Maths",t:"Statistiques + mon sac",fiche:"ma-stat",ex:["ma-calc-freq","ma-write-stat"],
   st:["Je fais 8 calculs de fréquences.","Je fais l'entraînement « Répondre par une phrase ».","Je prépare le sac de lundi avec l'emploi du temps."],c:"Au moins 6/8 et le sac est prêt."}]},
 {d:"2026-11-09",kind:"Lundi · veille de l'évaluation de SVT",note:"Interro de verbes aujourd'hui.",blocs:[
  {id:"d9a",k:"controle",s:"SVT",t:"Contrôle blanc de SVT",due:"2026-11-10",fiche:"svt",quiz:"q-svt",ex:["svt-dessin"],
   st:["Sans fiche : je dis les étapes de la préparation.","Je fais le dessin d'observation sans modèle (5 min).","Je fais le quiz SVT."],c:"Au moins 7/9 au quiz et grille du dessin complète."},
  {id:"d9b",k:"controle",s:"SVT",t:"Je vérifie que je suis prêt",due:"2026-11-10",fiche:"svt",ex:["svt-sort","svt-order"],
-  st:["Je relis « L'essentiel » de la fiche SVT.","Je refais les 2 entraînements rapides.","Je vais dans « Contrôles » : je coche ce que je sais. S'il reste du orange, je révise ce point."],c:"Le contrôle SVT est « Prêt » ou « Presque prêt »."},
+  st:["Je relis « L'essentiel » de la fiche SVT et je refais de mémoire le schéma de la plante.","Je refais les 2 entraînements rapides.","Je vais dans « Contrôles » : je coche ce que je sais. S'il reste du orange, je révise ce point.","Je mets ma calculatrice dans mon sac."],c:"Le contrôle SVT est « Prêt » ou « Presque prêt »."},
  {id:"d9c",k:"revision",s:"Maths",t:"Révision espacée : les relatifs",fiche:"ma-rel",quiz:"q-rel",ex:["ma-write-calc","ma-calc-rel"],
   st:["Je fais l'entraînement « Présenter un calcul ligne par ligne ».","Je fais 10 nouveaux calculs."],c:"Au moins 8/10."},
  {id:"d9d",k:"revision",s:"Histoire-Géo-EMC",t:"Révision espacée : EMC et espagnol",fiche:"emc",ex:["emc-order","es-flash"],
