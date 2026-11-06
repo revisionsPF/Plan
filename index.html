@@ -741,6 +741,91 @@ const EX_ADD2=[
  expl:["Ces gestes réduisent ce qui est collecté sur moi.","L'adresse IP, les cookies et les serveurs me suivent quand même."]}
 ];
 
+/* ---------- Ajouts du 6 novembre ---------- */
+FICHES.push(
+{id:"ma-med",s:"Maths",t:"La médiane",src:"Cours du 6 novembre (Hugo absent à ce cours) · exercices p. 160 pour lundi",
+ lumni:[["La médiane",LUMNI("médiane")]],
+ short:[
+  "La <b>médiane</b> partage la série en <b>deux moitiés</b> : au moins la moitié des valeurs sont <b>inférieures ou égales</b>, au moins la moitié sont <b>supérieures ou égales</b>.",
+  "Méthode : 1. je <b>range</b> les valeurs dans l'ordre croissant ; 2. je compte <b>N</b> ; 3. je trouve la valeur du <b>milieu</b>.",
+  "<b>N impair</b> : la médiane est la valeur au rang <b>(N + 1) ÷ 2</b>. Ex : 3 ; 7 ; <b>8</b> ; 12 ; 15 → 8.",
+  "<b>N pair</b> : la médiane est la <b>moyenne des deux valeurs du milieu</b> (rangs N ÷ 2 et N ÷ 2 + 1). Ex : 2 ; 5 ; <b>6 ; 9</b> ; 11 ; 14 → (6 + 9) ÷ 2 = 7,5.",
+  "Médiane ≠ moyenne. L'<b>étendue</b> = plus grande valeur − plus petite (pas demandée cette fois)."],
+ full:`
+ <div class="fsec"><h3>1. À quoi sert la médiane ?</h3>
+  <p>La moyenne résume une série par un seul nombre, mais une valeur très grande ou très petite peut la tirer d'un côté. La <b>médiane</b>, elle, est la valeur <b>du milieu</b> : elle coupe la série en <b>deux moitiés</b>.</p>
+  <div class="box"><p class="key">Définition</p><p>La médiane est un nombre tel qu'<b>au moins la moitié</b> des valeurs lui sont <b>inférieures ou égales</b> et <b>au moins la moitié</b> lui sont <b>supérieures ou égales</b>.</p></div></div>
+ <div class="fsec"><h3>2. La méthode en 3 étapes</h3>
+  <div class="flow"><div class="st"><b>1. Je range</b> toutes les valeurs dans l'ordre croissant (de la plus petite à la plus grande). Je barre chaque valeur recopiée pour n'en oublier aucune.</div><div class="ar">↓</div><div class="st"><b>2. Je compte</b> le nombre de valeurs : N.</div><div class="ar">↓</div><div class="st"><b>3. Je trouve le milieu</b> : N impair ou N pair ?</div></div>
+  <div class="two">
+   <div class="box"><p class="key">N impair</p><p>La médiane est la valeur au rang <b>(N + 1) ÷ 2</b>.</p><p>Notes : 15 ; 8 ; 12 ; 3 ; 7<br>Rangées : 3 ; 7 ; <b>8</b> ; 12 ; 15<br>N = 5, rang (5 + 1) ÷ 2 = 3<br>Médiane = <b>8</b></p></div>
+   <div class="box"><p class="key">N pair</p><p>La médiane est la <b>moyenne des deux valeurs du milieu</b> (rangs N ÷ 2 et N ÷ 2 + 1).</p><p>Rangées : 2 ; 5 ; <b>6</b> ; <b>9</b> ; 11 ; 14<br>N = 6, rangs 3 et 4<br>Médiane = (6 + 9) ÷ 2 = <b>7,5</b></p></div>
+  </div>
+  <p class="tip">Piège : on ne prend jamais le milieu d'une liste <b>pas rangée</b>. Toujours ranger d'abord.</p></div>
+ <div class="fsec"><h3>3. Avec un tableau d'effectifs</h3>
+  <p>Exemple du cours : les 28 élèves et leurs frères et sœurs (0 → 6, 1 → 7, 2 → 7, 3 → 4, 4 → 3, 5 → 1).</p>
+  <ul><li>N = 28 est pair : je cherche les valeurs aux rangs <b>14</b> et <b>15</b>.</li><li>Je compte les effectifs : la valeur 0 occupe les rangs 1 à 6, la valeur 1 les rangs 7 à 13, la valeur 2 les rangs 14 à 20.</li><li>Les rangs 14 et 15 valent tous les deux 2 : la médiane est <b>2</b>.</li></ul>
+  <p>Pour comparer : la moyenne de cette série est ≈ 1,79. Médiane et moyenne sont souvent différentes.</p>
+  <p class="tip">Pour les exercices p. 160 : l'<b>étendue</b> (plus grande valeur − plus petite valeur) n'est <b>pas</b> demandée. Exercice 4 : seulement les questions 1 et 2.</p></div>`},
+{id:"es-seq",s:"Espagnol",t:"Toute la séquence : routine, heure, émotions, comparaisons",src:"Révision pour lundi 9 (questions à l'oral)",
+ lumni:[["Dire l'heure en espagnol",LUMNI("heure espagnol")],["La routine quotidienne en espagnol",LUMNI("routine espagnol")]],
+ short:[
+  "<b>L'heure</b> : ¿Qué hora es? Es la una. Son las dos. Son las tres y cuarto. Son las cuatro y media. Son las cinco menos cuarto. A las ocho de la mañana.",
+  "<b>La routine</b> : me despierto, me levanto, me ducho, desayuno, voy al colegio, como, vuelvo a casa, ceno, me acuesto.",
+  "<b>Les émotions</b> : estoy contento/a, triste, nervioso/a, cansado/a, enfadado/a. Tengo miedo.",
+  "<b>Comparer</b> : más… que, menos… que, tan… como ; <b>soler</b> + infinitif ; <b>mientras que</b>, <b>sin embargo</b>, <b>en cambio</b>.",
+  "<b>Se + 3e personne</b> = « on » : En España <b>se cena</b> tarde. En España <b>se suele hacer</b> todo más tarde."],
+ full:`
+ <div class="fsec"><h3>1. Dire l'heure</h3>
+  <div class="table-wrap"><table><tr><th>Heure</th><th>Espagnol</th></tr>
+   <tr><td>1 h</td><td><b>Es</b> la una</td></tr><tr><td>2 h</td><td><b>Son</b> las dos</td></tr><tr><td>3 h 15</td><td>Son las tres <b>y cuarto</b></td></tr><tr><td>4 h 30</td><td>Son las cuatro <b>y media</b></td></tr><tr><td>4 h 45</td><td>Son las cinco <b>menos cuarto</b></td></tr><tr><td>à 8 h du matin</td><td><b>a las</b> ocho de la mañana</td></tr><tr><td>de l'après-midi / du soir</td><td>de la tarde / de la noche</td></tr></table></div>
+  <p class="tip">« Es la una » au singulier (une seule heure), « son las… » pour toutes les autres.</p></div>
+ <div class="fsec"><h3>2. Ma routine (yo)</h3>
+  <div class="table-wrap"><table><tr><th>Espagnol</th><th>Français</th></tr>
+   <tr><td>me despierto</td><td>je me réveille</td></tr><tr><td>me levanto</td><td>je me lève</td></tr><tr><td>me ducho</td><td>je me douche</td></tr><tr><td>me visto</td><td>je m'habille</td></tr><tr><td>desayuno</td><td>je prends le petit-déjeuner</td></tr><tr><td>voy al colegio</td><td>je vais au collège</td></tr><tr><td>como</td><td>je déjeune</td></tr><tr><td>vuelvo a casa</td><td>je rentre à la maison</td></tr><tr><td>hago los deberes</td><td>je fais mes devoirs</td></tr><tr><td>ceno</td><td>je dîne</td></tr><tr><td>me acuesto</td><td>je me couche</td></tr></table></div>
+  <div class="box"><p>Me levanto <b>a las siete</b>. Desayuno <b>a las siete y media</b>. Me acuesto <b>a las diez</b>.</p></div></div>
+ <div class="fsec"><h3>3. Les émotions</h3>
+  <p><b>Estar</b> + adjectif : estoy <b>contento/a</b> (content), <b>triste</b>, <b>nervioso/a</b> (stressé), <b>cansado/a</b> (fatigué), <b>enfadado/a</b> (en colère), <b>tranquilo/a</b> (calme).</p>
+  <p><b>Tengo miedo</b> = j'ai peur. ¿Cómo estás? = Comment vas-tu ?</p></div>
+ <div class="fsec"><h3>4. Comparer</h3>
+  <ul><li><b>más</b> tarde <b>que</b> (plus tard que), <b>menos</b> temprano <b>que</b> (moins tôt que), <b>tan</b> tarde <b>como</b> (aussi tard que).</li><li><b>soler</b> + infinitif : Los españoles <b>suelen</b> cenar a las diez.</li><li><b>mientras que</b> (alors que), <b>sin embargo</b> (cependant), <b>en cambio</b> (en revanche).</li></ul>
+  <div class="box"><p class="key">Vu au tableau le 6 novembre : se + 3e personne = « on »</p><p>En España <b>se hace</b> todo más tarde. En España <b>se suele hacer</b> todo más tarde.</p><p>En España <b>se juega</b> un derbi a las…, <b>mientras que</b> en Inglaterra se juega un derbi a las…</p><p>Los españoles suelen desayunar a las 8 de la mañana, <b>sin embargo</b>, los ingleses suelen desayunar a las 7:30.</p></div>
+  <p class="tip">Lundi, questions à l'oral puis début du projet final. Vérifie aussi le vocabulaire de ton cahier : c'est la liste de la professeure qui compte.</p></div>`}
+);
+QUIZ.push(
+{id:"q-med",s:"Maths",t:"La médiane",fiche:"ma-med",qs:[
+ ["Première étape pour trouver la médiane :",["ranger les valeurs dans l'ordre","faire la moyenne","prendre la plus grande valeur","compter les valeurs paires"],0,"On range toujours d'abord.","méthode"],
+ ["Médiane de 3 ; 7 ; 8 ; 12 ; 15 ?",["8","9","7","12"],0,"N = 5, rang 3 : 8.","N impair"],
+ ["Médiane de 2 ; 5 ; 6 ; 9 ; 11 ; 14 ?",["7,5","6","9","7,8"],0,"N = 6 : moyenne des rangs 3 et 4, (6 + 9) ÷ 2.","N pair"],
+ ["Médiane de 15 ; 4 ; 9 ; 1 ; 12 ?",["9","4","12","8,2"],0,"Rangées : 1 ; 4 ; 9 ; 12 ; 15.","ranger"],
+ ["La médiane veut dire que…",["au moins la moitié des valeurs sont en dessous (ou égales)","c'est la valeur la plus fréquente","c'est la moyenne","toutes les valeurs sont égales"],0,"Elle coupe la série en deux moitiés.","définition"],
+ ["N = 28. Les valeurs du milieu sont aux rangs…",["14 et 15","14","28 et 29","7 et 8"],0,"N pair : rangs N ÷ 2 et N ÷ 2 + 1.","N pair"]]},
+{id:"q-es-seq",s:"Espagnol",t:"Routine, heure, émotions",fiche:"es-seq",qs:[
+ ["« Il est 4 h 30 » :",["Son las cuatro y media","Es la cuatro y media","Son las cuatro y cuarto","Son las cinco menos media"],0,"y media = et demie ; son las pour plusieurs heures.","heure"],
+ ["« Il est 1 h » :",["Es la una","Son las una","Es las uno","Son la una"],0,"Singulier pour une heure.","heure"],
+ ["« Il est 4 h 45 » :",["Son las cinco menos cuarto","Son las cuatro y cuarto","Son las cuatro menos cuarto","Son las cinco y cuarto"],0,"5 h moins le quart.","heure"],
+ ["« me levanto » veut dire…",["je me lève","je me lave","je me couche","je me réveille"],0,"me despierto = je me réveille.","routine"],
+ ["« je suis fatigué » :",["estoy cansado","soy cansado","tengo cansado","estoy contento"],0,"estar + adjectif pour un état.","émotions"],
+ ["« En España se cena tarde » veut dire…",["En Espagne, on dîne tard","En Espagne, il dîne tard","En Espagne, se dîner est tard","En Espagne, les dîners sont tôt"],0,"se + 3e personne = on.","se impersonnel"],
+ ["« aussi tard que » :",["tan tarde como","más tarde que","menos tarde que","tanto tarde que"],0,"tan… como = aussi… que.","comparaison"]]}
+);
+const EX_ADD3=[
+{id:"ma-calc-med",s:"Maths",fiche:"ma-med",kind:"fond",type:"calc",gen:"med",n:6,t:"Trouver la médiane (toujours nouveau)"},
+{id:"ma-write-med",s:"Maths",fiche:"ma-med",kind:"forme",type:"write",t:"Rédiger la recherche d'une médiane",
+ prompt:"Voici les notes de 8 élèves : 12 ; 7 ; 15 ; 9 ; 18 ; 11 ; 14 ; 6. Trouve la médiane en écrivant chaque étape, puis fais une phrase réponse.",
+ method:["Je range les valeurs dans l'ordre croissant.","J'écris N et je dis s'il est pair ou impair.","J'écris les rangs du milieu et le calcul.","Je finis par une phrase réponse."],
+ model:"Valeurs rangées : 6 ; 7 ; 9 ; 11 ; 12 ; 14 ; 15 ; 18\nN = 8, pair : je prends les valeurs aux rangs 4 et 5 : 11 et 12.\nMédiane = (11 + 12) ÷ 2 = 11,5\nLa médiane de cette série est 11,5 : au moins la moitié des élèves ont 11,5 ou moins, et au moins la moitié ont 11,5 ou plus.",
+ check:["J'ai rangé les 8 valeurs","J'ai écrit N = 8 (pair)","J'ai trouvé les rangs 4 et 5","J'ai trouvé 11,5","J'ai fait une phrase réponse"]},
+{id:"es-flash-seq",s:"Espagnol",fiche:"es-seq",kind:"fond",type:"flash",t:"L'heure, la routine et les émotions",
+ note:"Dis la réponse à voix haute, comme lundi à l'oral.",
+ cards:[["Il est 1 h","Es la una"],["Il est 3 h 15","Son las tres y cuarto"],["Il est 4 h 30","Son las cuatro y media"],["Il est 4 h 45","Son las cinco menos cuarto"],["à 8 h du matin","a las ocho de la mañana"],["je me réveille","me despierto"],["je me lève","me levanto"],["je me douche","me ducho"],["je prends le petit-déjeuner","desayuno"],["je vais au collège","voy al colegio"],["je rentre à la maison","vuelvo a casa"],["je me couche","me acuesto"],["je suis content","estoy contento"],["je suis fatigué","estoy cansado"],["je suis stressé","estoy nervioso"],["j'ai peur","tengo miedo"],["En Espagne, on dîne tard","En España se cena tarde"],["plus tard que","más tarde que"],["aussi tard que","tan tarde como"]]},
+{id:"es-oral-seq",s:"Espagnol",fiche:"es-seq",kind:"forme",type:"write",t:"Présenter ma journée à l'oral",
+ prompt:"Présente ta journée en espagnol à voix haute en 6 phrases : 3 actions avec l'heure, 1 émotion, 1 comparaison avec l'Angleterre ou l'Allemagne, 1 phrase avec « se ».",
+ method:["Action + a las + heure : Me levanto a las siete.","Une émotion avec estar : Por la tarde estoy cansado.","Une comparaison : En España se cena más tarde que en Inglaterra."],
+ model:"Me despierto a las siete menos cuarto y me levanto a las siete.\nDesayuno a las siete y media y voy al colegio.\nVuelvo a casa a las cinco y hago los deberes.\nPor la noche estoy cansado.\nEn España se cena a las diez, mientras que en Inglaterra se cena a las seis y media.\nLos españoles suelen cenar más tarde que los ingleses.",
+ check:["3 actions avec l'heure","L'heure juste (es la / son las, y media, menos cuarto)","Une émotion avec estoy","Une comparaison (más… que, mientras que…)","Une phrase avec se ou soler","Je l'ai dit sans lire"]}
+];
+
 /* ---------- Entraînements ---------- */
 const PASSAGE="Cette nuit-là, je lisais tranquillement dans mon fauteuil. La maison était silencieuse. Soudain, la page de mon livre se tourna toute seule. Je regardai autour de moi : personne. Avais-je rêvé ? Ou quelqu'un, invisible, se tenait-il près de moi ?";
 const EX=[
@@ -827,13 +912,15 @@ const EX=[
  steps:["1944 : déportée à Auschwitz-Birkenau","1974 : ministre de la Santé","1975 : la loi Veil sur l'IVG","1979 : présidente du Parlement européen élu","2018 : entrée au Panthéon"]}
 ];
 
-EX.push(...EX_ADD); EX.push(...EX_ADD2);
+EX.push(...EX_ADD); EX.push(...EX_ADD2); EX.push(...EX_ADD3);
 /* ---------- Contrôles ---------- */
 const CTRL=[
  {id:"c-te",d:"2026-11-05",s:"Technologie",t:"Évaluation : protocoles de test",what:"Une partie écrite (élaborer un protocole) et une partie pratique (suivre un protocole).",quiz:["q-te"],ex:["te-order","te-write"],fiche:"te",
   cl:["Je récite les 7 parties d'un protocole sans regarder.","J'ai écrit un protocole complet seul en 10 minutes.","Je sais expliquer pourquoi on ne change qu'une chose à la fois."]},
  {id:"c-an",d:"2026-11-09",s:"Anglais",t:"Interrogation : verbes irréguliers",what:"Les verbes du planning distribué par la professeure (liste du 9 novembre).",quiz:["q-an"],ex:["an-flash"],fiche:"an",
   cl:["J'ai trouvé la liste du 9 novembre dans mon cahier.","Je dis les 3 formes de chaque verbe sans regarder.","Je les ai écrits une fois sans erreur (avec Cantoo si besoin)."]},
+ {id:"c-es",d:"2026-11-09",s:"Espagnol",t:"Questions à l'oral sur toute la séquence",what:"Routine quotidienne, l'heure, les émotions, les comparaisons. Puis début du projet final.",quiz:["q-es-seq"],ex:["es-flash-seq","es-oral-seq"],fiche:"es-seq",
+  cl:["Je dis l'heure (es la una, son las…, y media, menos cuarto).","Je raconte ma routine avec 5 verbes.","Je dis 3 émotions avec estoy.","Je fais une comparaison avec mientras que ou más… que."]},
  {id:"c-svt",d:"2026-11-10",s:"SVT",t:"Évaluation : microscope + dessin + cours",what:"Mardi 10 novembre, 11 h-12 h 35, salle 120. Préparation, observation, dessin d'observation, questions de cours.",quiz:["q-svt"],ex:["svt-order","svt-sort","svt-dessin","svt-concl"],fiche:"svt",
   cl:["Je dis les étapes de la préparation microscopique.","Je connais les règles du dessin d'observation.","J'ai dessiné un stomate légendé sans modèle.","Je refais le schéma de la plante (ce qui entre, ce qui sort).","Je récite l'équation de la photosynthèse.","Je sais à quoi sert le Lugol.","Ma calculatrice est dans mon sac."]}
 ];
@@ -867,38 +954,40 @@ const PLAN=[
   st:["Espagnol (5 min) : je vérifie mes 5 phrases avec soler (suelen) et mientras que / sin embargo / en cambio.","Musique (3 min) : « L'oiseau et l'enfant » jusqu'à 0'33, je chante avec.","Révision (7 min) : je lis « L'essentiel » de la fiche « Le Horla : journal intime » puis je fais le quiz."],c:"5 phrases d'espagnol vérifiées et au moins 6/8 au quiz."},
  {id:"d5d",k:"devoir",s:"Maths",t:"Finir les exercices 2 et 3 de la fiche « Statistiques (2) »",due:"2026-11-06",fiche:"ma-moy",ex:["ma-calc-moy"],
   st:["Je lis la partie 3 de la fiche « Fréquences et moyenne » : la méthode avec le tableau (3 min).","Exercice 2 : 1) j'additionne les effectifs = le nombre d'élèves. 2) (note × effectif) pour chaque colonne, j'additionne, je divise par le nombre d'élèves, j'arrondis au dixième.","Exercice 3 : même méthode avec les tailles des plants (29 plants en tout : je vérifie que mes effectifs font 29).","Calculatrice : (somme) ÷ N avec des parenthèses. Je vérifie que ma moyenne est entre la plus petite et la plus grande valeur.","Je finis chaque exercice par une phrase réponse."],c:"Les 2 exercices finis, chaque moyenne vérifiée et suivie d'une phrase."}]},
-{d:"2026-11-06",kind:"Soir de cours",note:"",blocs:[
+{d:"2026-11-06",kind:"Vendredi soir",note:"Hugo était absent au cours de maths de ce matin : la médiane est expliquée dans sa fiche.",blocs:[
+ {id:"e6a",k:"devoir",s:"Maths",t:"La médiane : je découvre la leçon (j'étais absent)",due:"2026-11-09",fiche:"ma-med",quiz:"q-med",ex:["ma-calc-med"],
+  st:["Je lis toute la fiche « La médiane » (6 min) : la méthode en 3 étapes.","Je fais 6 médianes dans l'entraînement : je range toujours d'abord.","Je fais le quiz « La médiane »."],c:"Au moins 5/6 aux médianes et 5/6 au quiz."},
  {id:"d6a",k:"devoir",s:"Anglais",t:"Verbes irréguliers : la 1re moitié de la liste",due:"2026-11-09",fiche:"an",ex:["an-flash"],
-  st:["Je cherche la liste du 9 novembre dans le planning.","Je dis les verbes 5 par 5 en tapant dans les mains : go – went – gone.","Je fais les cartes « Verbes irréguliers » : je retourne, je dis si je savais."],c:"La 1re moitié de la liste juste sans regarder."},
- {id:"d6b",k:"controle",s:"SVT",t:"J'apprends : photosynthèse et microscope",due:"2026-11-10",fiche:"svt",quiz:"q-svt",ex:["svt-sort"],
-  st:["Je lis la fiche SVT en entier (7 min).","Je récite l'équation de la photosynthèse 3 fois.","Je fais l'entraînement « Ce qu'il faut, ce qui est produit ».","Je fais le quiz."],c:"Au moins 7/9 au quiz."},
+  st:["Je cherche la liste du 9 novembre dans le planning.","Je dis les verbes 5 par 5 en tapant dans les mains : go – went – gone.","Je fais les cartes « Verbes irréguliers »."],c:"La 1re moitié de la liste juste sans regarder."},
  {id:"d6c",k:"revision",s:"Maths + Anglais",t:"Révision des cours de jeudi : moyenne et voix passive",fiche:"ma-moy",quiz:"q-moy",ex:["ma-calc-moy","an-sort-passive"],
-  st:["Je lis « L'essentiel » de la fiche « Fréquences et moyenne » (3 min).","Je fais 6 calculs de moyenne (avec la calculatrice et des parenthèses).","Je fais « Voix active ou voix passive ? »."],c:"Au moins 5/6 aux moyennes et 7/8 au classement."}]},
-{d:"2026-11-07",kind:"Samedi",note:"",blocs:[
- {id:"d7a",k:"controle",s:"SVT",t:"Dessin d'observation : je m'entraîne",due:"2026-11-10",fiche:"svt",ex:["svt-dessin"],
-  st:["Je regarde le schéma du stomate dans la fiche (2 min).","Je fais l'entraînement « Dessin d'observation » sans regarder (5 min).","Je coche la grille, puis je recommence une 2e fois."],c:"Mon 2e dessin a toutes les cases de la grille."},
+  st:["Je lis « L'essentiel » de la fiche « Fréquences et moyenne » (3 min).","Je fais 6 calculs de moyenne (calculatrice + parenthèses).","Je fais « Voix active ou voix passive ? »."],c:"Au moins 5/6 aux moyennes et 7/8 au classement."}]},
+{d:"2026-11-07",kind:"Samedi",note:"Exceptionnellement 4 blocs : 5 choses sont à rendre ou à savoir lundi, et l'évaluation de SVT est mardi.",blocs:[
+ {id:"e7a",k:"devoir",s:"Maths",t:"Exercice 2 p. 160 (médiane, sans l'étendue)",due:"2026-11-09",fiche:"ma-med",ex:["ma-write-med"],
+  st:["Je fais d'abord l'entraînement « Rédiger la recherche d'une médiane » (5 min).","Exercice 2 p. 160 : je range, je compte N, je trouve le milieu. Je ne calcule pas l'étendue.","Je finis par une phrase réponse."],c:"Exercice 2 fini, chaque médiane avec ses étapes et une phrase."},
  {id:"d7b",k:"controle",s:"Anglais",t:"Verbes irréguliers : la 2e moitié",due:"2026-11-09",fiche:"an",ex:["an-flash"],
   st:["Je redis la 1re moitié (2 min).","J'apprends la 2e moitié, 5 par 5.","Je refais les cartes jusqu'à toutes les savoir."],c:"Toute la liste juste sans regarder."},
  {id:"d7c",k:"devoir",s:"Histoire-Géo-EMC",t:"EMC : finir la fiche 2 (liberté d'expression) + apprendre la leçon",due:"2026-11-09",fiche:"emc-num",ex:["emc-sort-num"],
-  st:["Je regarde la vidéo Lumni « La liberté d'expression et ses limites » (lien dans la fiche EMC).","Je finis la fiche 2, sans oublier la question D (le professeur insiste).","Je lis la leçon à voix haute 2 fois, puis je fais « Ça me protège vraiment, ou pas ? »."],c:"Fiche 2 finie avec la question D, et je redis la leçon sans regarder."}]},
-{d:"2026-11-08",kind:"Dimanche · veille de l'interro de verbes",note:"",blocs:[
+  st:["Je regarde la vidéo Lumni « La liberté d'expression et ses limites » (lien dans la fiche EMC).","Je finis la fiche 2, sans oublier la question D.","Je lis la leçon à voix haute 2 fois, puis je fais « Ça me protège vraiment, ou pas ? »."],c:"Fiche 2 finie avec la question D, et je redis la leçon sans regarder."},
+ {id:"e7d",k:"controle",s:"SVT",t:"SVT : j'apprends les bilans 2 et 3 + 1er dessin du stomate",due:"2026-11-10",fiche:"svt",quiz:"q-svt",ex:["svt-dessin"],
+  st:["Je lis la fiche SVT (bilans 2 et 3, schéma de la plante).","Je fais le dessin d'observation du stomate sans modèle (5 min) et je coche la grille.","Je fais le quiz SVT."],c:"Grille du dessin presque complète et au moins 6/9 au quiz."}]},
+{d:"2026-11-08",kind:"Dimanche · veille de 5 devoirs pour lundi",note:"Lundi : verbes d'anglais, anglais Dillinger, espagnol à l'oral, EMC, maths.",blocs:[
  {id:"d8a",k:"controle",s:"Anglais",t:"Verbes irréguliers : toute la liste",due:"2026-11-09",fiche:"an",ex:["an-flash"],
-  st:["Je fais les cartes une fois en entier.","Un adulte m'interroge à l'oral sur toute la liste.","Je coche la préparation dans « Contrôles »."],c:"Toute la liste juste à l'oral."},
- {id:"d8b",k:"controle",s:"SVT",t:"Le microscope et la conclusion d'expérience",due:"2026-11-10",fiche:"svt",ex:["svt-order","svt-concl"],
-  st:["Je fais l'entraînement « Préparation microscopique ».","Je fais l'entraînement « Rédiger la conclusion d'une expérience »."],c:"Étapes dans l'ordre et grille de la conclusion complète."},
- {id:"d8c",k:"devoir",s:"Français",t:"Finir la question 2 : trois procédés du 8 mai",due:"2026-11-10",fiche:"fr-horla2",ex:["fr-nce"],
-  st:["Je fais d'abord l'entraînement « Nommer, citer, expliquer » (5 min).","Je relis l'entrée du 8 mai dans le livre.","Le 1er procédé est corrigé : les phrases exclamatives. J'en trouve 2 autres : l'énumération (« aux usages comme aux nourritures… ») et un champ lexical (le bonheur, la nature ou les sens).","Pour chacun : je nomme, je cite entre guillemets, j'explique l'effet. En phrases complètes, avec Cantoo ou en dictant."],c:"3 procédés, chacun nommé, cité et expliqué, sans tirets."},
+  st:["Je fais les cartes une fois en entier.","Un adulte m'interroge à l'oral sur toute la liste."],c:"Toute la liste juste à l'oral."},
  {id:"d8d",k:"devoir",s:"Anglais",t:"Roaring Twenties + la vie de John Dillinger",due:"2026-11-09",fiche:"an-dill2",quiz:"q-dill2",ex:["an-oral-dill"],
-  st:["Je relis le cours sur les Roaring Twenties et mon questionnaire de la vidéo.","Je raconte à voix haute toute la vie de Dillinger, de sa naissance à sa mort (entraînement « Présenter John Dillinger »), en ajoutant la fin : Biograph Theater, 1934.","Je fais le quiz « La fin de Dillinger et le passif ».","Je prépare le sac de lundi (calculatrice comprise)."],c:"Je raconte toute sa vie sans lire et au moins 7/8 au quiz."}]},
-{d:"2026-11-09",kind:"Lundi · veille de l'évaluation de SVT",note:"Interro de verbes aujourd'hui.",blocs:[
+  st:["Je relis le cours sur les Roaring Twenties et mon questionnaire de la vidéo.","Je raconte à voix haute toute la vie de Dillinger, jusqu'au Biograph Theater en 1934.","Je fais le quiz « La fin de Dillinger et le passif »."],c:"Je raconte toute sa vie sans lire et au moins 7/8 au quiz."},
+ {id:"e8c",k:"controle",s:"Espagnol",t:"Espagnol : toute la séquence (questions à l'oral lundi)",due:"2026-11-09",fiche:"es-seq",quiz:"q-es-seq",ex:["es-flash-seq","es-oral-seq"],
+  st:["Je lis « L'essentiel » de la fiche « Toute la séquence » et je relis mon cahier.","Je fais les cartes « L'heure, la routine et les émotions » à voix haute.","Je présente ma journée à l'oral (entraînement), la 2e fois sans lire.","Je fais le quiz."],c:"Je dis l'heure, ma routine et une comparaison sans lire, et au moins 6/7 au quiz."},
+ {id:"e8d",k:"devoir",s:"Maths",t:"Exercices 3 et 4 p. 160 (ex. 4 : questions 1 et 2) + mon sac",due:"2026-11-09",fiche:"ma-med",ex:["ma-calc-med"],
+  st:["Exercice 3 p. 160 : médiane (sans l'étendue). Je range, je compte, je trouve le milieu.","Exercice 4 p. 160 : seulement les questions 1 et 2.","Je prépare le sac de lundi : cahiers d'anglais, d'espagnol, d'EMC, de maths, la calculatrice."],c:"Les exercices sont finis et le sac est prêt."}]},
+{d:"2026-11-09",kind:"Lundi · veille de l'évaluation de SVT",note:"",blocs:[
  {id:"d9a",k:"controle",s:"SVT",t:"Contrôle blanc de SVT",due:"2026-11-10",fiche:"svt",quiz:"q-svt",ex:["svt-dessin"],
   st:["Sans fiche : je dis les étapes de la préparation.","Je fais le dessin d'observation sans modèle (5 min).","Je fais le quiz SVT."],c:"Au moins 7/9 au quiz et grille du dessin complète."},
- {id:"d9b",k:"controle",s:"SVT",t:"Je vérifie que je suis prêt",due:"2026-11-10",fiche:"svt",ex:["svt-sort","svt-order"],
-  st:["Je relis « L'essentiel » de la fiche SVT et je refais de mémoire le schéma de la plante.","Je refais les 2 entraînements rapides.","Je vais dans « Contrôles » : je coche ce que je sais. S'il reste du orange, je révise ce point.","Je mets ma calculatrice dans mon sac."],c:"Le contrôle SVT est « Prêt » ou « Presque prêt »."},
- {id:"d9c",k:"revision",s:"Maths",t:"Révision espacée : relatifs et moyenne",fiche:"ma-moy",quiz:"q-moy",ex:["ma-write-moy","ma-calc-rel"],
-  st:["Je fais « Rédiger un calcul de moyenne ».","Je fais 10 calculs avec les relatifs.","Je fais le quiz « Fréquences et moyenne »."],c:"Grille complète et au moins 6/7 au quiz."},
- {id:"d9d",k:"revision",s:"EMC + Espagnol",t:"Révision espacée : EMC et espagnol",fiche:"emc-num",quiz:"q-emcnum",ex:["emc-order","es-flash"],
-  st:["Je remets la vie de Simone Veil dans l'ordre.","Je fais le quiz « Libertés numériques ».","Je fais les cartes « Soler et les mots pour comparer »."],c:"Tout dans l'ordre du premier coup et au moins 5/6 au quiz."}]},
+ {id:"d9b",k:"controle",s:"SVT",t:"Je vérifie que je suis prêt",due:"2026-11-10",fiche:"svt",ex:["svt-sort","svt-order","svt-concl"],
+  st:["Je refais de mémoire le schéma de la plante.","Je fais « Préparation microscopique » et « Rédiger la conclusion d'une expérience ».","Je vais dans « Contrôles » et je coche ce que je sais.","Je mets ma calculatrice dans mon sac."],c:"Le contrôle SVT est « Prêt » ou « Presque prêt »."},
+ {id:"d8c",k:"devoir",s:"Français",t:"Finir la question 2 : trois procédés du 8 mai",due:"2026-11-10",fiche:"fr-horla2",ex:["fr-nce"],
+  st:["Je fais l'entraînement « Nommer, citer, expliquer » (5 min).","Je relis l'entrée du 8 mai.","Le 1er procédé est corrigé (phrases exclamatives). J'en trouve 2 autres : l'énumération et un champ lexical (bonheur, nature ou sens).","Pour chacun : je nomme, je cite, j'explique. Phrases complètes, avec Cantoo ou en dictant."],c:"3 procédés, chacun nommé, cité et expliqué, sans tirets."},
+ {id:"d9c",k:"revision",s:"Maths",t:"Révision espacée : relatifs, moyenne et médiane",fiche:"ma-moy",quiz:"q-moy",ex:["ma-calc-rel","ma-calc-med"],
+  st:["Je fais 10 calculs avec les relatifs.","Je fais 6 médianes.","Je fais le quiz « Fréquences et moyenne »."],c:"Au moins 8/10, 5/6 et 6/7."}]},
 {d:"2026-11-10",kind:"Soir de cours",note:"Évaluation de SVT ce matin. Le programme de la semaine suivante arrive bientôt.",blocs:[
  {id:"d10a",k:"revision",s:"Français",t:"Révision espacée : le fantastique et Le Horla",fiche:"fr-horla2",quiz:"q-horla2",ex:["fr-order","fr-write"],
   st:["Je remets le récit fantastique dans l'ordre.","Je fais la réponse rédigée « En quoi ce passage est-il fantastique ? ».","Je refais le quiz « Le Horla : journal et méthode »."],c:"Grille complète et au moins 7/8 au quiz."},
@@ -1076,12 +1165,17 @@ function genMoy(){
   return {q:vals.map((v,i)=>v+" → "+effs[i]+" fois").join(" ; ")+". Moyenne arrondie au dixième ?",ans:m,ex:"N = "+effs.join(" + ")+" = "+N+". Somme = "+vals.map((v,i)=>"("+v+" × "+effs[i]+")").join(" + ")+" = "+S+". Moyenne = "+S+" ÷ "+N+" ≈ "+N_(m)+"."};
 }
 const N_=x=>String(x).replace(".",",");
+function genMed(){
+  const n=rnd(5,9), vals=Array.from({length:n},()=>rnd(1,20)), s=vals.slice().sort((a,b)=>a-b);
+  const m=n%2?s[(n-1)/2]:(s[n/2-1]+s[n/2])/2;
+  return {q:"Médiane de : "+vals.join(" ; ")+" ?",ans:m,ex:"Rangées : "+s.join(" ; ")+". N = "+n+(n%2?" (impair) : rang "+(n+1)/2+" → "+N_(m)+".":" (pair) : rangs "+n/2+" et "+(n/2+1)+" → ("+s[n/2-1]+" + "+s[n/2]+") ÷ 2 = "+N_(m)+".")};
+}
 function startEx(id){
   const e=EI(id); playing=null; tab="ex";
   R={id,i:0,score:0,ans:null,err:0,done:false,miss:[]};
   if(e.type==="sort") R.items=shuffle(e.items);
   if(e.type==="order"){R.pool=shuffle(e.steps); R.placed=[]; R.wrong=null;}
-  if(e.type==="calc"){R.qs=Array.from({length:e.n},()=>e.gen==="rel"?genRel():e.gen==="moy"?genMoy():genFreq()); R.val="";}
+  if(e.type==="calc"){R.qs=Array.from({length:e.n},()=>e.gen==="rel"?genRel():e.gen==="moy"?genMoy():e.gen==="med"?genMed():genFreq()); R.val="";}
   if(e.type==="write"){R.shown=false; R.ck={};}
   if(e.type==="flash"){R.queue=shuffle(e.cards.map((_,k)=>k)); R.first={}; R.flip=false; R.total=e.cards.length;}
   render(); window.scrollTo(0,0);
