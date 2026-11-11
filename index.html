@@ -1,5 +1,3 @@
-<!doctype html>
-<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><style>:root{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style></head><body>
 <title>Mon plan de révision</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -170,6 +168,18 @@ ul.cl2{list-style:none;padding:0;display:flex;flex-direction:column;gap:4px} ul.
 .flash .fb{font-size:1.3rem;font-weight:700;color:var(--accent)}
 .steps.placed li{color:var(--ok);font-weight:700}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.cart-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
+.cart-list label{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border:2px solid var(--line);border-radius:var(--r);background:var(--surface);cursor:pointer;font-size:1.05rem}
+.cart-list input{width:26px;height:26px;flex:0 0 auto;margin-top:1px;accent-color:var(--ok)}
+.cart-list .cn{flex:0 0 auto;width:26px;height:26px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-weight:700;font-size:.9rem}
+.cart-list .cart-h{display:block;margin-top:2px;font-weight:400}
+.cart-list li.now label{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent)}
+.cart-list li.done label{opacity:.55}
+.cart-list li.done b{text-decoration:line-through}
+.callout.plaud{background:var(--mid-bg)}
+.edt{display:flex;flex-wrap:wrap;gap:6px}
+.edt-c{padding:6px 10px;border-radius:10px;background:hsl(var(--h) 60% var(--subj-bg-l));color:hsl(var(--h) 55% var(--subj-l));font-size:.95rem}
+.cart-nav{align-items:center;gap:10px}
 </style>
 
 <div class="app">
@@ -190,6 +200,7 @@ ul.cl2{list-style:none;padding:0;display:flex;flex-direction:column;gap:4px} ul.
     <button class="tab" role="tab" data-tab="ex">Entraînement</button>
     <button class="tab" role="tab" data-tab="ctrl">Contrôles</button>
     <button class="tab" role="tab" data-tab="renf">Renforcement</button>
+    <button class="tab" role="tab" data-tab="cart">Mon cartable</button>
     <button class="tab" role="tab" data-tab="bilan">Bilan pour maman</button>
     <button class="tab" role="tab" data-tab="parent">Parent</button>
   </nav>
@@ -1354,6 +1365,7 @@ function render(){
   else if(tab==="ex") v.innerHTML=R?viewRun():viewExList();
   else if(tab==="ctrl") v.innerHTML=viewCtrl();
   else if(tab==="renf") v.innerHTML=viewRenf();
+  else if(tab==="cart") v.innerHTML=viewCart();
   else if(tab==="bilan") v.innerHTML=viewBilan();
   else v.innerHTML=viewParent();
   wire();
@@ -1364,7 +1376,7 @@ function viewPlan(){
   const day=PLAN.find(p=>p.d===sel), list=day.blocs;
   const days=PLAN.map(p=>{const ev=CTRL.find(c=>c.d===p.d);return '<button type="button" class="day'+(p.d===sel?" sel":"")+'" data-d="'+p.d+'"'+(p.d===todayKey?' aria-current="date"':"")+' aria-label="'+esc(longDay(p.d))+'"><span>'+esc(fmt(p.d,{weekday:"short"}))+'</span><b>'+dateOf(p.d).getDate()+'</b><span class="dots">'+p.blocs.map(b=>'<i class="'+(S.rate[b.id]||"")+'"></i>').join("")+'</span><span class="mn">'+mins(p)+' min</span>'+(ev?'<span class="ev">'+esc(ev.s.slice(0,5))+'</span>':'')+'</button>';}).join("");
   const evToday=CTRL.filter(c=>c.d===day.d);
-  const done=list.filter(b=>S.rate[b.id]).length, allDone=done===list.length, sent=S.sent[day.d];
+  const cd=cartDone(day.d); const done=list.filter(b=>S.rate[b.id]).length, allDone=done===list.length, sent=S.sent[day.d];
   const count=k=>list.filter(b=>b.k===k).length;
   const parts=["devoir","revision","controle","renfort"].filter(k=>count(k)).map(k=>count(k)+" "+KL[k].toLowerCase()+(count(k)>1?"s":""));
   return '<nav class="days" aria-label="Choisir un jour">'+days+'</nav>'+
@@ -1373,7 +1385,7 @@ function viewPlan(){
    (day.note?'<p class="muted">'+esc(day.note)+'</p>':'')+'</div>'+
    evToday.map(c=>'<div class="callout warn"><b>Aujourd\'hui : '+esc(c.s)+'. '+esc(c.t)+'</b><span class="small">'+esc(c.what)+'</span></div>').join("")+
    '<ol class="blocs">'+list.map((b,i)=>blocHTML(b,i)).join("")+'</ol>'+
-   '<div class="callout '+(sent?"ok":allDone?"":"warn")+'"><b>Ma séance est finie quand :</b><ul class="cl2"><li class="'+(allDone?"ok":"")+'">'+(allDone?"✓":"○")+' les '+list.length+' blocs ont un feu ('+done+'/'+list.length+')</li><li class="'+(sent?"ok":"")+'">'+(sent?"✓":"○")+' mon bilan est envoyé à maman</li></ul>'+
+   '<div class="callout '+(sent?"ok":allDone?"":"warn")+'"><b>Ma séance est finie quand :</b><ul class="cl2"><li class="'+(allDone?"ok":"")+'">'+(allDone?"✓":"○")+' les '+list.length+' blocs ont un feu ('+done+'/'+list.length+')</li><li class="'+(cd.v?"ok":"")+'">'+(cd.v?"✓":"○")+' mon cartable est vidé, l\'enregistreur est en charge</li><li class="'+(cd.p?"ok":"")+'">'+(cd.p?"✓":"○")+' mon cartable est prêt pour demain</li><li class="'+(sent?"ok":"")+'">'+(sent?"✓":"○")+' mon bilan est envoyé à maman</li></ul>'+((!cd.v||!cd.p)&&day.d===todayKey?'<div><button class="btn ghost" type="button" data-goto="cart">Mon cartable</button></div>':'')+
    (allDone&&!sent?'<div><button class="btn" type="button" data-goto="bilan">Faire mon bilan</button></div>':'')+(sent?'<span>Séance terminée. Bravo.</span>':'')+'</div>'+
    '<p class="small muted">Bonus, seulement si tout est fini : un entraînement au choix dans l\'onglet « Entraînement ».</p>'+
    '<details class="box2"><summary>Comment je fais une séance</summary><div class="stack" style="gap:10px">'+
@@ -1600,6 +1612,7 @@ function bilanText(k){
   const rev=[]; PLAN.forEach(p=>p.blocs.forEach(b=>{ if(S.rate[b.id]==="r") rev.push(b.s+" : "+b.t); }));
   if(rev.length){L.push("En rouge (à revoir) :"); rev.forEach(x=>L.push("- "+x));}
   const cs=CTRL.filter(c=>c.d>=k); if(cs.length){L.push("Contrôles :"); cs.forEach(c=>{const Rd=readiness(c); L.push("- "+c.s+" ("+fmt(c.d,{weekday:"short",day:"numeric"})+") : "+LV[Rd.level]+(Rd.miss.length?" – il manque : "+Rd.miss.join(" ; "):""));});}
+  L.push(cartLine(k));
   if(S.mood[k]) L.push("Aujourd'hui c'était : "+S.mood[k]);
   return L.join("\n");
 }
@@ -1619,13 +1632,13 @@ function viewBilan(){
 function viewParent(){
   if(!S.pin) return '<div class="stack"><h2>Espace parent</h2><p>Choisissez un code à 4 chiffres. Il est enregistré seulement sur cet appareil.</p><label class="note" for="pinnew">Nouveau code<input type="password" inputmode="numeric" maxlength="4" id="pinnew"></label><div><button class="btn" id="pinset" type="button">Enregistrer le code</button></div><p id="pinmsg" class="small"></p></div>';
   if(!parentOk) return '<div class="stack"><h2>Espace parent</h2><label class="note" for="pinin">Code<input type="password" inputmode="numeric" maxlength="4" id="pinin"></label><div><button class="btn" id="pinok" type="button">Ouvrir</button></div><p id="pinmsg" class="small"></p></div>';
-  const rows=PLAN.map(p=>'<tr><td>'+esc(fmt(p.d,{weekday:"short",day:"numeric"}))+'<br><span class="small muted">'+mins(p)+' min</span></td><td>'+p.blocs.map(b=>'<span class="pill '+(S.rate[b.id]||"n")+'">'+KL[b.k]+' '+esc(b.s)+' : '+(S.rate[b.id]?RL[S.rate[b.id]]:"—")+'</span>').join(" ")+'</td><td>'+(S.sent[p.d]?"oui":"—")+'</td><td>'+(S.mood[p.d]||"—")+'</td></tr>').join("");
+  const rows=PLAN.map(p=>'<tr><td>'+esc(fmt(p.d,{weekday:"short",day:"numeric"}))+'<br><span class="small muted">'+mins(p)+' min</span></td><td>'+p.blocs.map(b=>'<span class="pill '+(S.rate[b.id]||"n")+'">'+KL[b.k]+' '+esc(b.s)+' : '+(S.rate[b.id]?RL[S.rate[b.id]]:"—")+'</span>').join(" ")+'</td><td>'+(()=>{const c=cartDone(p.d);return (c.v?"vidé ✓":"vidé —")+"<br>"+(c.p?"prêt ✓":"prêt —");})()+'</td><td>'+(S.sent[p.d]?"oui":"—")+'</td><td>'+(S.mood[p.d]||"—")+'</td></tr>').join("");
   const qrows=QUIZ.map(q=>{const a=attempts(q.id);return '<tr><td>'+esc(q.t)+'</td><td>'+(a.length?a.map(x=>x.score+"/"+x.total+" ("+fmt(x.d,{day:"numeric",month:"numeric"})+")").join(", "):"—")+'</td><td>'+esc([...new Set(a.flatMap(x=>x.miss))].join(", ")||"—")+'</td></tr>';}).join("");
   const erows=EX.map(e=>{const a=exAtt(e.id);return '<tr><td>'+esc(e.t)+' <span class="small muted">('+(e.kind==="forme"?"forme":"fond")+')</span></td><td>'+(a.length?a.map(x=>x.score+"/"+x.total+" ("+fmt(x.d,{day:"numeric",month:"numeric"})+")").join(", "):"—")+'</td></tr>';}).join("");
   const notes=Object.entries(S.notes).filter(([,v])=>v&&v.trim()).map(([id,v])=>{let b=null;PLAN.forEach(p=>p.blocs.forEach(x=>{if(x.id===id)b=x;}));return b?'<li><b>'+esc(b.t)+'</b> : '+esc(v)+'</li>':'';}).join("");
   return '<div class="stack" style="gap:6px"><span class="tag">Espace parent</span><h2>Où en est Hugo</h2><p class="small muted">Données enregistrées dans le navigateur de cet appareil uniquement. Elles disparaissent en navigation privée ou si les données du site sont effacées.</p></div>'+
    '<h3>Contrôles</h3>'+CTRL.map(c=>{const Rd=readiness(c);return '<p><span class="pill '+Rd.level+'">'+LV[Rd.level]+'</span> <b>'+esc(c.s)+'</b>, '+esc(longDay(c.d))+' : '+esc(c.t)+(Rd.miss.length?'<br><span class="small muted">Il manque : '+esc(Rd.miss.join(" ; "))+'</span>':'')+'</p>';}).join("")+
-   '<h3>Jour par jour</h3><div class="table-wrap"><table><tr><th>Jour</th><th>Blocs</th><th>Bilan</th><th>Ressenti</th></tr>'+rows+'</table></div>'+
+   '<h3>Jour par jour</h3><div class="table-wrap"><table><tr><th>Jour</th><th>Blocs</th><th>Cartable</th><th>Bilan</th><th>Ressenti</th></tr>'+rows+'</table></div>'+
    '<h3>Quiz</h3><div class="table-wrap"><table><tr><th>Quiz</th><th>Scores</th><th>Notions ratées</th></tr>'+qrows+'</table></div>'+
    '<h3>Entraînements</h3><div class="table-wrap"><table><tr><th>Entraînement</th><th>Scores</th></tr>'+erows+'</table></div>'+
    (notes?'<h3>Notes d\'Hugo</h3><ul>'+notes+'</ul>':'')+
@@ -1649,7 +1662,7 @@ function wire(){
   document.querySelectorAll("[data-goto]").forEach(b=>b.onclick=()=>{tab=b.dataset.goto; playing=null; R=null; render(); window.scrollTo(0,0);});
   const qn=$("#qnext"); if(qn) qn.onclick=next;
   const qb=$("#qback"); if(qb) qb.onclick=()=>{playing=null; render();};
-  exWire();
+  exWire(); cartWire();
   document.querySelectorAll("[data-ck]").forEach(c=>c.onchange=()=>{const [id,i]=c.dataset.ck.split("|"); S.checks[id]=S.checks[id]||{}; if(c.checked) S.checks[id][i]=true; else delete S.checks[id][i]; save(); render();});
   document.querySelectorAll("[data-mood]").forEach(b=>b.onclick=()=>{S.mood[todayKey]=b.dataset.mood; save(); render();});
   const bc=$("#bcopy"); if(bc) bc.onclick=()=>{const t=bilanText(todayKey); const ok=()=>{$("#bmsg").textContent="Copié. Je le colle dans le message à maman.";}; const ko=()=>{const r=document.createRange(); r.selectNodeContents($("#btext")); const s=getSelection(); s.removeAllRanges(); s.addRange(r); $("#bmsg").textContent="Le texte est sélectionné : je fais Copier.";}; try{navigator.clipboard.writeText(t).then(ok,ko);}catch(e){ko();}};
@@ -1673,8 +1686,120 @@ function stopTimer(){clearInterval(T.iv); T.running=false; T.id=null; T.left=900
 function beep(){try{const a=new (window.AudioContext||window.webkitAudioContext)(); [0,.35].forEach(t=>{const o=a.createOscillator(),g=a.createGain(); o.frequency.value=660; g.gain.value=.15; o.connect(g); g.connect(a.destination); o.start(a.currentTime+t); o.stop(a.currentTime+t+.2);});}catch(e){}}
 function tick(){T.left=Math.max(0,(T.end-Date.now())/1000); const c=$("#clock"); if(c&&openId===T.id) c.textContent=clockText(); if(T.left<=0){clearInterval(T.iv); T.running=false; beep(); if(c&&openId===T.id) c.textContent="Fini !"; const g=$("#tgo"); if(g&&openId===T.id) g.textContent="Encore un peu"; T.left=900;}}
 
+/* ================= MON CARTABLE ================= */
+Object.assign(H,{"Arts plastiques":110,"EPS":290,"Vie de classe":200});
+/* Emploi du temps (Pronote). Semaine A = SA, semaine B = SB. 1 = lundi … 5 = vendredi */
+const EDT={
+ A:{1:[["9h30","Espagnol"],["10h40","Maths"],["11h40","Histoire-Géo-EMC"],["13h55","Anglais"],["15h05","Vie de classe"]],
+    2:[["9h30","Physique-Chimie"],["10h40","SVT"],["13h55","Histoire-Géo-EMC"],["15h05","Français"]],
+    3:[["8h30","Français"],["9h30","Technologie"],["10h40","Français"],["11h40","Anglais"]],
+    4:[["8h30","Espagnol"],["9h30","Maths"],["10h40","Arts plastiques"],["11h40","Anglais"],["13h55","Français"],["15h05","Maths"]],
+    5:[["9h30","Français"],["10h40","Musique"],["12h55","EPS"],["15h05","Espagnol"],["16h05","Histoire-Géo-EMC"]]},
+ B:{1:[["9h30","Arts plastiques"],["10h40","Espagnol"],["12h55","Histoire-Géo-EMC"],["13h55","Anglais"],["15h05","Maths"]],
+    2:[["9h30","Histoire-Géo-EMC"],["10h40","SVT"],["12h55","Maths"],["13h55","Français"]],
+    3:[["8h30","Français"],["9h30","Anglais"],["10h40","EPS"]],
+    4:[["9h30","Maths"],["10h40","Histoire-Géo-EMC"],["11h40","Anglais"],["15h30","Technologie"]],
+    5:[["8h30","Maths"],["9h30","Français"],["10h40","Musique"],["12h55","EPS"],["15h05","Espagnol"],["16h05","Physique-Chimie"]]}
+};
+const MAT={
+ "Français":["cahier de français","livre « Le Horla et six contes fantastiques »"],
+ "Maths":["cahier de maths","livre de maths","calculatrice","règle + équerre + compas"],
+ "Histoire-Géo-EMC":["cahier d'histoire-géo","cahier d'EMC"],
+ "Anglais":["cahier d'anglais","liste des verbes irréguliers"],
+ "Espagnol":["cahier d'espagnol","dictionnaire d'espagnol"],
+ "SVT":["cahier de SVT","calculatrice"],
+ "Physique-Chimie":["cahier de physique-chimie","calculatrice"],
+ "Technologie":["classeur de technologie"],
+ "Musique":["cahier de musique"],
+ "Arts plastiques":["pochette d'arts plastiques","crayons de couleur + feutres"],
+ "EPS":["tenue de sport + baskets","gourde remplie"],
+ "Vie de classe":[]
+};
+/* Jours sans cours (fériés et vacances zone C 2026-2027) */
+const OFF=[["2026-11-11","2026-11-11"],["2026-12-19","2027-01-03"],["2027-02-20","2027-03-07"],["2027-03-29","2027-03-29"],["2027-04-17","2027-05-02"],["2027-05-05","2027-05-09"],["2027-05-17","2027-05-17"]];
+const isOff=k=>OFF.some(([a,b])=>k>=a&&k<=b);
+function weekAB(k){const d=dateOf(k), mon=new Date(d); mon.setDate(d.getDate()-((d.getDay()+6)%7));
+  const idx=Math.round((mon-new Date(2026,7,31))/(7*864e5)); let w=(((idx%2)+2)%2)===0?"A":"B";
+  if(S.abFlip) w=w==="A"?"B":"A"; return w;}
+function nextSchoolDay(k){const d=dateOf(k); for(let i=0;i<30;i++){d.setDate(d.getDate()+1); const kk=keyOf(d), w=d.getDay(); if(w>=1&&w<=5&&!isOff(kk)) return kk;} return k;}
+function prevSchoolDay(k){const d=dateOf(k); for(let i=0;i<30;i++){d.setDate(d.getDate()-1); const kk=keyOf(d), w=d.getDay(); if(w>=1&&w<=5&&!isOff(kk)) return kk;} return k;}
+function coursOf(k){const w=dateOf(k).getDay(); return (EDT[weekAB(k)][w]||[]);}
+
+const VIDER=[
+ ["Je pose mon cartable sur une table et je l'ouvre.","Pas par terre, pas dans ma chambre."],
+ ["L'enregistreur : je le sors et je le mets à charger TOUT DE SUITE.","Câble branché, je vérifie que le voyant s'allume."],
+ ["Je sors TOUT du cartable, même le fond et les poches.","Cahiers, livres, trousse, feuilles, papiers."],
+ ["Papiers pour maman : contrôles rendus, mots des profs, carnet à signer.","Je les donne à maman maintenant (ou je les pose à l'endroit prévu)."],
+ ["Les feuilles volantes : je les colle ou je les range dans le bon cahier.","Une feuille sans place = je demande à maman."],
+ ["Je regarde l'agenda et Pronote : quels devoirs, pour quel jour ?","Je compare avec « Mon programme »."],
+ ["Je jette ce qui ne sert plus.","Papiers froissés, emballages, miettes."],
+ ["Si j'ai eu sport : tenue au linge sale, gourde dans l'évier.",""],
+ ["Je range les cahiers et les livres à leur place.","Le cartable reste vide et ouvert pour la préparation de ce soir."]
+];
+
+let cartMode=null, cartFor=null;
+function cartState(k){S.cart=S.cart||{}; S.cart[k]=S.cart[k]||{v:{},p:{}}; return S.cart[k];}
+function prepList(k){
+  const cours=coursOf(k), seen=new Set(), items=[];
+  cours.forEach(([,s])=>(MAT[s]||[]).forEach(m=>{ if(!seen.has(m)){seen.add(m); items.push([m,s]);} }));
+  const L=[];
+  L.push(["Je regarde mes cours de demain (la liste ci-dessus).","Sur Pronote je vérifie s'il y a un prof absent ou un changement de salle."]);
+  items.forEach(([m,s])=>L.push(["Je mets : "+m,s]));
+  L.push(["Ma trousse est complète.","Stylos bleu, noir, rouge, vert, crayon à papier, gomme, règle, colle, ciseaux, surligneurs."]);
+  L.push(["Mon agenda et mon carnet de correspondance.","Avec les papiers signés par maman dedans."]);
+  L.push(["Mes devoirs pour demain sont faits et rangés dans le bon cahier.","Je regarde « Mon programme » : tous les blocs « Devoir » ont un feu."]);
+  L.push(["L'enregistreur est chargé : je le débranche.","Le voyant montre qu'il est plein. S'il n'est pas plein, je le laisse charger et je le mets dans le sac demain matin."]);
+  L.push(["Je mets l'enregistreur dans la poche avant du cartable.","Demain, je le lance au début de chaque cours."]);
+  L.push(["Je ferme le cartable et je le pose près de la porte d'entrée.","Demain matin, je n'ai plus qu'à le prendre."]);
+  return L;
+}
+function cartDone(k){const st=(S.cart||{})[k]; if(!st) return {v:false,p:false}; const nk=nextSchoolDay(k);
+  return {v:VIDER.every((_,i)=>st.v[i]), p:prepList(nk).every((_,i)=>st.p[i])};}
+
+function stepsHTML(list,state,kind){
+  const first=list.findIndex((_,i)=>!state[i]);
+  return '<ol class="cart-list">'+list.map(([t,h],i)=>{const d=!!state[i];
+    return '<li class="'+(d?"done":i===first?"now":"")+'"><label for="cs-'+kind+'-'+i+'"><input type="checkbox" id="cs-'+kind+'-'+i+'" data-cs="'+kind+'|'+i+'"'+(d?' checked':'')+'><span class="cn">'+(i+1)+'</span><span><b>'+esc(t)+'</b>'+(h?'<span class="small muted cart-h">'+esc(h)+'</span>':'')+'</span></label></li>';}).join("")+'</ol>';
+}
+function viewCart(){
+  const now=new Date(), h=now.getHours();
+  if(!cartMode) cartMode=h<17&&!VIDER.every((_,i)=>cartState(todayKey).v[i])?"v":"p";
+  const st=cartState(todayKey);
+  const tgt=cartFor||nextSchoolDay(todayKey);
+  const vDone=VIDER.every((_,i)=>st.v[i]);
+  const PL=prepList(tgt), pDone=PL.every((_,i)=>st.p[i]);
+  const tabs='<div class="row" role="group" aria-label="Étape"><button type="button" class="chip" data-cm="v" aria-pressed="'+(cartMode==="v")+'">1. Vider mon cartable '+(vDone?"✓":"")+'</button><button type="button" class="chip" data-cm="p" aria-pressed="'+(cartMode==="p")+'">2. Préparer demain '+(pDone?"✓":"")+'</button></div>';
+  const plug='<div class="callout plaud"><b>L\'enregistreur se charge chaque jour.</b><span>Je le branche en rentrant (étape 1), je le mets dans le cartable le soir (étape 2).</span></div>';
+  let body;
+  if(cartMode==="v"){
+    const n=VIDER.filter((_,i)=>st.v[i]).length;
+    body='<div class="stack" style="gap:6px"><span class="tag">En rentrant du collège · 10 min</span><h2>Je vide mon cartable</h2><p class="muted">Une étape à la fois, dans l\'ordre. Je coche quand c\'est fait. <b>'+n+'/'+VIDER.length+'</b></p></div>'+
+      stepsHTML(VIDER,st.v,"v")+
+      (vDone?'<div class="callout ok"><b>Cartable vidé.</b><span>Ce soir, après mes devoirs : étape 2, je prépare demain.</span><div><button type="button" class="btn" data-cm="p">Aller à « Préparer demain »</button></div></div>':'');
+  } else {
+    const cours=coursOf(tgt), w=weekAB(tgt), n=PL.filter((_,i)=>st.p[i]).length;
+    const ev=CTRL.filter(c=>c.d===tgt);
+    body='<div class="stack" style="gap:6px"><span class="tag">Le soir, après les devoirs · 10 min</span><h2>Je prépare mon cartable pour '+esc(longDay(tgt))+'</h2>'+
+      '<div class="row cart-nav"><button type="button" class="btn ghost small" data-cday="prev" aria-label="Jour de cours précédent">◀</button><span class="small">Semaine '+w+' (Pronote : « S'+w+' »)</span><button type="button" class="btn ghost small" data-cday="next" aria-label="Jour de cours suivant">▶</button></div></div>'+
+      '<div class="edt">'+(cours.length?cours.map(([hh,s])=>'<span class="edt-c" style="--h:'+(H[s]||220)+'"><b>'+esc(hh)+'</b> '+esc(s)+'</span>').join(""):'<span class="small">Pas de cours ce jour-là.</span>')+'</div>'+
+      ev.map(c=>'<div class="callout warn"><b>Contrôle : '+esc(c.s)+'. '+esc(c.t)+'</b><span class="small">Ce soir : je relis la fiche 10 minutes, puis je dors.</span></div>').join("")+
+      '<p class="muted">Je coche quand l\'objet est DANS le cartable. <b>'+n+'/'+PL.length+'</b></p>'+
+      stepsHTML(PL,st.p,"p")+
+      (pDone?'<div class="callout ok"><b>Cartable prêt.</b><span>Bravo. Demain matin, je le prends près de la porte avec l\'enregistreur dedans.</span></div>':'');
+  }
+  return tabs+plug+body+'<details class="box2"><summary>Pour maman</summary><div class="stack small"><p>L\'emploi du temps vient de Pronote (semaines SA / SB). Les remplacements ne sont pas affichés : Hugo vérifie Pronote le soir.</p><p>Si la semaine A/B affichée est fausse : <button type="button" class="btn ghost small" id="abflip">Inverser A et B</button></p><p>Les cases cochées apparaissent dans le bilan d\'Hugo et dans l\'espace parent.</p></div></details>';
+}
+function cartWire(){
+  document.querySelectorAll("[data-cm]").forEach(b=>b.onclick=()=>{cartMode=b.dataset.cm; render(); window.scrollTo(0,0);});
+  document.querySelectorAll("[data-cday]").forEach(b=>b.onclick=()=>{const cur=cartFor||nextSchoolDay(todayKey); cartFor=b.dataset.cday==="next"?nextSchoolDay(cur):prevSchoolDay(cur); render();});
+  document.querySelectorAll("[data-cs]").forEach(c=>c.onchange=()=>{const [k,i]=c.dataset.cs.split("|"); const st=cartState(todayKey); if(c.checked) st[k][i]=true; else delete st[k][i]; save(); render();
+    const nx=document.querySelector(".cart-list li.now"); if(nx&&c.checked) nx.scrollIntoView({block:"nearest",behavior:"smooth"});});
+  const ab=$("#abflip"); if(ab) ab.onclick=()=>{S.abFlip=!S.abFlip; save(); render();};
+}
+function cartLine(k){const d=cartDone(k), st=(S.cart||{})[k]||{p:{}}; const PL=prepList(nextSchoolDay(k));
+  const plaud=PL.findIndex(x=>x[0].startsWith("Je mets l'enregistreur"));
+  return "Cartable : vidé "+(d.v?"oui":"non")+", préparé pour demain "+(d.p?"oui":"non")+", enregistreur dans le sac "+(st.p&&st.p[plaud]?"oui":"non");}
+
 render();
 
 </script>
-
-</body></html>
