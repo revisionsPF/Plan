@@ -153,6 +153,7 @@ details.box2[open] summary{margin-bottom:10px}
 .kt.devoir{background:var(--accent-soft);color:var(--accent)}
 .kt.revision{background:var(--ok-bg);color:var(--ok)}
 .kt.controle{background:var(--ko-bg);color:var(--ko)}
+.kt.renfort{background:var(--mid-bg);color:var(--mid)}
 .kt.fond{background:var(--accent-soft);color:var(--accent)}
 .kt.forme{background:var(--mid-bg);color:var(--mid)}
 .day .mn{font-size:.68rem;color:var(--muted)} .day.sel .mn{color:var(--accent-ink)}
@@ -174,7 +175,7 @@ ul.cl2{list-style:none;padding:0;display:flex;flex-direction:column;gap:4px} ul.
 <div class="app">
   <header class="top">
     <div class="stack" style="gap:4px">
-      <span class="tag">Hugo · 4e5 · semaine du 3 au 10 novembre</span>
+      <span class="tag">Hugo · 4e5 · semaine du 11 au 17 novembre</span>
       <h1>Mon plan de révision</h1>
     </div>
     <div class="progress" aria-live="polite">
@@ -188,6 +189,7 @@ ul.cl2{list-style:none;padding:0;display:flex;flex-direction:column;gap:4px} ul.
     <button class="tab" role="tab" data-tab="quiz">Quiz</button>
     <button class="tab" role="tab" data-tab="ex">Entraînement</button>
     <button class="tab" role="tab" data-tab="ctrl">Contrôles</button>
+    <button class="tab" role="tab" data-tab="renf">Renforcement</button>
     <button class="tab" role="tab" data-tab="bilan">Bilan pour maman</button>
     <button class="tab" role="tab" data-tab="parent">Parent</button>
   </nav>
@@ -826,6 +828,233 @@ const EX_ADD3=[
  check:["3 actions avec l'heure","L'heure juste (es la / son las, y media, menos cuarto)","Une émotion avec estoy","Une comparaison (más… que, mientras que…)","Une phrase avec se ou soler","Je l'ai dit sans lire"]}
 ];
 
+/* ---------- Ajouts du 11 novembre ---------- */
+(function(){
+ const svt=FICHES.find(x=>x.id==="svt");
+ svt.t="SVT chapitre 1 : la plante fabrique sa matière";
+ svt.src="Bilans 2, 3 et 4 · évaluation du chapitre 1 le mardi 17";
+ svt.short.unshift("<b>Bilan 4</b> : la plante prélève l'<b>eau</b> et les <b>sels minéraux</b> du sol par les <b>poils absorbants</b> de ses racines : des cellules très fines, très nombreuses, qui augmentent la surface de contact avec le sol.");
+ svt.full+=`<div class="fsec"><h3>6. Bilan 4 : les poils absorbants de la racine</h3>
+  <p>Au microscope, on a observé les <b>poils absorbants</b> d'une racine (TP du 10 novembre).</p>
+  <ul><li>La plante prélève dans le sol l'<b>eau</b> et les <b>sels minéraux</b> dont elle a besoin.</li><li>Elle le fait par les <b>poils absorbants</b>, situés près du bout des racines.</li><li>Chaque poil est une <b>cellule très allongée</b>. Ils sont <b>très nombreux</b> : ensemble, ils forment une très grande <b>surface de contact</b> avec le sol.</li></ul>
+  <div class="box"><p class="key">Le chapitre 1 en une phrase</p><p>La plante prend l'<b>eau</b> et les sels minéraux par ses <b>racines</b> (poils absorbants), le <b>CO₂</b> de l'air par ses <b>stomates</b>, et avec la <b>lumière</b> elle fabrique de la <b>matière organique</b> (amidon) dans les <b>chloroplastes</b> de ses feuilles : c'est la photosynthèse. Elle rejette du <b>dioxygène</b>.</p></div>
+  <p class="tip">Compare avec ton bilan 4 collé dans le cahier : c'est lui qui compte pour l'évaluation.</p></div>`;
+ const med=FICHES.find(x=>x.id==="ma-med");
+ med.short.push("<b>Étendue</b> (cours du 9 nov.) = plus grande valeur − plus petite valeur. Elle mesure l'écart entre les extrêmes.");
+ med.full+=`<div class="fsec"><h3>4. L'étendue (cours du 9 novembre)</h3><div class="box"><p class="mem">étendue = plus grande valeur − plus petite valeur</p><p>Notes : 6 ; 7 ; 9 ; 11 ; 12 ; 14 ; 15 ; 18 → étendue = 18 − 6 = <b>12</b>.</p><p>Plus l'étendue est grande, plus les valeurs sont dispersées.</p></div></div>`;
+})();
+FICHES.push(
+{id:"fr-mots",s:"Français",t:"Le Horla (12 mai) et la formation des mots",src:"Séance 4 du 10 novembre · exercice pour le jeudi 12",
+ lumni:[["Préfixes et suffixes",LUMNI("préfixe suffixe")]],
+ short:[
+  "Le 12 mai, le narrateur a « un peu de fièvre » : le thème de la <b>maladie</b> apparaît. C'est une des explications possibles (rationnelle).",
+  "Les <b>phrases interrogatives</b> montrent qu'il ne comprend pas ce qui lui arrive. Le texte évoque les <b>5 sens</b>, trop faibles pour percevoir le surnaturel.",
+  "Un mot = <b>préfixe</b> (avant) + <b>radical</b> (le cœur du mot) + <b>suffixe</b> (après). in-vis-ible = qu'on ne peut pas voir.",
+  "Mots de la même famille : même radical. école → écolier, scolaire, scolarité, déscolariser."],
+ full:`
+ <div class="fsec"><h3>1. L'entrée du 12 mai : « J'ai un peu de fièvre »</h3>
+  <ul><li>Après le bonheur du 8 mai, le narrateur se sent <b>malade</b>. La maladie devient une <b>explication possible</b> de ce qui va arriver (explication rationnelle).</li><li>Il pose beaucoup de <b>questions</b> (phrases interrogatives) : il ne comprend pas son état.</li><li>Le texte parle des <b>5 sens</b> (vue, ouïe, odorat, toucher, goût) pour montrer qu'ils ne suffisent pas à percevoir certaines choses <b>surnaturelles</b>.</li></ul></div>
+ <div class="fsec"><h3>2. Comment un mot est formé</h3>
+  <div class="flow"><div class="st"><b>Préfixe</b> : placé <b>avant</b> le radical. Il change le sens (in- = pas, re- = de nouveau, dé- = le contraire).</div><div class="ar">↓</div><div class="st"><b>Radical</b> : le <b>cœur</b> du mot, qui porte le sens principal.</div><div class="ar">↓</div><div class="st"><b>Suffixe</b> : placé <b>après</b> le radical. Il change souvent la classe du mot (-able, -ible : adjectif ; -tion, -age : nom ; -ir : verbe).</div></div>
+  <div class="table-wrap"><table><tr><th>Mot</th><th>Préfixe</th><th>Radical</th><th>Suffixe</th><th>Sens</th></tr>
+   <tr><td>invisible</td><td>in-</td><td>vis</td><td>-ible</td><td>qu'on ne peut pas voir</td></tr>
+   <tr><td>inconnaissable</td><td>in-</td><td>connaiss</td><td>-able</td><td>qu'on ne peut pas connaître</td></tr></table></div>
+  <p class="tip">Méthode pour l'exercice de jeudi (« mystérieuses », « voisinages », « assombri », « misérables », « vibrations ») : 1. je cherche un mot plus simple de la même famille (le radical) ; 2. ce qui est avant = préfixe ; 3. ce qui est après = suffixe. Un mot n'a pas toujours de préfixe.</p></div>`},
+{id:"pc-tension",s:"Physique-Chimie",t:"La tension électrique",src:"Chapitre 2 · cours du 10 novembre",
+ lumni:[["La tension électrique",LUMNI("tension électrique")],["Utiliser un voltmètre",LUMNI("voltmètre")]],
+ short:[
+  "La <b>tension</b> se note <b>U</b>, son unité est le <b>volt (V)</b>.",
+  "On la mesure avec un <b>voltmètre</b> branché <b>en dérivation</b> (aux bornes du dipôle), borne <b>V</b> et borne <b>COM</b>.",
+  "Il existe <b>toujours</b> une tension aux bornes d'un <b>générateur</b>, même seul.",
+  "Interrupteur <b>ouvert</b> : tension <b>non nulle</b> mais pas de courant. Interrupteur <b>fermé</b> ou fil : tension <b>nulle</b> même avec du courant."],
+ full:`
+ <div class="fsec"><h3>1. Généralités</h3>
+  <div class="box"><p class="key">La tension électrique</p><p>Symbole : <b>U</b>. Unité : le <b>volt</b>, symbole <b>V</b>. Une pile « 4,5 V » a une tension de 4,5 volts à ses bornes.</p></div></div>
+ <div class="fsec"><h3>2. La mesurer avec un voltmètre</h3>
+  <ul><li>Le voltmètre se branche <b>en dérivation</b> : ses deux fils vont <b>de part et d'autre</b> du dipôle (aux deux bornes), sans ouvrir le circuit.</li><li>On utilise les bornes <b>V</b> et <b>COM</b> du multimètre, sur le calibre « V ».</li></ul>
+  <p class="tip">Ne pas confondre : l'ampèremètre (intensité) se branche en <b>série</b> ; le voltmètre (tension) en <b>dérivation</b>.</p></div>
+ <div class="fsec"><h3>3. Les conclusions de l'activité 1</h3>
+  <div class="table-wrap"><table><tr><th>Dipôle</th><th>Courant ?</th><th>Tension à ses bornes</th></tr>
+   <tr><td>Pile, générateur (seul ou dans un circuit)</td><td>oui ou non</td><td><b>toujours</b> une tension</td></tr>
+   <tr><td>Interrupteur <b>ouvert</b></td><td>non</td><td>tension <b>non nulle</b></td></tr>
+   <tr><td>Interrupteur <b>fermé</b>, fil de connexion</td><td>oui</td><td>tension <b>nulle</b></td></tr></table></div>
+  <p>À retenir : une tension peut exister <b>sans courant</b>, et un courant peut passer <b>sans tension</b> aux bornes d'un fil ou d'un interrupteur fermé.</p></div>`},
+{id:"emc-etat",s:"Histoire-Géo-EMC",t:"L'État de droit et l'ordre public",src:"EMC · leçon à finir de rédiger pour le vendredi 13",
+ lumni:[["L'État de droit",LUMNI("état de droit")]],
+ short:[
+  "<b>État de droit</b> : un État où <b>tout le monde</b>, y compris les dirigeants, doit <b>respecter la loi</b>.",
+  "Ses piliers : la <b>Constitution</b> au-dessus des lois, la <b>séparation des pouvoirs</b> (législatif, exécutif, judiciaire), une <b>justice indépendante</b>, les <b>droits fondamentaux</b> garantis.",
+  "L'<b>ordre public</b> (sécurité, tranquillité) est assuré par la police et la justice, mais <b>dans le respect des lois</b> et des libertés."],
+ full:`
+ <div class="fsec"><h3>II. Assurer l'ordre public dans un État de droit</h3>
+  <p class="tip">Ta leçon a été construite en classe par les élèves : cette fiche t'aide à la compléter. Vérifie avec tes notes et la correction de la fiche 3.</p>
+  <div class="box"><p class="key">A) Qu'est-ce que l'État de droit ?</p><p>C'est un État dans lequel le <b>pouvoir est soumis au droit</b> : les lois s'appliquent à <b>tous</b>, aux citoyens comme aux gouvernants. Personne n'est au-dessus des lois.</p></div>
+  <ul><li>La <b>Constitution</b> est la règle la plus haute : les lois doivent la respecter.</li><li>Les <b>pouvoirs sont séparés</b> : faire les lois (Parlement), les appliquer (gouvernement), juger (justice). C'est l'idée de Montesquieu, vue avec les Lumières.</li><li>La <b>justice est indépendante</b> : chacun a droit à un procès équitable.</li><li>Les <b>droits et libertés</b> (Déclaration de 1789) sont garantis.</li></ul>
+  <p><b>Ordre public</b> : la sécurité et la tranquillité de tous. La police et la justice le protègent, mais elles doivent elles aussi <b>respecter la loi</b> : c'est la différence avec un État où le pouvoir fait ce qu'il veut (despotisme, lettre de cachet).</p></div>`},
+{id:"an-hopper",s:"Anglais",t:"Décrire un tableau (Edward Hopper)",src:"Renforcement · évaluation du 6 novembre (3,5/20)",
+ lumni:[["Edward Hopper",LUMNI("Edward Hopper")],["Décrire une image en anglais",LUMNI("describe a picture")]],
+ short:[
+  "4 étapes : <b>1. Je présente</b> (This painting is by Edward Hopper. It's called…) <b>2. Je décris</b> (In the foreground… there is…) <b>3. Je fais des hypothèses</b> (She may/might/must…) <b>4. Je donne mon avis</b> (I like it because…).",
+  "Où : <b>in the foreground</b> (au premier plan), <b>in the background</b> (à l'arrière-plan), <b>in the middle</b>, <b>on the left / on the right</b>.",
+  "Ce qui se passe : présent <b>be + -ing</b> : A woman <b>is sitting</b> at a table.",
+  "Hypothèses : <b>may / might</b> (peut-être), <b>must</b> (sûrement) + verbe : She <b>may be waiting</b> for someone. She <b>must be</b> sad."],
+ full:`
+ <div class="fsec"><h3>La méthode en 4 étapes</h3>
+  <div class="flow">
+   <div class="st"><b>1. Présenter</b> : This painting is by <b>Edward Hopper</b>, an American painter. It's called <i>Automat</i>. It was painted in 1927.</div><div class="ar">↓</div>
+   <div class="st"><b>2. Décrire</b> (où + quoi) : In the foreground, <b>there is</b> a woman. In the background, <b>there are</b> lights in the window.</div><div class="ar">↓</div>
+   <div class="st"><b>3. Ce qui se passe</b> (be + -ing) : She <b>is sitting</b> alone at a table. She <b>is holding</b> a cup of coffee. She <b>is wearing</b> a coat and a hat.</div><div class="ar">↓</div>
+   <div class="st"><b>4. Hypothèses et avis</b> : It <b>must be</b> night. She <b>may be waiting</b> for someone. She <b>might be</b> sad or lonely. I like this painting because…</div>
+  </div></div>
+ <div class="fsec"><h3>Les mots pour se repérer</h3>
+  <div class="table-wrap"><table><tr><th>Anglais</th><th>Français</th></tr>
+   <tr><td>in the foreground</td><td>au premier plan</td></tr><tr><td>in the background</td><td>à l'arrière-plan</td></tr><tr><td>in the middle / in the centre</td><td>au milieu</td></tr><tr><td>on the left / on the right</td><td>à gauche / à droite</td></tr><tr><td>at the top / at the bottom</td><td>en haut / en bas</td></tr><tr><td>next to / behind / in front of</td><td>à côté de / derrière / devant</td></tr></table></div></div>
+ <div class="fsec"><h3>Modaux : quand je ne suis pas sûr</h3>
+  <ul><li><b>must</b> + verbe = j'en suis presque sûr : It <b>must be</b> cold.</li><li><b>may</b> / <b>might</b> + verbe = c'est possible : She <b>might be</b> tired.</li></ul>
+  <p class="tip">Toujours le verbe de base après must / may / might (pas de -s, pas de to).</p></div>`},
+{id:"fr-ps",s:"Français",t:"Conjuguer au passé simple",src:"Renforcement · contrôle du 9 octobre (3/10)",
+ lumni:[["Le passé simple",LUMNI("passé simple")]],
+ short:[
+  "Verbes en <b>-er</b> (et aller) : -ai, -as, -a, -âmes, -âtes, -<b>èrent</b>. il chanta, ils chantèrent.",
+  "Verbes en <b>-ir</b> et beaucoup d'autres : -is, -is, -it, -îmes, -îtes, -<b>irent</b>. il finit, il fit, il prit, il dit, il vit.",
+  "D'autres en <b>-us</b> : il eut, il fut, il sut, il put, il voulut, il lut, il but, il courut, il mourut.",
+  "venir, tenir : il <b>vint</b>, ils <b>vinrent</b> ; il <b>tint</b>.",
+  "Accent circonflexe à <b>nous</b> et <b>vous</b> : nous chantâmes, vous fîtes."],
+ full:`
+ <div class="fsec"><h3>Les 4 familles de terminaisons</h3>
+  <div class="table-wrap"><table><tr><th></th><th>-a (chanter)</th><th>-i (finir, faire)</th><th>-u (courir, être)</th><th>-in (venir)</th></tr>
+   <tr><td>je</td><td>chantai</td><td>finis</td><td>courus</td><td>vins</td></tr>
+   <tr><td>tu</td><td>chantas</td><td>finis</td><td>courus</td><td>vins</td></tr>
+   <tr><td>il / elle</td><td>chanta</td><td>finit</td><td>courut</td><td>vint</td></tr>
+   <tr><td>nous</td><td>chantâmes</td><td>finîmes</td><td>courûmes</td><td>vînmes</td></tr>
+   <tr><td>vous</td><td>chantâtes</td><td>finîtes</td><td>courûtes</td><td>vîntes</td></tr>
+   <tr><td>ils / elles</td><td>chantèrent</td><td>finirent</td><td>coururent</td><td>vinrent</td></tr></table></div></div>
+ <div class="fsec"><h3>Les verbes à connaître par cœur (3e personne)</h3>
+  <div class="two">
+   <div class="box"><p class="key">en -i</p><p>faire → il fit · dire → il dit · prendre → il prit · mettre → il mit · voir → il vit · écrire → il écrivit · peindre → il peignit · craindre → il craignit · vaincre → il vainquit · rire → il rit · suivre → il suivit</p></div>
+   <div class="box"><p class="key">en -u</p><p>être → il fut · avoir → il eut · savoir → il sut · pouvoir → il put · vouloir → il voulut · lire → il lut · boire → il but · courir → il courut · mourir → il mourut · résoudre → il résolut · décevoir → il déçut</p></div>
+  </div>
+  <p class="tip">Piège : aller fait <b>il alla</b> (comme les verbes en -er). Les verbes en -er ont toujours <b>-èrent</b> au pluriel, jamais -irent.</p></div>`},
+{id:"pc-vitesse",s:"Physique-Chimie",t:"Mouvement et vitesse",src:"Renforcement · contrôle n°1 du 7 octobre (7,5/20) et TP vitesses (2/10)",
+ lumni:[["La vitesse",LUMNI("calculer une vitesse")]],
+ short:[
+  "<b>v = d ÷ t</b> : vitesse = distance ÷ durée. En m/s (mètres et secondes) ou en km/h (kilomètres et heures).",
+  "1 m/s = 3,6 km/h. Pour passer de m/s à km/h : × 3,6.",
+  "<b>Trajectoire</b> : le chemin suivi (rectiligne = droite, circulaire = cercle, curviligne = courbe).",
+  "Mouvement <b>uniforme</b> (vitesse constante : points également espacés), <b>accéléré</b> (écarts qui grandissent), <b>ralenti</b> (écarts qui diminuent)."],
+ full:`
+ <div class="fsec"><h3>1. Calculer une vitesse</h3>
+  <div class="box"><p class="mem">v = d ÷ t</p><p>Une goutte parcourt 0,60 m en 2 s : v = 0,60 ÷ 2 = <b>0,30 m/s</b>.</p><p>Une voiture parcourt 150 km en 2 h : v = 150 ÷ 2 = <b>75 km/h</b>.</p></div>
+  <p class="tip">Les unités vont ensemble : mètres et secondes → m/s ; kilomètres et heures → km/h. 1 m/s = 3,6 km/h.</p></div>
+ <div class="fsec"><h3>2. Décrire un mouvement</h3>
+  <ul><li><b>Trajectoire</b> : rectiligne (en ligne droite), circulaire (en cercle), curviligne (en courbe).</li><li><b>Vitesse</b> : <b>uniforme</b> si elle ne change pas, <b>accélérée</b> si elle augmente, <b>ralentie</b> si elle diminue.</li><li>Sur une <b>chronophotographie</b> (positions à intervalles de temps égaux) : écarts égaux → uniforme ; écarts qui grandissent → accéléré ; écarts qui diminuent → ralenti.</li></ul>
+  <p class="tip">Le sujet exact du contrôle n°1 n'est pas sur Pronote : regarde ta copie avec maman pour voir quelles questions ont été ratées.</p></div>`},
+{id:"ma-base",s:"Maths",t:"Bases à reprendre : arithmétique et Pythagore",src:"Renforcement · interrogation du 6 oct. (3,5/10), évaluations du 22 sept. (6/15) et du 15 oct. (10/20)",
+ lumni:[["Les nombres premiers",LUMNI("nombres premiers")],["Le théorème de Pythagore",LUMNI("théorème de Pythagore")]],
+ short:[
+  "<b>Nombre premier</b> : il a exactement <b>deux diviseurs</b>, 1 et lui-même (2, 3, 5, 7, 11, 13…). 1 n'est pas premier.",
+  "Divisible par <b>2</b> : finit par 0, 2, 4, 6, 8 · par <b>3</b> : somme des chiffres divisible par 3 · par <b>4</b> : les 2 derniers chiffres forment un multiple de 4 · par <b>5</b> : finit par 0 ou 5 · par <b>9</b> : somme des chiffres divisible par 9.",
+  "Divisible par 12 = divisible par 3 <b>et</b> par 4.",
+  "<b>Pythagore</b> : dans un triangle rectangle, hypoténuse² = côté² + côté². L'hypoténuse est le côté <b>en face de l'angle droit</b>.",
+  "Vrai ou faux : pour dire « faux », un seul <b>contre-exemple</b> suffit (3 + 5 = 8 n'est pas premier)."],
+ full:`
+ <div class="fsec"><h3>1. Diviseurs et nombres premiers</h3>
+  <div class="box"><p class="key">Trouver tous les diviseurs de 56</p><p>Je cherche les paires qui donnent 56 : 1 × 56, 2 × 28, 4 × 14, 7 × 8.</p><p>Diviseurs : <b>1 ; 2 ; 4 ; 7 ; 8 ; 14 ; 28 ; 56</b>.</p></div>
+  <ul><li>Nombre <b>premier</b> : exactement deux diviseurs, 1 et lui-même. 63 = 7 × 9, donc 63 <b>n'est pas</b> premier.</li><li>156 : 1 + 5 + 6 = 12, divisible par 3 → 156 <b>est</b> divisible par 3.</li><li>386 : 3 + 8 + 6 = 17, pas divisible par 3 → 386 <b>n'est pas</b> divisible par 12.</li></ul></div>
+ <div class="fsec"><h3>2. Le théorème de Pythagore</h3>
+  <div class="box"><p class="mem">hypoténuse² = côté² + côté²</p><p>ABC rectangle en <b>B</b> : l'hypoténuse est <b>AC</b> (en face de B).</p><p>AC² = AB² + BC² → 9² = 4² + BC² → BC² = 81 − 16 = 65 → BC = √65 ≈ <b>8,1 cm</b>.</p></div>
+  <p class="tip">Rédaction attendue : « Le triangle ABC est rectangle en B, donc d'après le théorème de Pythagore : AC² = AB² + BC². » Puis le calcul ligne par ligne.</p></div>
+ <div class="fsec"><h3>3. Relatifs : additionner et soustraire</h3>
+  <p>(+6) + (−8) = −2 · (−5,7) + (−4,8) = −10,5 · (−4,5) − (−3) = −4,5 + 3 = −1,5. Soustraire un nombre, c'est <b>ajouter son opposé</b>.</p></div>`},
+{id:"an-basics",s:"Anglais",t:"Jours, mois et anglais de la classe",src:"Renforcement · évaluations de septembre (2/10, 4/17, 5,5/13)",
+ lumni:[["Les jours et les mois en anglais",LUMNI("jours mois anglais")]],
+ short:[
+  "Jours (majuscule !) : Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday.",
+  "Mois : January, February, March, April, May, June, July, August, September, October, November, December.",
+  "En classe : Can you repeat, please? · I don't understand. · How do you say … in English? · Can I go to the toilet, please? · I've forgotten my book. · May I come in?"],
+ full:`
+ <div class="fsec"><h3>Les jours et les mois</h3>
+  <div class="two"><div class="box"><p class="key">Days</p><p>Monday · Tuesday · Wednesday · Thursday · Friday · Saturday · Sunday</p></div><div class="box"><p class="key">Months</p><p>January · February · March · April · May · June · July · August · September · October · November · December</p></div></div>
+  <p class="tip">En anglais, les jours et les mois prennent toujours une <b>majuscule</b>. La date : <b>on</b> Monday, <b>in</b> November, <b>on</b> November 11th.</p></div>
+ <div class="fsec"><h3>Classroom English</h3>
+  <div class="table-wrap"><table><tr><th>Je veux dire…</th><th>En anglais</th></tr>
+   <tr><td>Pouvez-vous répéter ?</td><td>Can you repeat, please?</td></tr><tr><td>Je ne comprends pas.</td><td>I don't understand.</td></tr><tr><td>Comment dit-on … en anglais ?</td><td>How do you say … in English?</td></tr><tr><td>Comment ça s'écrit ?</td><td>How do you spell it?</td></tr><tr><td>Je peux aller aux toilettes ?</td><td>Can I go to the toilet, please?</td></tr><tr><td>J'ai oublié mon livre.</td><td>I've forgotten my book.</td></tr><tr><td>Je peux entrer ?</td><td>May I come in?</td></tr><tr><td>Je n'ai pas fini.</td><td>I haven't finished.</td></tr></table></div></div>`}
+);
+QUIZ.push(
+{id:"q-tension",s:"Physique-Chimie",t:"La tension électrique",fiche:"pc-tension",qs:[
+ ["L'unité de la tension est…",["le volt (V)","l'ampère (A)","le watt (W)","le mètre"],0,"U en volts.","unité"],
+ ["Le voltmètre se branche…",["en dérivation, aux bornes du dipôle","en série","sur la prise","n'importe comment"],0,"Ses deux fils de part et d'autre du dipôle.","voltmètre"],
+ ["Aux bornes d'une pile seule, la tension est…",["non nulle","nulle","impossible à mesurer","négative"],0,"Il y a toujours une tension aux bornes d'un générateur.","générateur"],
+ ["Aux bornes d'un interrupteur ouvert…",["il y a une tension mais pas de courant","il n'y a rien","il y a du courant","la tension est nulle"],0,"Tension sans courant.","interrupteur"],
+ ["Aux bornes d'un fil de connexion…",["la tension est nulle","la tension est maximale","il n'y a jamais de courant","on mesure 4,5 V"],0,"Même parcouru par un courant.","fil"]]},
+{id:"q-ps",s:"Français",t:"Le passé simple",fiche:"fr-ps",qs:[
+ ["faire, il :",["il fit","il faisa","il fut","il faisit"],0,"faire → il fit.","verbes en -i"],
+ ["être, ils :",["ils furent","ils étèrent","ils firent","ils étaient"],0,"être → il fut, ils furent.","verbes en -u"],
+ ["chanter, ils :",["ils chantèrent","ils chantirent","ils chantaient","ils chantarent"],0,"Verbes en -er : -èrent.","verbes en -a"],
+ ["venir, il :",["il vint","il venit","il vena","il venut"],0,"venir → il vint.","venir"],
+ ["prendre, je :",["je pris","je prenai","je prendis","je prus"],0,"prendre → je pris.","verbes en -i"],
+ ["voir, nous :",["nous vîmes","nous voyâmes","nous vûmes","nous voirent"],0,"voir → nous vîmes (accent circonflexe).","nous / vous"],
+ ["aller, elle :",["elle alla","elle allit","elle vint","elle allut"],0,"aller se conjugue comme les verbes en -er.","aller"],
+ ["avoir, tu :",["tu eus","tu avis","tu eut","tu avas"],0,"avoir → j'eus, tu eus, il eut.","verbes en -u"]]},
+{id:"q-base",s:"Maths",t:"Arithmétique et Pythagore",fiche:"ma-base",qs:[
+ ["Un nombre premier a…",["exactement deux diviseurs : 1 et lui-même","un seul diviseur","beaucoup de diviseurs","aucun diviseur"],0,"1 n'est pas premier (un seul diviseur).","nombre premier"],
+ ["63 est-il premier ?",["Non, 63 = 7 × 9","Oui","Oui car il est impair","Non car il finit par 3"],0,"Il a d'autres diviseurs que 1 et 63.","nombre premier"],
+ ["156 est-il divisible par 3 ?",["Oui : 1 + 5 + 6 = 12","Non","Oui car il est pair","Non car il finit par 6"],0,"Critère : somme des chiffres.","critères"],
+ ["432 est-il divisible par 12 ?",["Oui : divisible par 3 (4+3+2=9) et par 4 (32)","Non","Oui car il est pair","Non car 4+3+2 = 9"],0,"12 = 3 × 4.","critères"],
+ ["« La somme de deux nombres premiers est un nombre premier » :",["Faux : 3 + 5 = 8","Vrai","Vrai sauf pour 2","On ne peut pas savoir"],0,"Un contre-exemple suffit.","vrai / faux"],
+ ["Triangle rectangle en B. L'hypoténuse est…",["le côté en face de B","le plus petit côté","le côté AB","n'importe quel côté"],0,"En face de l'angle droit.","Pythagore"],
+ ["IJK rectangle en K, IK = 11, JK = 13. IJ² = ?",["290","48","24","169"],0,"121 + 169 = 290, IJ ≈ 17,0 cm.","Pythagore"]]},
+{id:"q-hopper",s:"Anglais",t:"Décrire un tableau",fiche:"an-hopper",qs:[
+ ["« au premier plan » :",["in the foreground","in the background","on the left","at the top"],0,"background = arrière-plan.","localisation"],
+ ["« à l'arrière-plan » :",["in the background","in the foreground","in the middle","behind the left"],0,"","localisation"],
+ ["Elle est assise (en ce moment, sur le tableau) :",["She is sitting","She sits","She sitting","She is sit"],0,"be + -ing pour ce qui se passe sur l'image.","be + -ing"],
+ ["Pour une hypothèse « elle est peut-être triste » :",["She may be sad","She must sad","She is maybe to be sad","She mays be sad"],0,"may / might + verbe de base.","modaux"],
+ ["« Il doit faire nuit » (presque sûr) :",["It must be night","It may night","It is must night","It musts be night"],0,"must = presque sûr.","modaux"],
+ ["La 1re étape pour présenter un tableau :",["This painting is by Edward Hopper","I like it","She may be sad","In the background"],0,"D'abord : qui l'a peint, le titre.","méthode"]]},
+{id:"q-ma17",s:"Maths",t:"Contrôle blanc : relatifs et statistiques",fiche:"ma-moy",qs:[
+ ["(−4,5) − (−3) = ?",["−1,5","−7,5","1,5","7,5"],0,"−4,5 + 3 = −1,5.","relatifs"],
+ ["(−6) × (−4) + 5 = ?",["29","−19","19","−29"],0,"24 + 5.","priorités"],
+ ["Fréquence : 9 élèves sur 36 :",["1/4 = 25 %","9 %","1/9","36/9"],0,"9 ÷ 36 = 0,25.","fréquence"],
+ ["Moyenne de 8 ; 12 ; 13 ; 15 :",["12","13","11","48"],0,"48 ÷ 4 = 12.","moyenne"],
+ ["Médiane de 4 ; 9 ; 2 ; 7 ; 5 :",["5","7","9","5,4"],0,"Rangées : 2 ; 4 ; 5 ; 7 ; 9.","médiane"],
+ ["Étendue de 4 ; 9 ; 2 ; 7 ; 5 :",["7","9","5","2"],0,"9 − 2 = 7.","étendue"],
+ ["Une fréquence vaut toujours…",["entre 0 et 1","plus que 1","exactement 1","moins que 0"],0,"Somme des fréquences = 1.","fréquence"]]}
+);
+const EX_ADD4=[
+{id:"fr-sort-mots",s:"Français",fiche:"fr-mots",kind:"fond",type:"sort",t:"Préfixe ou suffixe ?",
+ cats:["C'est un préfixe (avant le radical)","C'est un suffixe (après le radical)"],items:[
+ ["in- dans « invisible »",0],["-ible dans « invisible »",1],["dé- dans « défaire »",0],["-tion dans « attention »",1],["re- dans « refaire »",0],["-age dans « nettoyage »",1],["mé- dans « méconnaissable »",0],["-able dans « mangeable »",1]],
+ expl:["Le préfixe se place avant le radical et change le sens.","Le suffixe se place après le radical et change souvent la classe du mot."]},
+{id:"fr-flash-ps",s:"Français",fiche:"fr-ps",kind:"fond",type:"flash",t:"Passé simple : les verbes à connaître",
+ note:"Dis la forme à voix haute avant de retourner la carte.",
+ cards:[["faire (il)","il fit"],["être (il)","il fut"],["avoir (il)","il eut"],["prendre (il)","il prit"],["dire (il)","il dit"],["voir (il)","il vit"],["venir (il)","il vint"],["venir (ils)","ils vinrent"],["mettre (il)","il mit"],["savoir (il)","il sut"],["pouvoir (il)","il put"],["vouloir (il)","il voulut"],["courir (il)","il courut"],["mourir (il)","il mourut"],["écrire (il)","il écrivit"],["lire (il)","il lut"],["aller (ils)","ils allèrent"],["chanter (ils)","ils chantèrent"],["finir (nous)","nous finîmes"],["être (ils)","ils furent"],["craindre (il)","il craignit"],["peindre (il)","il peignit"]]},
+{id:"pc-sort-tension",s:"Physique-Chimie",fiche:"pc-tension",kind:"fond",type:"sort",t:"Tension nulle ou non nulle ?",
+ cats:["Tension non nulle","Tension nulle"],items:[
+ ["Pile seule, posée sur la table",0],["Fil de connexion dans un circuit qui fonctionne",1],["Interrupteur ouvert dans un circuit",0],["Interrupteur fermé dans un circuit",1],["Générateur dans un circuit",0],["Lampe qui brille",0]],
+ expl:["Générateur, interrupteur ouvert, lampe allumée : il y a une tension.","Fil, interrupteur fermé : tension nulle même si le courant passe."]},
+{id:"pc-calc-vit",s:"Physique-Chimie",fiche:"pc-vitesse",kind:"fond",type:"calc",gen:"vit",n:6,t:"Calculer des vitesses (toujours nouvelles)"},
+{id:"ma-calc-pyth",s:"Maths",fiche:"ma-base",kind:"fond",type:"calc",gen:"pyth",n:5,t:"Pythagore : calculer un côté (toujours nouveau)"},
+{id:"ma-sort-div",s:"Maths",fiche:"ma-base",kind:"fond",type:"sort",t:"Premier ou pas premier ?",
+ cats:["Premier","Pas premier"],items:[["2",0],["9",1],["13",0],["21",1],["17",0],["1",1],["29",0],["51",1],["31",0],["57",1]],
+ expl:["Seulement deux diviseurs : 1 et lui-même.","Il a un autre diviseur (ou c'est 1). 51 = 3 × 17, 57 = 3 × 19."]},
+{id:"an-write-hopper",s:"Anglais",fiche:"an-hopper",kind:"forme",type:"write",t:"Décrire un tableau de Hopper à l'oral",
+ prompt:"Cherche « Automat Edward Hopper » sur Internet avec maman, puis décris le tableau à voix haute en 6 phrases, avec les 4 étapes.",
+ method:["Je présente : This painting is by… It's called…","Je situe : In the foreground / in the background…","Je décris l'action : She is sitting / holding / wearing…","Je fais 2 hypothèses avec must / may / might, puis je donne mon avis."],
+ model:"This painting is by Edward Hopper, an American painter. It's called Automat.\nIn the foreground, there is a woman. She is sitting alone at a table.\nShe is wearing a coat and a hat and she is holding a cup of coffee.\nIn the background, we can see lights reflected in the window.\nIt must be night. She may be waiting for someone, she might be sad or lonely.\nI like this painting because it is calm and a bit mysterious.",
+ check:["J'ai présenté le peintre et le titre","J'ai utilisé foreground ou background","Au moins 2 verbes en be + -ing","Une hypothèse avec must","Une hypothèse avec may ou might","Mon avis (I like / I don't like… because…)"]},
+{id:"an-flash-basics",s:"Anglais",fiche:"an-basics",kind:"fond",type:"flash",t:"Jours, mois et phrases de la classe",
+ cards:[["lundi","Monday"],["mardi","Tuesday"],["mercredi","Wednesday"],["jeudi","Thursday"],["vendredi","Friday"],["samedi","Saturday"],["dimanche","Sunday"],["février","February"],["avril","April"],["juillet","July"],["août","August"],["septembre","September"],["décembre","December"],["Pouvez-vous répéter ?","Can you repeat, please?"],["Je ne comprends pas.","I don't understand."],["Comment dit-on … en anglais ?","How do you say … in English?"],["J'ai oublié mon livre.","I've forgotten my book."],["Je peux entrer ?","May I come in?"]]}
+];
+/* Notes sous 10/20 → renforcement */
+const RENF=[
+ {s:"Anglais",d:"2026-11-06",ev:"Analyse a painting by E. Hopper",note:"3,50 / 20",moy:"11,09",fiche:"an-hopper",quiz:"q-hopper",ex:["an-write-hopper"]},
+ {s:"Espagnol",d:"2026-10-15",ev:"Évaluation formative séquence « Rutina »",note:"4 / 20",moy:"14,27",fiche:"es-seq",quiz:"q-es-seq",ex:["es-flash-seq","es-oral-seq"]},
+ {s:"Français",d:"2026-10-09",ev:"Contrôle sur le passé simple",note:"3 / 10",moy:"7,38",fiche:"fr-ps",quiz:"q-ps",ex:["fr-flash-ps"]},
+ {s:"Maths",d:"2026-10-06",ev:"Interrogation d'arithmétique (+ relatifs et Pythagore, 22 sept. : 6/15)",note:"3,5 / 10",moy:"7,53",fiche:"ma-base",quiz:"q-base",ex:["ma-sort-div","ma-calc-pyth"]},
+ {s:"Physique-Chimie",d:"2026-10-07",ev:"Contrôle n°1 (+ TP mesure de vitesses : 2/10)",note:"7,5 / 20",moy:"12,84",fiche:"pc-vitesse",ex:["pc-calc-vit"]},
+ {s:"Anglais",d:"2026-09-30",ev:"Say it in English / days, months, classroom English",note:"2 / 10",moy:"5,29",fiche:"an-basics",ex:["an-flash-basics"]}
+];
+
 /* ---------- Entraînements ---------- */
 const PASSAGE="Cette nuit-là, je lisais tranquillement dans mon fauteuil. La maison était silencieuse. Soudain, la page de mon livre se tourna toute seule. Je regardai autour de moi : personne. Avais-je rêvé ? Ou quelqu'un, invisible, se tenait-il près de moi ?";
 const EX=[
@@ -997,6 +1226,75 @@ const PLAN=[
   st:["Je refais le classement « Contact ou à distance ? ».","Je fais 8 calculs de fréquences."],c:"Au moins 7/8 aux deux."}]}
 ];
 
+/* ---------- Programme du 11 au 17 novembre ---------- */
+EX.push(...EX_ADD4);
+CTRL.push(
+ {id:"c-ma17",d:"2026-11-17",s:"Maths",t:"Évaluation : statistiques et nombres relatifs",what:"Mardi 17 novembre, 12 h 55-13 h 55, salle 132. Relatifs (priorités, signes), effectifs, fréquences, moyenne, médiane, étendue. Calculatrice.",quiz:["q-ma17","q-moy","q-med"],ex:["ma-calc-rel","ma-calc-moy","ma-calc-med","ma-write-calc"],fiche:"ma-moy",
+  cl:["Je fais un calcul avec des relatifs en respectant les priorités.","Je calcule une fréquence en fraction, en décimal et en %.","Je calcule une moyenne (simple et avec un tableau).","Je trouve une médiane (N pair et N impair).","Je calcule une étendue.","Ma calculatrice est dans mon sac."]},
+ {id:"c-svt17",d:"2026-11-17",s:"SVT",t:"Évaluation sur le chapitre 1",what:"Mardi 17 novembre, 10 h 40-11 h 40, salle 120. Photosynthèse, stomates, poils absorbants (bilans 1 à 4).",quiz:["q-svt"],ex:["svt-sort","svt-concl","svt-dessin"],fiche:"svt",
+  cl:["Je récite l'équation de la photosynthèse.","Je refais le schéma de la plante (ce qui entre, ce qui sort).","J'explique le rôle des stomates et des poils absorbants.","Je rédige une conclusion d'expérience (J'observe que… J'en déduis que…)."]},
+ {id:"c-an16",d:"2026-11-16",s:"Anglais",t:"Verbes irréguliers (liste du 16)",what:"Les verbes du planning de la professeure. Puis une autre liste le mercredi 18.",quiz:[],ex:["an-flash"],fiche:"an",
+  cl:["J'ai trouvé la liste du 16 dans le planning.","Je dis les 3 formes de chaque verbe sans regarder.","Je les ai écrits une fois sans erreur."]}
+);
+PLAN.length=0;
+PLAN.push(
+{d:"2026-11-11",kind:"Mercredi 11 novembre · férié",note:"Jour férié : 4 blocs, dont 3 devoirs pour demain.",blocs:[
+ {id:"f11a",k:"devoir",s:"Français",t:"Comment sont formés les mots ? (5 mots)",due:"2026-11-12",fiche:"fr-mots",ex:["fr-sort-mots"],
+  st:["Je lis la fiche « La formation des mots » (3 min).","Je fais « Préfixe ou suffixe ? ».","Pour « mystérieuses », « voisinages », « assombri », « misérables », « vibrations » : je trouve le mot simple de la famille (le radical), puis le préfixe et le suffixe. J'écris avec Cantoo ou je dicte."],c:"Les 5 mots découpés en préfixe / radical / suffixe."},
+ {id:"f11b",k:"devoir",s:"Maths",t:"Exercice 4 (question 3) et exercice 5 p. 160 + la leçon",due:"2026-11-12",fiche:"ma-med",ex:["ma-calc-med"],
+  st:["Je relis la fiche « La médiane », avec l'étendue (partie 4).","Exercice 4 question 3, puis exercice 5 p. 160 : je range, je compte, je trouve le milieu.","Je finis chaque réponse par une phrase."],c:"Les 2 exercices finis avec une phrase réponse."},
+ {id:"f11c",k:"devoir",s:"Anglais",t:"Le cours sur le prétérit + les verbes de demain",due:"2026-11-12",fiche:"an",quiz:"q-an",ex:["an-flash"],
+  st:["Je relis mon cours sur le prétérit simple (5 min).","Je fais les cartes des verbes irréguliers de la liste de demain.","Je fais le quiz « Roaring Twenties et prétérit »."],c:"Les verbes de la liste justes et au moins 6/7 au quiz."},
+ {id:"f11d",k:"renfort",s:"Anglais",t:"Renforcement : décrire un tableau (note 3,5/20)",fiche:"an-hopper",quiz:"q-hopper",ex:["an-write-hopper"],
+  st:["Je lis la fiche « Décrire un tableau ».","Je décris Automat de Hopper à voix haute avec les 4 étapes (entraînement).","Je fais le quiz."],c:"Ma description a les 6 cases de la grille et au moins 5/6 au quiz."}]},
+{d:"2026-11-12",kind:"Soir de cours",note:"",blocs:[
+ {id:"f12a",k:"devoir",s:"Histoire-Géo-EMC",t:"Finir de rédiger ma leçon sur l'État de droit",due:"2026-11-13",fiche:"emc-etat",
+  st:["Je relis mes notes de classe et la correction de la fiche 3.","Je lis la fiche « L'État de droit ».","Je complète ma leçon avec Cantoo : définition, Constitution, séparation des pouvoirs, justice, ordre public."],c:"Ma leçon a une définition de l'État de droit et 3 idées."},
+ {id:"f12b",k:"devoir",s:"Espagnol",t:"Réviser la séquence (interrogation orale chaque jour)",due:"2026-11-13",fiche:"es-seq",ex:["es-flash-seq"],
+  st:["Je fais les cartes « L'heure, la routine et les émotions » à voix haute.","Je dis 3 phrases sur ma journée avec l'heure.","Je mets mon dictionnaire dans le sac pour vendredi."],c:"Toutes les cartes justes du premier coup ou presque."},
+ {id:"f12c",k:"renfort",s:"Français",t:"Renforcement : le passé simple (note 3/10)",fiche:"fr-ps",quiz:"q-ps",ex:["fr-flash-ps"],
+  st:["Je lis le tableau des 4 familles de terminaisons.","Je fais les cartes « Passé simple : les verbes à connaître ».","Je fais le quiz « Le passé simple »."],c:"Au moins 7/8 au quiz."}]},
+{d:"2026-11-13",kind:"Vendredi",note:"",blocs:[
+ {id:"f13a",k:"controle",s:"Maths",t:"Statistiques : moyenne, médiane, étendue (J-4)",due:"2026-11-17",fiche:"ma-moy",quiz:"q-ma17",ex:["ma-calc-moy","ma-calc-med"],
+  st:["Je relis « L'essentiel » des fiches moyenne et médiane.","Je fais 6 moyennes et 6 médianes.","Je fais le contrôle blanc « Relatifs et statistiques »."],c:"Au moins 5/6, 5/6 et 6/7."},
+ {id:"f13b",k:"devoir",s:"Anglais",t:"Verbes irréguliers : la liste du 16 (1re moitié)",due:"2026-11-16",fiche:"an",ex:["an-flash"],
+  st:["Je cherche la liste du 16 dans le planning.","Je dis les verbes 5 par 5 en tapant dans les mains.","Je fais les cartes."],c:"La 1re moitié juste sans regarder."},
+ {id:"f13c",k:"revision",s:"Physique-Chimie",t:"Révision : la tension électrique",fiche:"pc-tension",quiz:"q-tension",ex:["pc-sort-tension"],
+  st:["Je lis la fiche « La tension électrique ».","Je fais « Tension nulle ou non nulle ? ».","Je fais le quiz."],c:"Au moins 5/6 et 4/5."}]},
+{d:"2026-11-14",kind:"Samedi",note:"",blocs:[
+ {id:"f14a",k:"controle",s:"SVT",t:"Chapitre 1 : bilans 1 à 4 (J-3)",due:"2026-11-17",fiche:"svt",quiz:"q-svt",ex:["svt-sort"],
+  st:["Je lis la fiche SVT, surtout le bilan 4 (poils absorbants).","Je refais de mémoire le schéma de la plante.","Je fais le quiz SVT."],c:"Au moins 7/9 au quiz."},
+ {id:"f14b",k:"controle",s:"Maths",t:"Relatifs : priorités et signes (J-3)",due:"2026-11-17",fiche:"ma-rel",quiz:"q-rel",ex:["ma-calc-rel","ma-write-calc"],
+  st:["Je fais 10 calculs avec les relatifs.","Je fais « Présenter un calcul ligne par ligne ».","Je fais le quiz « Calculs avec les relatifs »."],c:"Au moins 8/10 et 6/7."},
+ {id:"f14c",k:"renfort",s:"Maths",t:"Renforcement : arithmétique et Pythagore (notes 3,5/10 et 6/15)",fiche:"ma-base",quiz:"q-base",ex:["ma-sort-div","ma-calc-pyth"],
+  st:["Je lis la fiche « Bases à reprendre ».","Je fais « Premier ou pas premier ? » et 5 calculs de Pythagore.","Je fais le quiz."],c:"Au moins 8/10, 4/5 et 6/7."}]},
+{d:"2026-11-15",kind:"Dimanche · veille des verbes d'anglais",note:"",blocs:[
+ {id:"f15a",k:"devoir",s:"Anglais",t:"Verbes irréguliers : toute la liste du 16",due:"2026-11-16",fiche:"an",ex:["an-flash"],
+  st:["J'apprends la 2e moitié, 5 par 5.","Un adulte m'interroge à l'oral sur toute la liste."],c:"Toute la liste juste à l'oral."},
+ {id:"f15b",k:"controle",s:"Maths",t:"Fréquences et rédaction (J-2)",due:"2026-11-17",fiche:"ma-moy",quiz:"q-moy",ex:["ma-calc-freq","ma-write-moy"],
+  st:["Je fais 8 calculs de fréquences.","Je fais « Rédiger un calcul de moyenne ».","Je fais le quiz « Fréquences et moyenne »."],c:"Au moins 6/8 et 6/7."},
+ {id:"f15c",k:"controle",s:"SVT",t:"Conclusion d'expérience et dessin (J-2)",due:"2026-11-17",fiche:"svt",ex:["svt-concl","svt-order"],
+  st:["Je fais « Rédiger la conclusion d'une expérience ».","Je remets la préparation microscopique dans l'ordre.","J'explique à voix haute le rôle des stomates et des poils absorbants."],c:"Grille de la conclusion complète."},
+ {id:"f15d",k:"renfort",s:"Espagnol",t:"Renforcement : la routine (note 4/20)",fiche:"es-seq",quiz:"q-es-seq",ex:["es-oral-seq"],
+  st:["Je relis la fiche « Toute la séquence ».","Je présente ma journée à l'oral (entraînement), la 2e fois sans lire.","Je fais le quiz."],c:"Grille complète et au moins 6/7."}]},
+{d:"2026-11-16",kind:"Lundi · veille de 2 évaluations (maths et SVT)",note:"",blocs:[
+ {id:"f16a",k:"controle",s:"Maths",t:"Contrôle blanc complet : relatifs et statistiques",due:"2026-11-17",fiche:"ma-moy",quiz:"q-ma17",ex:["ma-calc-rel","ma-calc-med"],
+  st:["Sans fiche : je fais le contrôle blanc.","Je refais 10 relatifs et 6 médianes.","Je vais dans « Contrôles » et je coche ce que je sais. Calculatrice dans le sac."],c:"Au moins 6/7 et le contrôle maths « Prêt » ou « Presque prêt »."},
+ {id:"f16b",k:"controle",s:"SVT",t:"Contrôle blanc de SVT",due:"2026-11-17",fiche:"svt",quiz:"q-svt",ex:["svt-sort"],
+  st:["Sans fiche : je récite l'équation et je refais le schéma de la plante.","Je refais le quiz SVT.","Je coche ce que je sais dans « Contrôles »."],c:"Au moins 8/9 au quiz."},
+ {id:"f16c",k:"revision",s:"Français",t:"Révision : Le Horla (8 et 12 mai) et les mots",fiche:"fr-mots",quiz:"q-horla2",ex:["fr-sort-mots"],
+  st:["Je relis l'essentiel des fiches « Le Horla : journal intime » et « 12 mai ».","Je refais « Préfixe ou suffixe ? ».","Je fais le quiz « Le Horla : journal et méthode »."],c:"Au moins 7/8 au classement et au quiz."},
+ {id:"f16d",k:"renfort",s:"Anglais",t:"Renforcement : jours, mois, anglais de la classe",fiche:"an-basics",ex:["an-flash-basics"],
+  st:["Je fais les cartes à voix haute, en épelant les jours avec une majuscule.","Je recommence les cartes ratées jusqu'à toutes les savoir."],c:"Toutes les cartes sues."}]},
+{d:"2026-11-17",kind:"Mardi · évaluations de SVT et de maths",note:"Le programme de la semaine suivante arrive bientôt.",blocs:[
+ {id:"f17a",k:"devoir",s:"Anglais",t:"Verbes irréguliers : la liste du 18",due:"2026-11-18",fiche:"an",ex:["an-flash"],
+  st:["Je cherche la liste du 18.","J'apprends 5 par 5, puis toute la liste à l'oral."],c:"Toute la liste juste sans regarder."},
+ {id:"f17b",k:"renfort",s:"Physique-Chimie",t:"Renforcement : mouvement et vitesse (note 7,5/20)",fiche:"pc-vitesse",ex:["pc-calc-vit"],
+  st:["Je lis la fiche « Mouvement et vitesse ».","Je fais 6 calculs de vitesse.","Avec maman, je regarde ma copie du contrôle n°1 et je note ce que j'avais raté."],c:"Au moins 5/6 aux calculs."},
+ {id:"f17c",k:"revision",s:"Espagnol",t:"Révision : l'heure et la routine",fiche:"es-seq",ex:["es-flash-seq"],
+  st:["Je refais les cartes à voix haute.","Je dis 3 phrases avec « se » ou « soler »."],c:"Toutes les cartes sues."}]}
+);
+
 /* ================= ÉTAT ================= */
 const KEY="hugoApp.v2";
 let S={rate:{},notes:{},quiz:{},ex:{},checks:{},sent:{},mood:{},pin:null,updated:0};
@@ -1012,7 +1310,7 @@ const dateOf=k=>{const [y,m,d]=k.split("-").map(Number);return new Date(y,m-1,d)
 const fmt=(k,o)=>dateOf(k).toLocaleDateString("fr-FR",o);
 const longDay=k=>fmt(k,{weekday:"long",day:"numeric",month:"long"});
 const RL={g:"Je sais",o:"Presque",r:"Pas encore"};
-const KL={devoir:"Devoir",revision:"Révision",controle:"Contrôle"};
+const KL={devoir:"Devoir",revision:"Révision",controle:"Contrôle",renfort:"Renforcement"};
 const FI=id=>FICHES.find(f=>f.id===id), QI=id=>QUIZ.find(q=>q.id===id), EI=id=>EX.find(e=>e.id===id);
 const mins=day=>day.blocs.length*15;
 
@@ -1055,6 +1353,7 @@ function render(){
   else if(tab==="quiz") v.innerHTML=playing?viewPlay():viewQuizList();
   else if(tab==="ex") v.innerHTML=R?viewRun():viewExList();
   else if(tab==="ctrl") v.innerHTML=viewCtrl();
+  else if(tab==="renf") v.innerHTML=viewRenf();
   else if(tab==="bilan") v.innerHTML=viewBilan();
   else v.innerHTML=viewParent();
   wire();
@@ -1067,7 +1366,7 @@ function viewPlan(){
   const evToday=CTRL.filter(c=>c.d===day.d);
   const done=list.filter(b=>S.rate[b.id]).length, allDone=done===list.length, sent=S.sent[day.d];
   const count=k=>list.filter(b=>b.k===k).length;
-  const parts=["devoir","revision","controle"].filter(k=>count(k)).map(k=>count(k)+" "+KL[k].toLowerCase()+(count(k)>1?"s":""));
+  const parts=["devoir","revision","controle","renfort"].filter(k=>count(k)).map(k=>count(k)+" "+KL[k].toLowerCase()+(count(k)>1?"s":""));
   return '<nav class="days" aria-label="Choisir un jour">'+days+'</nav>'+
    '<div class="stack" style="gap:6px"><span class="tag">'+esc(day.kind)+(day.d===todayKey?" · aujourd'hui":"")+'</span><h2>'+esc(longDay(day.d))+'</h2>'+
    '<p class="prog"><b>Mon programme : '+mins(day)+' minutes</b>, '+list.length+' blocs de 15 min ('+parts.join(", ")+'). <span class="muted">Tout est obligatoire. 5 min de pause debout entre chaque bloc.</span></p>'+
@@ -1170,12 +1469,21 @@ function genMed(){
   const m=n%2?s[(n-1)/2]:(s[n/2-1]+s[n/2])/2;
   return {q:"Médiane de : "+vals.join(" ; ")+" ?",ans:m,ex:"Rangées : "+s.join(" ; ")+". N = "+n+(n%2?" (impair) : rang "+(n+1)/2+" → "+N_(m)+".":" (pair) : rangs "+n/2+" et "+(n/2+1)+" → ("+s[n/2-1]+" + "+s[n/2]+") ÷ 2 = "+N_(m)+".")};
 }
+function genVit(){
+  if(Math.random()<.5){const v=rnd(2,12)/2, t=rnd(2,20); const d=Math.round(v*t*10)/10; return {q:"Une goutte parcourt "+N_(d)+" m en "+t+" s. Sa vitesse en m/s ?",ans:v,ex:"v = d ÷ t = "+N_(d)+" ÷ "+t+" = "+N_(v)+" m/s."};}
+  const v=rnd(3,13)*10, t=rnd(1,4); return {q:"Une voiture parcourt "+(v*t)+" km en "+t+" h. Sa vitesse en km/h ?",ans:v,ex:"v = d ÷ t = "+(v*t)+" ÷ "+t+" = "+v+" km/h."};
+}
+function genPyth(){
+  const T=[[3,4,5],[6,8,10],[5,12,13],[8,15,17],[9,12,15],[7,24,25],[12,16,20]][rnd(0,6)];
+  if(Math.random()<.5) return {q:"Triangle rectangle : les côtés de l'angle droit mesurent "+T[0]+" cm et "+T[1]+" cm. Longueur de l'hypoténuse ?",ans:T[2],ex:"hyp² = "+T[0]+"² + "+T[1]+"² = "+(T[0]*T[0])+" + "+(T[1]*T[1])+" = "+(T[2]*T[2])+", donc hyp = "+T[2]+" cm."};
+  return {q:"Triangle rectangle : l'hypoténuse mesure "+T[2]+" cm et un côté de l'angle droit "+T[0]+" cm. Longueur de l'autre côté ?",ans:T[1],ex:"côté² = "+T[2]+"² − "+T[0]+"² = "+(T[2]*T[2])+" − "+(T[0]*T[0])+" = "+(T[1]*T[1])+", donc côté = "+T[1]+" cm."};
+}
 function startEx(id){
   const e=EI(id); playing=null; tab="ex";
   R={id,i:0,score:0,ans:null,err:0,done:false,miss:[]};
   if(e.type==="sort") R.items=shuffle(e.items);
   if(e.type==="order"){R.pool=shuffle(e.steps); R.placed=[]; R.wrong=null;}
-  if(e.type==="calc"){R.qs=Array.from({length:e.n},()=>e.gen==="rel"?genRel():e.gen==="moy"?genMoy():e.gen==="med"?genMed():genFreq()); R.val="";}
+  if(e.type==="calc"){R.qs=Array.from({length:e.n},()=>e.gen==="rel"?genRel():e.gen==="moy"?genMoy():e.gen==="med"?genMed():e.gen==="vit"?genVit():e.gen==="pyth"?genPyth():genFreq()); R.val="";}
   if(e.type==="write"){R.shown=false; R.ck={};}
   if(e.type==="flash"){R.queue=shuffle(e.cards.map((_,k)=>k)); R.first={}; R.flip=false; R.total=e.cards.length;}
   render(); window.scrollTo(0,0);
@@ -1246,6 +1554,21 @@ function exWire(){
   const xo=$("#xno"); if(xo) xo.onclick=()=>{ const k=R.queue.shift(); if(!(k in R.first)){R.first[k]=false; R.miss.push(e.cards[k][0]);} R.queue.push(k); R.flip=false; render(); };
 }
 
+/* ---- Renforcement ---- */
+function renfStatus(r){
+  const ps=[]; if(r.quiz) ps.push(lastPct(r.quiz)); (r.ex||[]).forEach(e=>ps.push(exLast(e)));
+  if(ps.every(p=>p===null)) return ["r","Pas commencé"];
+  if(ps.every(p=>p!==null&&p>=.8)) return ["g","Consolidé"];
+  return ["o","En cours"];
+}
+function viewRenf(){
+  return '<p class="muted">Les évaluations où j\'ai eu moins de 10/20 (ou moins de la moitié des points). Pour chacune : je relis la fiche, je fais les entraînements, et je vise 80 % pour passer au vert.</p>'+
+   RENF.map(r=>{const [c,lab]=renfStatus(r);return '<section class="ctrl '+c+'"><div class="row" style="justify-content:space-between"><span class="tag">'+esc(r.s)+' · '+esc(fmt(r.d,{day:"numeric",month:"long"}))+'</span><span class="pill '+c+'">'+lab+'</span></div>'+
+    '<h3>'+esc(r.ev)+'</h3><p class="small">Ma note : <b>'+esc(r.note)+'</b> · moyenne de la classe : '+esc(r.moy)+'</p>'+
+    '<div class="stack" style="gap:6px"><span><button type="button" class="btn ghost small" data-fiche="'+r.fiche+'">Fiche : '+esc(FI(r.fiche).t)+'</button></span>'+
+    (r.ex||[]).map(e=>'<span class="row"><button type="button" class="btn ghost small" data-ex="'+e+'">'+esc(EI(e).t)+'</button> '+pillE(e)+'</span>').join("")+
+    (r.quiz?'<span class="row"><button type="button" class="btn small" data-play="'+r.quiz+'">Quiz : '+esc(QI(r.quiz).t)+'</button> '+pillQ(r.quiz)+'</span>':'')+'</div></section>';}).join("");
+}
 /* ---- Contrôles ---- */
 function viewCtrl(){
   const list=CTRL.filter(c=>c.d>=todayKey), past=CTRL.filter(c=>c.d<todayKey);
