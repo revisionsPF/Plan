@@ -185,7 +185,7 @@ ul.cl2{list-style:none;padding:0;display:flex;flex-direction:column;gap:4px} ul.
 <div class="app">
   <header class="top">
     <div class="stack" style="gap:4px">
-      <span class="tag">Hugo · 4e5 · semaine du 11 au 17 novembre</span>
+      <span class="tag">Hugo · 4e5 · semaine du 11 au 17 novembre · mis à jour le 12</span>
       <h1>Mon plan de révision</h1>
     </div>
     <div class="progress" aria-live="polite">
@@ -1495,7 +1495,7 @@ function startEx(id){
   R={id,i:0,score:0,ans:null,err:0,done:false,miss:[]};
   if(e.type==="sort") R.items=shuffle(e.items);
   if(e.type==="order"){R.pool=shuffle(e.steps); R.placed=[]; R.wrong=null;}
-  if(e.type==="calc"){R.qs=Array.from({length:e.n},()=>e.gen==="rel"?genRel():e.gen==="moy"?genMoy():e.gen==="med"?genMed():e.gen==="vit"?genVit():e.gen==="pyth"?genPyth():genFreq()); R.val="";}
+  if(e.type==="calc"){R.qs=Array.from({length:e.n},()=>e.gen==="rel"?genRel():e.gen==="moy"?genMoy():e.gen==="med"?genMed():e.gen==="vit"?genVit():e.gen==="pyth"?genPyth():e.gen==="frac"?genFrac():genFreq()); R.val="";}
   if(e.type==="write"){R.shown=false; R.ck={};}
   if(e.type==="flash"){R.queue=shuffle(e.cards.map((_,k)=>k)); R.first={}; R.flip=false; R.total=e.cards.length;}
   render(); window.scrollTo(0,0);
@@ -1514,7 +1514,7 @@ function viewRun(){
   if(R.done){const [s,t]=R.final, p=s/t, c=p>=.8?"g":p>=.6?"o":"r";
     return '<div class="qcard"><span class="tag">'+esc(e.s)+' · '+esc(e.t)+'</span><h2>'+s+' / '+t+'</h2><p><span class="pill '+c+'">'+(c==="g"?"Je sais":c==="o"?"Presque":"À revoir")+'</span></p>'+
      (R.miss.length?'<p class="small">À revoir : '+esc(R.miss.slice(0,6).join(" ; "))+'</p>':'')+
-     '<div class="row"><button type="button" class="btn" data-ex="'+e.id+'">Recommencer</button><button type="button" class="btn ghost" data-fiche="'+e.fiche+'">Voir la fiche</button><button type="button" class="btn ghost" data-goto="plan">Retour au programme</button></div></div>';}
+     '<div class="row"><button type="button" class="btn" data-ex="'+e.id+'">Recommencer</button>'+(e.fiche?'<button type="button" class="btn ghost" data-fiche="'+e.fiche+'">Voir la fiche</button>':'')+'<button type="button" class="btn ghost" data-goto="plan">Retour au programme</button></div></div>';}
   if(e.type==="sort"){
     const it=R.items[R.i];
     return '<div class="qcard">'+exHead(e,(R.i+1)+" sur "+R.items.length)+'<p class="muted small">Je choisis la bonne case.</p><p class="item">'+esc(it[0])+'</p>'+
@@ -1686,6 +1686,318 @@ function stopTimer(){clearInterval(T.iv); T.running=false; T.id=null; T.left=900
 function beep(){try{const a=new (window.AudioContext||window.webkitAudioContext)(); [0,.35].forEach(t=>{const o=a.createOscillator(),g=a.createGain(); o.frequency.value=660; g.gain.value=.15; o.connect(g); g.connect(a.destination); o.start(a.currentTime+t); o.stop(a.currentTime+t+.2);});}catch(e){}}
 function tick(){T.left=Math.max(0,(T.end-Date.now())/1000); const c=$("#clock"); if(c&&openId===T.id) c.textContent=clockText(); if(T.left<=0){clearInterval(T.iv); T.running=false; beep(); if(c&&openId===T.id) c.textContent="Fini !"; const g=$("#tgo"); if(g&&openId===T.id) g.textContent="Encore un peu"; T.left=900;}}
 
+
+/* ---------- Ajouts du 12 novembre ---------- */
+FICHES.push(
+{id:"fr-affixes",s:"Français",t:"Préfixes et suffixes (leçon du 12 novembre)",src:"Cours du 12 novembre · exercice pour le vendredi 13",
+ lumni:[["Préfixes et suffixes",LUMNI("préfixe suffixe")],["Former des mots dérivés",LUMNI("mots dérivés")]],
+ short:[
+  "<b>Préfixe</b> = petit élément d'1 ou 2 syllabes <b>avant</b> le radical. Il change le <b>sens</b>, pas la nature du mot.",
+  "in-, im-, il-, ir-, dé-, dis- = <b>le contraire</b> (illisible, irrégulier, impossible, déranger, discontinu). mal-, mé-, més- = <b>mauvais</b>. a- = <b>sans</b> (aphone). re- = <b>de nouveau</b>. anti-, contre- = <b>contre</b>.",
+  "im- devant <b>p, b, m</b> (impossible) ; il- devant <b>l</b> (illisible) ; ir- devant <b>r</b> (irrégulier).",
+  "<b>Suffixe</b> = élément <b>après</b> le radical. Il change souvent la <b>nature</b> du mot (verbe → nom, adjectif → nom).",
+  "-able / -ible : adjectif « que l'on peut… » (lisible). -ation, -ition, -ution, -ion, -ssion : nom <b>féminin</b> d'action. -age : nom <b>masculin</b>. -âtre : adjectif péjoratif (bleuâtre).",
+  "Former un nom à partir d'un adjectif : avare → avar<b>ice</b>, mou → mo<b>llesse</b>, avide → avid<b>ité</b>. Le radical peut changer un peu."],
+ full:`
+ <div class="fsec"><h3>1. La règle de base</h3>
+  <div class="flow"><div class="st"><b>Préfixe</b> (avant) : change le <b>sens</b>.</div><div class="ar">+</div><div class="st"><b>Radical</b> : le cœur du mot.</div><div class="ar">+</div><div class="st"><b>Suffixe</b> (après) : change souvent la <b>nature</b> (nom, adjectif, verbe).</div></div>
+  <p class="tip">Piège vu en classe : on ne découpe pas un mot parce qu'il « rime ». voisinage = <b>voisin</b> + <b>-age</b> (et pas « vois » + autre chose). « Bible » finit par -ible mais n'a pas de suffixe : il n'y a pas de radical « Bib ».</p></div>
+ <div class="fsec"><h3>2. Les préfixes à connaître</h3>
+  <div class="table-wrap"><table><tr><th>Préfixe</th><th>Sens</th><th>Exemples</th></tr>
+   <tr><td>anti-</td><td>contre</td><td>antipathique</td></tr>
+   <tr><td>contre-</td><td>contre</td><td>contredire</td></tr>
+   <tr><td>in- / im- / il- / ir-</td><td>le contraire</td><td>invisible, impossible, illisible, irrégulier</td></tr>
+   <tr><td>dé- / dés-</td><td>le contraire</td><td>déranger, désintérêt</td></tr>
+   <tr><td>dis-</td><td>le contraire</td><td>discontinu, disproportionné</td></tr>
+   <tr><td>mal- / mé- / més-</td><td>mauvais</td><td>malfaisant, mécontent, mésaventure, mésalliance</td></tr>
+   <tr><td>a-</td><td>sans</td><td>aphone (sans voix), atone</td></tr>
+   <tr><td>a- / ac- / at- / ar-</td><td>précise l'action, « rendre… »</td><td>arranger, assombrir (rendre sombre), agrandir</td></tr>
+   <tr><td>re- / r-</td><td>de nouveau</td><td>refaire, recommencer</td></tr></table></div>
+  <div class="box"><p class="mem">im- devant p, b, m · il- devant l · ir- devant r</p><p>Dans illisible et irrégulier, la consonne est <b>doublée</b> : il + lisible, ir + régulier.</p></div></div>
+ <div class="fsec"><h3>3. Les suffixes à connaître</h3>
+  <div class="table-wrap"><table><tr><th>Suffixe</th><th>Ce qu'il forme</th><th>Exemples</th></tr>
+   <tr><td>-able / -ible</td><td>adjectif : « que l'on peut… »</td><td>lisible, mangeable, crédible, durable</td></tr>
+   <tr><td>-ation / -ition / -ution</td><td>nom féminin : l'action ou son résultat</td><td>plantation, finition, attribution, vibration</td></tr>
+   <tr><td>-ion / -ssion</td><td>nom féminin : l'action</td><td>mission, admission</td></tr>
+   <tr><td>-age</td><td>nom masculin</td><td>voisinage, bavardage, virage</td></tr>
+   <tr><td>-âtre</td><td>adjectif péjoratif (« un peu, pas joli »)</td><td>blanchâtre, bleuâtre</td></tr>
+   <tr><td>-eux / -euse</td><td>adjectif (ou nom)</td><td>joyeux, chanceux, mystérieuse</td></tr></table></div>
+  <p class="tip">Le suffixe donne la <b>nature</b> du mot (nom, adjectif), pas seulement le féminin. -euse dans « mystérieuse » fait un <b>adjectif</b>.</p></div>
+ <div class="fsec"><h3>4. Exercice pour vendredi : former des noms à partir d'adjectifs</h3>
+  <p>Consigne : avide – clément – évanoui – mou – imbécile – précieux – bref – aveugle – fanatique – vantard.</p>
+  <div class="flow"><div class="st">1. Je dis une phrase : « Il fait preuve de … » ou « J'admire sa … ».</div><div class="ar">↓</div><div class="st">2. J'essaie les suffixes de nom : <b>-ité, -esse, -ice, -ence, -ement, -isme, -ise, -ie</b>.</div><div class="ar">↓</div><div class="st">3. Je vérifie dans le dictionnaire (le radical change parfois).</div></div>
+  <div class="box"><p class="key">Exemples corrigés en classe</p><p>avare → <b>avarice</b> · mou → <b>mollesse</b> (le u devient ll) · avide → <b>avidité</b> · imbécile → <b>imbécillité</b> (deux l) · vrai → <b>vérité</b></p></div></div>`},
+{id:"an-pret",s:"Anglais",t:"Le prétérit simple (past simple)",src:"Cours du 12 novembre · à apprendre pour le lundi 16",
+ lumni:[["Le prétérit en anglais",LUMNI("prétérit anglais")],["Prononcer -ed",LUMNI("prononciation ed anglais")]],
+ short:[
+  "Le prétérit raconte une action <b>terminée</b>, coupée du présent. Avec <b>yesterday, last week, in 1934, ago</b> → toujours le prétérit.",
+  "Affirmatif : verbe régulier + <b>-ed</b> (worked) ; verbe irrégulier → 2e colonne de la liste (go → <b>went</b>). Même forme à toutes les personnes, sauf <b>was / were</b>.",
+  "Négatif : sujet + <b>didn't</b> + verbe de base. He <b>didn't go</b>. (pas « didn't went »)",
+  "Question : (mot interrogatif) + <b>did</b> + sujet + verbe de base ? <b>What time did you arrive?</b>",
+  "Prononcer -ed : <b>/t/</b> (worked, stopped), <b>/d/</b> (played, arrived), <b>/ɪd/</b> seulement après t ou d (wanted, decided).",
+  "<b>Whose</b> = à qui ? Whose gun was it? – It was my brother's gun."],
+ full:`
+ <div class="fsec"><h3>1. Quand utiliser le prétérit ?</h3>
+  <p>Pour une action <b>passée et terminée</b>, qui n'a plus de lien avec maintenant.</p>
+  <div class="box"><p class="mem">yesterday · last week · last year · in 1934 · two days ago</p><p>Avec ces mots → prétérit. <i>I broke my ankle last week.</i></p></div></div>
+ <div class="fsec"><h3>2. Les 3 formes</h3>
+  <div class="table-wrap"><table><tr><th></th><th>Construction</th><th>Exemple</th></tr>
+   <tr><td><b>Affirmatif</b></td><td>sujet + verbe-ed (ou forme irrégulière)</td><td>Dillinger <b>robbed</b> banks. He <b>went</b> to prison.</td></tr>
+   <tr><td><b>Négatif</b></td><td>sujet + <b>didn't</b> + verbe de base</td><td>He <b>didn't take</b> the money.</td></tr>
+   <tr><td><b>Question</b></td><td>(Wh-) + <b>did</b> + sujet + verbe de base ?</td><td><b>Did</b> you <b>arrive</b> at 9? <b>What did</b> you <b>have</b>?</td></tr></table></div>
+  <p class="tip">Avec did / didn't, le verbe revient à la <b>base</b> : did est déjà au passé. ✗ Did you went ? ✓ Did you go ?</p>
+  <p><b>Be</b> est spécial : I / he / she / it <b>was</b> · you / we / they <b>were</b>. Négatif : wasn't, weren't. Question : Was he…? (pas de did).</p></div>
+ <div class="fsec"><h3>3. Prononcer -ed (3 sons seulement)</h3>
+  <div class="table-wrap"><table><tr><th>Son</th><th>Quand ?</th><th>Exemples</th></tr>
+   <tr><td>/t/</td><td>après un son « sourd » (k, p, s, sh, ch, f)</td><td>worked, stopped, finished, watched</td></tr>
+   <tr><td>/d/</td><td>après une voyelle ou un son « sonore »</td><td>played, arrived, tried, killed</td></tr>
+   <tr><td>/ɪd/</td><td>seulement après <b>t</b> ou <b>d</b></td><td>wanted, decided, needed, shouted</td></tr></table></div>
+  <p class="tip">On ne dit jamais « work-ède ». Une syllabe en plus seulement après t ou d.</p></div>
+ <div class="fsec"><h3>4. L'exercice du rapport de police (à finir pour lundi)</h3>
+  <p>On transforme le rapport en <b>interrogatoire</b> : une question au prétérit, puis la réponse.</p>
+  <div class="box"><p>– At what time <b>did</b> you <b>arrive</b> at the club? – I <b>arrived</b> at 9 pm.</p><p>– What <b>did</b> you <b>have</b> here? – I <b>had</b> a gun.</p><p>– <b>Whose</b> gun <b>was</b> it? – It <b>was</b> my brother's gun.</p></div>
+  <p class="tip">Méthode : 1. je repère le verbe du rapport ; 2. je fais la question avec did + base ; 3. je réponds avec le verbe au prétérit.</p></div>`},
+{id:"ma-frac",s:"Maths",t:"Fractions : simplifier et comparer",src:"Cours du 12 novembre · fiche 4e 07 (ex. 3, 4, 5) pour le lundi 16",
+ lumni:[["Simplifier une fraction",LUMNI("simplifier une fraction")],["Comparer des fractions",LUMNI("comparer des fractions")]],
+ short:[
+  "a/b (b ≠ 0) est le nombre qui, multiplié par b, donne a. 27/3 = 9 · 1/2 = 0,5 · 1/3 ≈ 0,333… (on garde 1/3 pour être exact).",
+  "On peut <b>multiplier ou diviser</b> le haut et le bas par le <b>même nombre</b> (pas 0) : la fraction ne change pas. On ne peut <b>pas ajouter</b> : (1+4)/(4+4) = 5/8 ≠ 1/4.",
+  "Simplifier : j'écris le haut et le bas en <b>produits</b> avec un facteur commun. 5/45 = (1×5)/(9×5) = 1/9.",
+  "<b>Irréductible</b> = on ne peut plus simplifier. 6/27 = (2×3)/(9×3) = 2/9.",
+  "Comparer : 1. le signe moins en haut ou devant ; 2. même dénominateur ; 3. je compare les numérateurs.",
+  "Un résultat approché ne s'écrit pas avec « = » : 1/3 ≈ 0,33."],
+ full:`
+ <div class="fsec"><h3>1. Une fraction, c'est un quotient</h3>
+  <div class="box"><p class="mem">a/b × b = a</p><p>56/7 = 8 car 8 × 7 = 56.</p></div>
+  <ul><li>Quotient <b>entier</b> : 27/3 = 9.</li><li>Quotient <b>décimal</b> : 1/2 = 0,5.</li><li>Quotient <b>ni entier ni décimal</b> : 1/3 = 0,333… sans fin → on écrit <b>1/3</b>. Et 3 × 0,33 = 0,99, pas 1 : donc 1/3 ≈ 0,33 (signe ≈).</li></ul></div>
+ <div class="fsec"><h3>2. La règle d'or</h3>
+  <div class="box"><p class="mem">a/b = (a×k)/(b×k) = (a÷k)/(b÷k) · k ≠ 0</p><p>Multiplier ou diviser en haut ET en bas par le même nombre : la fraction ne change pas.</p></div>
+  <p class="tip">Piège : <b>ajouter</b> le même nombre change la fraction. 1/4 → (1+4)/(4+4) = 5/8. Or 1/4 = 2/8. 5/8 ≠ 2/8.</p></div>
+ <div class="fsec"><h3>3. Simplifier (la présentation demandée par la prof)</h3>
+  <div class="table-wrap"><table><tr><th>Fraction</th><th>J'écris en produits</th><th>Résultat</th></tr>
+   <tr><td>5/45</td><td>(1×5)/(9×5)</td><td>1/9</td></tr><tr><td>7/56</td><td>(1×7)/(8×7)</td><td>1/8</td></tr><tr><td>5/25</td><td>(1×5)/(5×5)</td><td>1/5</td></tr><tr><td>72/32</td><td>(9×8)/(4×8)</td><td>9/4</td></tr><tr><td>42/36</td><td>(7×6)/(6×6)</td><td>7/6</td></tr><tr><td>6/27</td><td>(2×3)/(9×3)</td><td>2/9 (irréductible)</td></tr></table></div>
+  <p class="tip">On barre le facteur commun en haut et en bas. Les tables de multiplication sont la clé.</p></div>
+ <div class="fsec"><h3>4. Comparer deux fractions en 3 étapes</h3>
+  <div class="flow"><div class="st"><b>1. Le signe</b> : jamais de « − » en bas. 3/(−5) = −3/5.</div><div class="ar">↓</div><div class="st"><b>2. Même dénominateur</b> : je multiplie en haut et en bas pour avoir le même nombre en bas.</div><div class="ar">↓</div><div class="st"><b>3. Je compare les numérateurs</b>, puis je conclus avec les fractions de départ.</div></div>
+  <div class="box"><p class="key">Exemple du cours</p><p>Comparer −2/3 et 3/(−5) : 3/(−5) = −3/5. Dénominateur commun 15 : −2/3 = −10/15 et −3/5 = −9/15. Comme −10 &lt; −9, <b>−2/3 &lt; 3/(−5)</b>.</p></div>
+  <p class="tip">Avec des négatifs : −10 est plus petit que −9 (plus loin à gauche sur la droite graduée).</p></div>`},
+{id:"ma-stat2",s:"Maths",t:"Statistiques : tableaux, grands effectifs, construire une série",src:"Cours du 12 novembre · évaluation du mardi 17",
+ lumni:[["Moyenne pondérée",LUMNI("moyenne pondérée")],["Médiane",LUMNI("médiane statistique")]],
+ short:[
+  "Moyenne avec un tableau : (valeur × effectif) + (valeur × effectif)… puis ÷ <b>effectif total</b>.",
+  "Médiane, effectif pair : je prends les 2 valeurs du milieu. N = 50 → 25e et 26e. N = 200 → 100e et 101e. J'utilise les effectifs cumulés pour les trouver.",
+  "Étendue = max − min, dans la <b>même unité</b> que les données (°C, minutes, €).",
+  "Données en intervalles (6 h à 7 h) : je remplace chaque intervalle par son <b>milieu</b> (6,5 h).",
+  "6,5 h = 6 h 30 min (0,5 × 60 = 30). Ne pas confondre écriture décimale et heures-minutes.",
+  "Construire une série : je range, je place le milieu pour la médiane, je calcule la somme avec la moyenne (moyenne × effectif), je vérifie tout. <b>Peut tomber mardi.</b>"],
+ full:`
+ <div class="fsec"><h3>1. Moyenne à partir d'un tableau d'effectifs</h3>
+  <div class="box"><p class="mem">moyenne = somme des (valeur × effectif) ÷ effectif total</p><p>Gains de 200 joueurs : on multiplie chaque gain par le nombre de joueurs, on additionne, on divise par 200. Résultat du cours : 395 / 200 = 1,975 € par joueur.</p></div></div>
+ <div class="fsec"><h3>2. Médiane avec un grand effectif</h3>
+  <div class="flow"><div class="st">1. Effectif total N.</div><div class="ar">↓</div><div class="st">2. N impair → la valeur du milieu. N pair → les 2 valeurs du milieu (N÷2 et N÷2 + 1).</div><div class="ar">↓</div><div class="st">3. J'ajoute les effectifs dans l'ordre (effectifs cumulés) pour savoir dans quel groupe elles tombent.</div></div>
+  <ul><li>50 élèves : 25e et 26e valeurs. Les 6 premiers ont 20, puis viennent les 40 → les 25e et 26e valent 40 → <b>médiane = 40</b>.</li><li>200 joueurs dont 166 n'ont rien gagné : les 100e et 101e valeurs sont des 0 → <b>médiane = 0 €</b>. Je justifie : « les 166 premières valeurs sont 0 ».</li></ul></div>
+ <div class="fsec"><h3>3. Étendue et unités</h3><p>Étendue = plus grande valeur − plus petite valeur. Gains de 0 € à 50 € → étendue = 50 €. Je range d'abord pour bien voir les extrêmes.</p></div>
+ <div class="fsec"><h3>4. Intervalles et heures</h3>
+  <p>Sommeil « entre 6 h et 7 h » → je compte <b>6,5 h</b> (le milieu). C'est une valeur approchée.</p>
+  <div class="box"><p class="mem">0,5 h = 30 min · 0,25 h = 15 min · 0,75 h = 45 min</p><p>Pour convertir : partie décimale × 60.</p></div></div>
+ <div class="fsec"><h3>5. Construire une série qui respecte des conditions</h3>
+  <div class="flow"><div class="st">1. Je fais des cases rangées dans l'ordre (autant que l'effectif).</div><div class="ar">↓</div><div class="st">2. Je place les valeurs du milieu pour avoir la médiane.</div><div class="ar">↓</div><div class="st">3. Je place min et max pour l'étendue.</div><div class="ar">↓</div><div class="st">4. Somme à obtenir = moyenne × effectif. Je complète les cases restantes.</div><div class="ar">↓</div><div class="st">5. Je vérifie médiane, étendue, moyenne une par une.</div></div>
+  <p class="tip">Exemple du cours : 3 ; 31 ; 34 ; 50 ; 60 ; 100 → médiane = (34 + 50) ÷ 2 = 42, pas 30. Il faut vérifier les valeurs du milieu.</p></div>`},
+{id:"svt-demarche",s:"SVT",t:"La démarche expérimentale et le dessin d'observation",src:"Correction du contrôle du 27 octobre (13,75/20) · évaluation du mardi 17",
+ lumni:[["La démarche expérimentale",LUMNI("démarche expérimentale")]],
+ short:[
+  "<b>Hypothèse</b> : une phrase qui nomme le <b>facteur</b> testé. « Je pense que la température influence la croissance de la plante. »",
+  "<b>Témoin</b> = conditions normales (25 °C). <b>Test</b> = on change <b>un seul</b> facteur (5 °C). Tout le reste est pareil.",
+  "<b>Résultats</b> : je décris le témoin ET le test, avec des mots précis. « Le lot 1 a beaucoup grandi, le lot 2 n'a pas grandi. »",
+  "<b>Conclusion</b> : je réponds à l'hypothèse en nommant le facteur. « Une température de 25 °C permet la croissance ; à 5 °C, la plante ne pousse pas. »",
+  "Dessin : titre + grossissement (oculaire × objectif, ex. 10 × 40 = ×400), traits fins au crayon, légendes à la règle et horizontales, je ne légende que ce que je vois."],
+ full:`
+ <div class="fsec"><h3>1. Les 4 étapes (corrigé de ton contrôle)</h3>
+  <p>Expérience : lot 1 à 25 °C, lot 2 à 5 °C. Même eau, même air, même lumière. Deux semaines plus tard, le lot 1 a grandi, pas le lot 2.</p>
+  <div class="flow">
+   <div class="st"><b>Hypothèse</b> : « La <b>température</b> influence la croissance des plantes. » ✗ « elle poussera mieux » (on ne sait pas de quoi on parle).</div><div class="ar">↓</div>
+   <div class="st"><b>Témoin / test</b> : <b>lot 1 = témoin</b> (conditions normales, 25 °C). <b>lot 2 = test</b> (on a changé la température). ⚠ Tu avais inversé.</div><div class="ar">↓</div>
+   <div class="st"><b>Résultats</b> : « Le lot 1 (témoin) a grandi : ses feuilles sont plus longues. Le lot 2 (test) n'a presque pas grandi. » Les deux lots.</div><div class="ar">↓</div>
+   <div class="st"><b>Conclusion</b> : « Une température de 25 °C permet la croissance de la plante ; à 5 °C, elle ne pousse pas. Donc la température est nécessaire… » On nomme <b>laquelle</b>.</div></div>
+  <div class="box"><p class="mem">TÉMOIN = NORMAL · TEST = J'AI CHANGÉ UNE CHOSE</p></div></div>
+ <div class="fsec"><h3>2. Phrases à recopier</h3>
+  <ul><li>« L'hypothèse testée est que <b>[facteur]</b> influence <b>[ce qu'on mesure]</b>. »</li><li>« Le lot témoin est le lot … car … . Le lot test est le lot … car on a changé … . »</li><li>« J'observe que le lot témoin … alors que le lot test … . »</li><li>« J'en conclus que <b>[facteur précis]</b> est nécessaire à … . »</li></ul></div>
+ <div class="fsec"><h3>3. Le dessin d'observation (points perdus)</h3>
+  <ul><li><b>Titre complet</b> : « Cellules de l'épiderme de poireau observées au microscope (×400) ».</li><li><b>Grossissement</b> = oculaire × objectif = 10 × 40 = <b>×400</b>.</li><li>Traits <b>fins et continus</b>, au crayon, sans gommage visible.</li><li>Légendes <b>à la règle</b>, traits <b>horizontaux</b>.</li><li>Je légende <b>seulement ce qui se voit</b> sur mon dessin (l'ostiole doit être dessiné pour être légendé).</li></ul>
+  <p class="tip">Au microscope : je commence toujours au plus petit objectif, je règle la lumière, puis je passe au ×40.</p></div>`},
+{id:"hg-rediger",s:"Histoire-Géo-EMC",t:"Je rédige ma réponse et je présente un document",src:"Correction du contrôle d'histoire n°1 (12,5/20) : « il faut rédiger ! »",
+ lumni:[["Présenter un document en histoire",LUMNI("présenter un document histoire")],["Le commerce triangulaire",LUMNI("commerce triangulaire")]],
+ short:[
+  "Rédiger = répondre par une <b>phrase complète</b> qui reprend les mots de la question. Pas de liste, pas de mots seuls.",
+  "Méthode <b>R.E.P.</b> : je <b>R</b>eprends la question, j'<b>E</b>xplique avec mes connaissances, je <b>P</b>rouve avec le document (citation, chiffre).",
+  "Présenter un document : <b>Nature</b> (texte, gravure, carte), <b>Auteur</b> (qui l'a fait), <b>Date</b>, <b>Titre / source</b>, <b>Sujet</b> (de quoi il parle).",
+  "L'auteur est une <b>personne</b> : B. S. Frossard. « La Cause des esclaves nègres… porté au tribunal de la Justice » est le <b>titre</b> de son livre.",
+  "Sur une carte : continents <b>et océans</b> (océan Atlantique), un titre.",
+  "Olaudah Equiano : ancien esclave africain qui a <b>racheté sa liberté</b>, a écrit le récit de sa vie (1789) et a <b>combattu l'esclavage</b> en Angleterre."],
+ full:`
+ <div class="fsec"><h3>1. Rédiger une réponse : la méthode R.E.P.</h3>
+  <div class="flow"><div class="st"><b>R</b>eprendre la question dans ma phrase.</div><div class="ar">↓</div><div class="st"><b>E</b>xpliquer avec ce que je sais du cours.</div><div class="ar">↓</div><div class="st"><b>P</b>rouver avec le document : « Le document dit que… », « On voit que… ».</div></div>
+  <div class="box"><p class="key">Exemple : Qu'est-ce qu'une plantation aux Antilles ?</p><p>✗ Ta réponse : « Une plantation est là où on cultive les graines de café, le coton… »</p><p>✓ « <b>Une plantation aux Antilles est</b> une grande exploitation agricole qui appartient à un colon européen. On y cultive surtout la <b>canne à sucre</b>, mais aussi le café et le coton, pour les vendre en Europe. Le travail est fait par des <b>esclaves</b> africains, forcés de travailler très dur, sans salaire. »</p></div>
+  <p class="tip">Avec la dysgraphie : tu peux préparer à l'oral, puis écrire. Phrases courtes, mais complètes.</p></div>
+ <div class="fsec"><h3>2. Présenter un document : N.A.D.T.S.</h3>
+  <div class="table-wrap"><table><tr><th>Lettre</th><th>Question</th><th>Document 1 du contrôle</th></tr>
+   <tr><td><b>N</b>ature</td><td>C'est quoi ?</td><td>un texte, extrait d'un livre</td></tr>
+   <tr><td><b>A</b>uteur</td><td>Qui l'a écrit ?</td><td>B. S. Frossard</td></tr>
+   <tr><td><b>D</b>ate</td><td>Quand ?</td><td>1789, à Lyon</td></tr>
+   <tr><td><b>T</b>itre</td><td>D'où vient-il ?</td><td><i>La Cause des esclaves nègres et des habitants de la Guinée portée au tribunal de la Justice…</i></td></tr>
+   <tr><td><b>S</b>ujet</td><td>De quoi parle-t-il ?</td><td>le transport des captifs africains vers la côte</td></tr></table></div>
+  <div class="box"><p class="key">La phrase à écrire</p><p>« Ce document est <b>un texte</b> écrit par <b>B. S. Frossard</b> en <b>1789</b>, extrait de son livre <i>La Cause des esclaves nègres…</i>. Il décrit <b>comment les captifs africains étaient emmenés vers la côte</b> pour être vendus comme esclaves. »</p></div></div>
+ <div class="fsec"><h3>3. Les erreurs du contrôle à ne pas refaire</h3>
+  <ul><li>Carte : oublier les <b>océans</b> (océan Atlantique, océan Pacifique, océan Indien).</li><li>Confondre l'<b>auteur</b> (une personne) et le <b>titre</b>.</li><li>Pourquoi les esclaves ne sont plus considérés comme des humains : ils sont <b>attachés</b>, <b>examinés comme du bétail</b>, <b>achetés et vendus</b> comme des objets. On cite le document : « comme le boucher visite le bétail ».</li><li>Qui vend les esclaves aux Européens : des <b>chefs et marchands africains</b>.</li><li><b>Olaudah Equiano</b> (vers 1745-1797) : enlevé enfant, réduit en esclavage, il <b>rachète sa liberté</b>, écrit le récit de sa vie en 1789 et se bat en Angleterre pour l'<b>abolition de la traite</b>. Il n'a jamais été président.</li></ul></div>`}
+);
+QUIZ.push(
+{id:"q-affix",s:"Français",t:"Préfixes et suffixes",fiche:"fr-affixes",qs:[
+ ["Le préfixe change…",["le sens du mot","toujours la nature du mot","seulement le féminin","rien"],0,"Le suffixe, lui, change souvent la nature.","préfixe"],
+ ["« illisible » : le préfixe est…",["il- (le contraire)","ill- (mauvais)","-ible","lis"],0,"il + lisible : consonne doublée devant l.","in- / il- / ir- / im-"],
+ ["Devant p, b, m, in- devient…",["im-","il-","ir-","ign-"],0,"impossible, imbuvable.","in- / il- / ir- / im-"],
+ ["« mésaventure » : més- veut dire…",["mauvais","de nouveau","sans","contre"],0,"mal- / mé- / més- = mauvais.","mal / mé"],
+ ["« aphone » veut dire…",["sans voix","avec une belle voix","de nouveau la voix","contre la voix"],0,"a- = sans.","a- privatif"],
+ ["Le suffixe -ation forme…",["un nom féminin","un adjectif","un verbe","un nom masculin"],0,"une plantation, une vibration.","suffixes"],
+ ["« voisinage » se découpe…",["voisin + -age","vois + inage","voi + sinage","il n'y a pas de suffixe"],0,"Le radical est voisin.","découper"],
+ ["Nom formé sur « mou » :",["la mollesse","la mouté","le mouage","la mouesse"],0,"Le radical change : u → ll.","nom d'adjectif"]]},
+{id:"q-pret",s:"Anglais",t:"Le prétérit simple",fiche:"an-pret",qs:[
+ ["« Il n'est pas allé à la banque » :",["He didn't go to the bank.","He didn't went to the bank.","He doesn't went to the bank.","He not go to the bank."],0,"didn't + verbe de base.","négatif"],
+ ["Question : « À quelle heure es-tu arrivé ? »",["What time did you arrive?","What time did you arrived?","What time you arrived?","What time do you arrived?"],0,"Wh- + did + sujet + base.","question"],
+ ["« wanted » se prononce avec…",["/ɪd/","/t/","/d/","pas de son"],0,"Après t ou d → /ɪd/.","-ed"],
+ ["« worked » se prononce avec…",["/t/","/ɪd/","/d/","/ed/"],0,"Après k → /t/.","-ed"],
+ ["« played » se prononce avec…",["/d/","/ɪd/","/t/","/eɪd/"],0,"Après une voyelle → /d/.","-ed"],
+ ["They ___ in Chicago in 1934.",["were","was","did","been"],0,"they → were.","was / were"],
+ ["« À qui était l'arme ? »",["Whose gun was it?","Who gun was it?","Whose was gun it?","Who's gun did it?"],0,"Whose + nom.","whose"],
+ ["Avec « last week », on utilise…",["le prétérit","le présent","le futur","be + -ing"],0,"Repère passé terminé.","emploi"]]},
+{id:"q-frac",s:"Maths",t:"Fractions : simplifier et comparer",fiche:"ma-frac",qs:[
+ ["5/45 simplifiée :",["1/9","1/8","5/9","1/40"],0,"(1×5)/(9×5).","simplifier"],
+ ["72/32 simplifiée :",["9/4","8/4","9/8","36/16"],0,"(9×8)/(4×8). 36/16 n'est pas fini.","simplifier"],
+ ["3/4 = ?/20",["15","19","12","5"],0,"×5 en haut et en bas.","égalité"],
+ ["(1+4)/(4+4) est-il égal à 1/4 ?",["Non : 5/8 ≠ 2/8","Oui","Oui car on ajoute le même nombre","On ne peut pas savoir"],0,"On ne peut pas ajouter.","piège"],
+ ["3/(−5) s'écrit aussi…",["−3/5","3/5","−5/3","5/−3"],0,"Jamais de moins en bas.","signes"],
+ ["Comparer −2/3 et −3/5 :",["−2/3 < −3/5","−2/3 > −3/5","elles sont égales","impossible"],0,"−10/15 < −9/15.","comparer"],
+ ["1/3 en décimal :",["1/3 ≈ 0,33","1/3 = 0,33","1/3 = 0,3","1/3 = 3"],0,"Écriture sans fin : on garde 1/3 ou on met ≈.","exact / approché"],
+ ["6/27 irréductible :",["2/9","3/9","6/27 est déjà irréductible","1/4"],0,"(2×3)/(9×3).","irréductible"]]},
+{id:"q-demarche",s:"SVT",t:"Démarche expérimentale et dessin",fiche:"svt-demarche",qs:[
+ ["Lot 1 à 25 °C, lot 2 à 5 °C. Le témoin est…",["le lot 1 (conditions normales)","le lot 2","les deux","aucun"],0,"Témoin = normal.","témoin / test"],
+ ["Le lot test est celui où…",["on a changé un seul facteur","tout est normal","on n'a rien mis","il y a deux plantes"],0,"Un seul facteur change.","témoin / test"],
+ ["La meilleure hypothèse :",["La température influence la croissance de la plante.","La plante poussera mieux.","Les plantes aiment le soleil.","Le lot 1 est plus grand."],0,"Elle nomme le facteur testé.","hypothèse"],
+ ["Dans les résultats, je décris…",["le témoin ET le test","seulement le test","seulement ce que je pense","la conclusion"],0,"Les deux lots.","résultats"],
+ ["Oculaire ×10, objectif ×40 : grossissement ?",["×400","×50","×40","×4"],0,"10 × 40.","dessin"],
+ ["Les traits de légende sont…",["tracés à la règle et horizontaux","à main levée","en couleur","en diagonale"],0,"Règle + horizontal.","dessin"],
+ ["La conclusion doit…",["nommer le facteur précis (25 °C / 5 °C)","dire « la température aide »","répéter l'hypothèse mot pour mot","décrire le matériel"],0,"« laquelle ? » : on précise.","conclusion"]]}
+);
+const EX_ADD5=[
+{id:"fr-sort-affix",s:"Français",fiche:"fr-affixes",kind:"fond",type:"sort",t:"Que veut dire le préfixe ?",
+ cats:["le contraire","mauvais","sans","de nouveau"],items:[
+ ["illisible",0],["irrégulier",0],["impossible",0],["désintérêt",0],["discontinu",0],["malfaisant",1],["mécontent",1],["mésaventure",1],["aphone",2],["atone",2],["refaire",3],["recommencer",3]],
+ expl:["in-, im-, il-, ir-, dé-, dis- forment des contraires.","mal-, mé-, més- = mauvais.","a- = sans (privatif).","re- = une nouvelle fois."]},
+{id:"fr-flash-noms",s:"Français",fiche:"fr-affixes",kind:"fond",type:"flash",t:"Adjectif → nom (autres exemples)",
+ note:"Dis le nom à voix haute avant de retourner la carte. (Ce ne sont pas les mots de l'exercice de vendredi.)",
+ cards:[["beau","la beauté"],["triste","la tristesse"],["gentil","la gentillesse"],["timide","la timidité"],["fier","la fierté"],["sage","la sagesse"],["honnête","l'honnêteté"],["patient","la patience"],["gourmand","la gourmandise"],["jaloux","la jalousie"],["faible","la faiblesse"],["curieux","la curiosité"],["avare","l'avarice"],["mou","la mollesse"]]},
+{id:"an-sort-ed",s:"Anglais",fiche:"an-pret",kind:"forme",type:"sort",t:"Prononcer -ed : /t/, /d/ ou /ɪd/ ?",
+ cats:["/t/","/d/","/ɪd/"],items:[["worked",0],["stopped",0],["watched",0],["looked",0],["played",1],["arrived",1],["robbed",1],["killed",1],["wanted",2],["decided",2],["needed",2],["shouted",2]],
+ expl:["Après k, p, s, sh, ch, f : /t/.","Après une voyelle ou un son sonore : /d/.","Seulement après t ou d : /ɪd/ (une syllabe en plus)."]},
+{id:"an-flash-pret",s:"Anglais",fiche:"an-pret",kind:"fond",type:"flash",t:"Prétérit : négatif et question",
+ note:"Transforme à voix haute, puis retourne la carte.",
+ cards:[["He went to the bank. → négatif","He didn't go to the bank."],["She took the money. → négatif","She didn't take the money."],["They were in Chicago. → négatif","They weren't in Chicago."],["You arrived at 9. → question","Did you arrive at 9?"],["He had a gun. → question","Did he have a gun?"],["À quelle heure es-tu arrivé ?","What time did you arrive?"],["Qu'est-ce que tu avais ?","What did you have?"],["À qui était l'arme ?","Whose gun was it?"],["Où es-tu allé hier ?","Where did you go yesterday?"],["Il était content.","He was happy."]]},
+{id:"an-write-pret",s:"Anglais",fiche:"an-pret",kind:"forme",type:"write",t:"L'interrogatoire de police (exercice pour lundi)",
+ prompt:"Rapport : « Johnny arrived at the club at 9 pm. He had a gun. It was his brother's gun. He didn't take the money. He left at 11. » Écris l'interrogatoire : 4 questions du policier au prétérit, et les réponses de Johnny.",
+ method:["Je repère chaque verbe du rapport.","Question : (What / What time / Whose) + did + you + verbe de base ?","Réponse : I + verbe au prétérit.","Pour be : Was it…? / It was…"],
+ model:"– What time did you arrive at the club? – I arrived at 9 pm.\n– What did you have? – I had a gun.\n– Whose gun was it? – It was my brother's gun.\n– Did you take the money? – No, I didn't take the money.\n– What time did you leave? – I left at 11.",
+ check:["Chaque question a did (sauf avec be)","Après did, le verbe est à la base (arrive, have, take)","Les réponses sont au prétérit (arrived, had, left)","J'ai utilisé whose","Majuscule et point d'interrogation"]},
+{id:"ma-calc-frac",s:"Maths",fiche:"ma-frac",kind:"fond",type:"calc",gen:"frac",n:6,t:"Fractions égales : trouver le nombre manquant (toujours nouveau)"},
+{id:"ma-sort-frac",s:"Maths",fiche:"ma-frac",kind:"fond",type:"sort",t:"Égale à 3/4 ou pas ?",
+ cats:["Égale à 3/4","Pas égale à 3/4"],items:[["6/8",0],["9/12",0],["30/40",0],["15/20",0],["4/5",1],["7/8",1],["5/6",1],["3/8",1]],
+ expl:["On a multiplié en haut et en bas par le même nombre.","4/5 = (3+1)/(4+1) : ajouter ne marche pas. 7/8 = (3+4)/(4+4) non plus."]},
+{id:"ma-order-comp",s:"Maths",fiche:"ma-frac",kind:"forme",type:"order",t:"Comparer deux fractions : les étapes",
+ steps:["Je regarde les signes : pas de « − » au dénominateur.","Je cherche un dénominateur commun.","Je transforme chaque fraction (× en haut et en bas).","Je compare les numérateurs.","Je conclus avec les fractions de départ."]},
+{id:"svt-sort-demarche",s:"SVT",fiche:"svt-demarche",kind:"fond",type:"sort",t:"Hypothèse, témoin, test, résultat ou conclusion ?",
+ cats:["Hypothèse","Témoin","Test","Résultat","Conclusion"],items:[
+ ["La température influence la croissance de la plante.",0],["Lot 1 : plantes à 25 °C.",1],["Lot 2 : plantes à 5 °C.",2],["Après deux semaines, le lot 1 a grandi.",3],["Le lot 2 n'a presque pas grandi.",3],["Une température de 25 °C permet la croissance ; à 5 °C la plante ne pousse pas.",4]],
+ expl:["Ce qu'on veut vérifier, avec le facteur nommé.","Conditions normales.","On a changé un seul facteur.","Ce qu'on observe, pour chaque lot.","On répond à l'hypothèse en nommant le facteur précis."]},
+{id:"svt-write-demarche",s:"SVT",fiche:"svt-demarche",kind:"forme",type:"write",t:"Refaire la question de ton contrôle",
+ prompt:"Lot 1 cultivé à 25 °C, lot 2 à 5 °C (même eau, même air). Deux semaines plus tard, le lot 1 a grandi, pas le lot 2. a) Hypothèse ? b) Témoin et test ? c) Résultats ? d) Conclusion ? Réponds à l'oral ou par écrit, puis compare.",
+ method:["Hypothèse : je nomme le facteur (la température).","Témoin = conditions normales ; test = ce qu'on a changé.","Résultats : je décris les DEUX lots.","Conclusion : je dis quelle température permet la croissance."],
+ model:"a) L'hypothèse testée est que la température influence la croissance des plantes.\nb) Le lot 1 est le témoin (25 °C, conditions normales). Le lot 2 est le test (on a changé la température : 5 °C).\nc) J'observe que le lot 1 a beaucoup grandi alors que le lot 2 n'a presque pas grandi.\nd) J'en conclus qu'une température de 25 °C permet la croissance des plantes, alors qu'à 5 °C elles ne poussent pas.",
+ check:["Le mot « température » est dans mon hypothèse","Lot 1 = témoin, lot 2 = test","J'ai décrit les deux lots","Ma conclusion donne les températures","Phrases complètes"]},
+{id:"hg-write-doc",s:"Histoire-Géo-EMC",fiche:"hg-rediger",kind:"forme",type:"write",t:"Présenter un document en une phrase",
+ prompt:"Document : un texte de B. S. Frossard, extrait de son livre « La Cause des esclaves nègres… », publié à Lyon en 1789. Il raconte comment les captifs sont emmenés vers la côte. Présente ce document en une ou deux phrases.",
+ method:["Nature : c'est un texte (extrait d'un livre).","Auteur : une personne.","Date et lieu.","Titre (en italique ou entre guillemets).","Sujet : de quoi il parle."],
+ model:"Ce document est un texte écrit par B. S. Frossard en 1789, à Lyon. Il est extrait de son livre « La Cause des esclaves nègres et des habitants de la Guinée ». Il décrit comment les captifs africains étaient emmenés vers la côte pour être vendus comme esclaves.",
+ check:["Nature","Auteur (une personne, pas le titre)","Date","Titre","Sujet","Une phrase qui commence par « Ce document est… »"]},
+{id:"hg-write-rep",s:"Histoire-Géo-EMC",fiche:"hg-rediger",kind:"forme",type:"write",t:"Rédiger une réponse avec R.E.P.",
+ prompt:"Question : Qu'est-ce que la traite négrière ? Réponds en 3 phrases complètes (dicte ou écris).",
+ method:["R : je reprends la question (« La traite négrière est… »).","E : j'explique avec le cours (qui, où, quand, combien).","P : je donne un exemple ou un chiffre."],
+ model:"La traite négrière est le commerce d'êtres humains africains, achetés en Afrique et vendus comme esclaves en Amérique.\nAu XVIIIe siècle, les navires européens partent de ports comme Nantes ou La Rochelle : c'est le commerce triangulaire entre l'Europe, l'Afrique et l'Amérique.\nEnviron 12 millions d'Africains ont été déportés à travers l'Atlantique.",
+ check:["Ma 1re phrase reprend la question","J'ai dit qui / où / quand","J'ai donné un chiffre ou un exemple","3 phrases complètes, avec majuscule et point"]},
+{id:"mu-elise",s:"Musique",fiche:null,kind:"fond",type:"write",t:"La Lettre à Élise (devoir pour vendredi 13)",
+ prompt:"Cherche avec maman ou papa des informations sur « La Lettre à Élise » de Beethoven (qui, quand, quel instrument) et écoute la pièce. Écoute aussi le chant « L'oiseau et l'enfant ». Note 3 informations.",
+ method:["Qui l'a composée ?","Vers quelle année ?","Pour quel instrument ?","Ce que je ressens en écoutant (doux, triste, joyeux…)."],
+ model:"La Lettre à Élise (Für Elise) est une pièce pour piano composée par Ludwig van Beethoven, un compositeur allemand, vers 1810.\nElle commence par une mélodie douce qui revient plusieurs fois.\nElle n'a été publiée qu'après la mort de Beethoven.",
+ check:["Le compositeur","Une date","L'instrument","Mon ressenti","J'ai écouté « L'oiseau et l'enfant »"]}
+];
+function genFrac(){
+  const ps=[[1,2],[1,3],[2,3],[3,4],[1,4],[2,5],[3,5],[4,5],[5,6],[3,7],[5,8],[7,8],[4,9],[7,10]];
+  const [a,b]=ps[rnd(0,ps.length-1)], k=rnd(2,9);
+  if(Math.random()<.5) return {q:"Complète : "+a+"/"+b+" = ?/"+(b*k),ans:a*k,ex:b+" × "+k+" = "+(b*k)+", donc "+a+" × "+k+" = "+(a*k)+"."};
+  return {q:"Complète : "+a+"/"+b+" = "+(a*k)+"/?",ans:b*k,ex:a+" × "+k+" = "+(a*k)+", donc "+b+" × "+k+" = "+(b*k)+"."};
+}
+
+/* ---------- Mise à jour du programme : 12 novembre ---------- */
+EX.push(...EX_ADD5);
+(function(){
+ const day=d=>PLAN.find(p=>p.d===d);
+ const B=(d,id)=>day(d).blocs.find(b=>b.id===id);
+ // Jeudi 12 : 2 nouveaux devoirs pour vendredi (français, musique) remplacent le renforcement
+ const d12=day("2026-11-12");
+ d12.note="Ce soir exceptionnellement 1 heure : deux nouveaux devoirs pour demain (français et musique).";
+ d12.blocs=d12.blocs.filter(b=>b.id!=="f12c");
+ B("2026-11-12","f12a").ex=["hg-write-rep"];
+ d12.blocs.push(
+  {id:"f12d",k:"devoir",s:"Français",t:"Former des noms à partir d'adjectifs (10 mots)",due:"2026-11-13",fiche:"fr-affixes",quiz:"q-affix",ex:["fr-sort-affix"],
+   st:["J'ouvre la fiche « Préfixes et suffixes », partie 4.","Pour chaque adjectif (avide, clément, évanoui, mou, imbécile, précieux, bref, aveugle, fanatique, vantard), je dis : « Il fait preuve de … ».","J'essaie -ité, -esse, -ice, -ence, -ement, -isme, -ise.","Je vérifie l'orthographe dans le dictionnaire et j'écris (ou je dicte à maman).","Je fais le quiz « Préfixes et suffixes »."],
+   c:"je dis le nom formé sur « mou » et sur « avide » sans regarder, et j'explique ce que veut dire il- dans « illisible »."},
+  {id:"f12e",k:"devoir",s:"Musique",t:"La Lettre à Élise + écouter « L'oiseau et l'enfant »",due:"2026-11-13",ex:["mu-elise"],
+   st:["J'ouvre l'entraînement « La Lettre à Élise ».","Avec maman ou papa, je cherche : compositeur, date, instrument.","J'écoute la pièce en entier, puis « L'oiseau et l'enfant ».","Je note 3 informations et mon ressenti dans mon cahier de musique."],
+   c:"je dis qui a composé la Lettre à Élise et pour quel instrument."});
+ // Vendredi 13 : la fiche de maths (fractions) pour lundi remplace la révision de physique
+ const d13=day("2026-11-13");
+ d13.blocs=d13.blocs.filter(b=>b.id!=="f13c");
+ d13.blocs.push({id:"f13d",k:"devoir",s:"Maths",t:"Fiche 4e 07 : exercices 3, 4 et 5 (fractions)",due:"2026-11-16",fiche:"ma-frac",quiz:"q-frac",ex:["ma-calc-frac","ma-sort-frac"],
+  st:["Je relis la fiche « Fractions », parties 3 et 4.","Je fais l'entraînement « Fractions égales » (5 min).","Exercice 3 sur le cahier d'exercices (pas sur la feuille, il n'y a pas la place).","Exercices 4 et 5 : je simplifie en écrivant les produits (1×5)/(9×5) et je barre le facteur commun.","S'il en reste : j'écris le numéro de l'exercice dans « où je me suis arrêté »."],
+  c:"je simplifie 42/36 en montrant les produits, et je compare −2/3 et −3/5 avec les 3 étapes."});
+ // Samedi 14 : le prétérit (cours + exercice) pour lundi remplace le renforcement arithmétique
+ const d14=day("2026-11-14");
+ d14.blocs=d14.blocs.filter(b=>b.id!=="f14c");
+ d14.blocs.push({id:"f14d",k:"devoir",s:"Anglais",t:"Prétérit : apprendre le cours + finir l'interrogatoire",due:"2026-11-16",fiche:"an-pret",quiz:"q-pret",ex:["an-sort-ed","an-write-pret"],
+  st:["Je lis la fiche « Le prétérit » à voix haute.","Je fais le tri /t/ /d/ /ɪd/.","Je finis le dernier exercice de la feuille (le dialogue de l'interrogatoire). Modèle dans l'entraînement « L'interrogatoire de police ».","Je fais le quiz « Le prétérit simple »."],
+  c:"je transforme « He went to the bank » en négatif et en question sans regarder."});
+ // Dimanche 15 et lundi 16 : démarche expérimentale en SVT
+ B("2026-11-15","f15c").t="Démarche expérimentale et dessin (J-2)";
+ B("2026-11-15","f15c").fiche="svt-demarche"; B("2026-11-15","f15c").quiz="q-demarche"; B("2026-11-15","f15c").ex=["svt-sort-demarche","svt-write-demarche"];
+ B("2026-11-15","f15b").fiche="ma-stat2"; B("2026-11-15","f15b").t="Tableaux d'effectifs, médiane avec N grand, construire une série (J-2)";
+ B("2026-11-16","f16b").ex=["svt-sort","svt-write-demarche"];
+ B("2026-11-16","f16a").st=(B("2026-11-16","f16a").st||[]).concat(["Je prépare une feuille double : nom, prénom, classe et un bandeau en haut (demandé par la prof)."]);
+ B("2026-11-16","f16c").t="Révision : préfixes, suffixes et Le Horla"; B("2026-11-16","f16c").fiche="fr-affixes"; B("2026-11-16","f16c").quiz="q-affix"; B("2026-11-16","f16c").ex=["fr-sort-affix","fr-flash-noms"];
+ B("2026-11-16","f16d").t="Prétérit : négatif et question"; B("2026-11-16","f16d").k="revision"; B("2026-11-16","f16d").fiche="an-pret"; B("2026-11-16","f16d").ex=["an-flash-pret"]; delete B("2026-11-16","f16d").quiz;
+ Object.assign(B("2026-11-15","f15b"),{ex:["ma-calc-moy","ma-calc-med"],quiz:"q-ma17",st:["Je relis la fiche « Statistiques : tableaux, grands effectifs ».","Je fais 6 calculs de moyennes et de médianes.","Exercice type contrôle : construis une série de 6 valeurs avec une médiane de 30 et une étendue de 31. Je vérifie avec les 5 étapes de la fiche."],c:"ma série respecte la médiane et l'étendue, et je justifie une médiane avec N = 50."});
+ Object.assign(B("2026-11-15","f15c"),{st:["Je lis la fiche « Démarche expérimentale » (c'est là que j'ai perdu des points au contrôle).","Je fais le tri hypothèse / témoin / test / résultat / conclusion.","Je refais la question de mon contrôle (entraînement « Refaire la question de ton contrôle »).","Je fais le quiz « Démarche expérimentale et dessin »."],c:"je dis sans regarder quel lot est le témoin et pourquoi, et ma conclusion nomme la température."});
+ Object.assign(B("2026-11-16","f16c"),{st:["Je relis l'essentiel de la fiche « Préfixes et suffixes ».","Je fais « Que veut dire le préfixe ? ».","Je fais les cartes « Adjectif → nom »."],c:"au moins 10/12 au classement."});
+ Object.assign(B("2026-11-16","f16d"),{st:["Je fais les cartes « Prétérit : négatif et question » à voix haute.","Je recommence celles que j'ai ratées."],c:"toutes les cartes sues."});
+ // Contrôles
+ const cm=CTRL.find(c=>c.id==="c-ma17");
+ cm.what+=" Apporter une feuille double préparée (nom, prénom, bandeau). Un exercice « construire une série » peut tomber.";
+ cm.cl.push("Je sais construire une série avec une médiane et une étendue données.","Ma feuille double est prête (nom, prénom, bandeau).");
+ cm.quiz.push("q-frac"); cm.ex.push("ma-calc-frac");
+ const cs=CTRL.find(c=>c.id==="c-svt17");
+ cs.quiz.push("q-demarche"); cs.ex.push("svt-sort-demarche","svt-write-demarche");
+ cs.cl.push("Je dis quel lot est le témoin et quel lot est le test, et pourquoi.","Je fais un dessin d'observation : titre, grossissement, légendes à la règle.");
+ const ca=CTRL.find(c=>c.id==="c-an16");
+ ca.what+=" Le cours sur le prétérit est aussi à savoir pour lundi.";
+ ca.quiz.push("q-pret");
+})();
+
 /* ================= MON CARTABLE ================= */
 Object.assign(H,{"Arts plastiques":110,"EPS":290,"Vie de classe":200});
 /* Emploi du temps (Pronote). Semaine A = SA, semaine B = SB. 1 = lundi … 5 = vendredi */
@@ -1716,7 +2028,7 @@ const MAT={
  "Vie de classe":[]
 };
 /* Jours sans cours (fériés et vacances zone C 2026-2027) */
-const OFF=[["2026-11-11","2026-11-11"],["2026-12-19","2027-01-03"],["2027-02-20","2027-03-07"],["2027-03-29","2027-03-29"],["2027-04-17","2027-05-02"],["2027-05-05","2027-05-09"],["2027-05-17","2027-05-17"]];
+const OFF=[["2026-11-11","2026-11-11"],["2026-12-19","2027-01-03"],["2027-02-06","2027-02-21"],["2027-03-29","2027-03-29"],["2027-04-03","2027-04-18"],["2027-05-01","2027-05-01"],["2027-05-06","2027-05-09"],["2027-05-17","2027-05-17"]];
 const isOff=k=>OFF.some(([a,b])=>k>=a&&k<=b);
 function weekAB(k){const d=dateOf(k), mon=new Date(d); mon.setDate(d.getDate()-((d.getDay()+6)%7));
   const idx=Math.round((mon-new Date(2026,7,31))/(7*864e5)); let w=(((idx%2)+2)%2)===0?"A":"B";
