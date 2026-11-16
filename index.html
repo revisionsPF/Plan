@@ -185,7 +185,7 @@ ul.cl2{list-style:none;padding:0;display:flex;flex-direction:column;gap:4px} ul.
 <div class="app">
   <header class="top">
     <div class="stack" style="gap:4px">
-      <span class="tag">Hugo · 4e5 · semaine du 11 au 17 novembre · mis à jour le 13</span>
+      <span class="tag">Hugo · 4e5 · semaine du 16 au 23 novembre · mis à jour le 16</span>
       <h1>Mon plan de révision</h1>
     </div>
     <div class="progress" aria-live="polite">
@@ -1495,7 +1495,7 @@ function startEx(id){
   R={id,i:0,score:0,ans:null,err:0,done:false,miss:[]};
   if(e.type==="sort") R.items=shuffle(e.items);
   if(e.type==="order"){R.pool=shuffle(e.steps); R.placed=[]; R.wrong=null;}
-  if(e.type==="calc"){R.qs=Array.from({length:e.n},()=>e.gen==="rel"?genRel():e.gen==="moy"?genMoy():e.gen==="med"?genMed():e.gen==="vit"?genVit():e.gen==="pyth"?genPyth():e.gen==="frac"?genFrac():genFreq()); R.val="";}
+  if(e.type==="calc"){R.qs=Array.from({length:e.n},()=>e.gen==="rel"?genRel():e.gen==="moy"?genMoy():e.gen==="med"?genMed():e.gen==="vit"?genVit():e.gen==="pyth"?genPyth():e.gen==="frac"?genFrac():e.gen==="addf"?genAddF():genFreq()); R.val="";}
   if(e.type==="write"){R.shown=false; R.ck={};}
   if(e.type==="flash"){R.queue=shuffle(e.cards.map((_,k)=>k)); R.first={}; R.flip=false; R.total=e.cards.length;}
   render(); window.scrollTo(0,0);
@@ -2181,6 +2181,317 @@ CTRL.push(
  // Contrôles
  const ca=CTRL.find(c=>c.id==="c-an16");
  ca.what="Les verbes du planning de la professeure. Puis une autre liste le mercredi 18 et le jeudi 19.";
+})();
+
+
+/* ---------- Ajouts du 16 novembre ---------- */
+FICHES.push(
+{id:"ma-frac2",s:"Maths",t:"Fractions : pourcentages, comparer, additionner",src:"Cours du 16 novembre · suite du chapitre après l'évaluation du 17",
+ lumni:[["Proportion et pourcentage",LUMNI("pourcentage proportion")],["Additionner des fractions",LUMNI("addition de fractions")]],
+ short:[
+  "Simplifier : je continue <b>jusqu'à ne plus pouvoir</b> (fraction irréductible) et j'<b>écris comment</b> j'ai fait. 33/132 = (1×33)/(4×33) = 1/4.",
+  "Proportion = <b>partie ÷ tout</b>. 84 chansons françaises sur 240 → 84/240 = 7/20.",
+  "Pourcentage : je cherche la fraction égale <b>sur 100</b>. 7/20 = 35/100 = <b>35 %</b>. 5/20 = 1/4 = 25/100 = <b>25 %</b>.",
+  "Comparer : <b>même dénominateur</b>, puis je compare les numérateurs. 17/10 = 34/20 et 7/4 = 35/20 → 17/10 &lt; 7/4.",
+  "Négatifs : le plus petit est le plus <b>loin de zéro</b>. −5/6 = −15/18 et −7/9 = −14/18 → −5/6 &lt; −7/9.",
+  "Additionner ou soustraire avec le <b>même dénominateur</b> : j'additionne les numérateurs, je <b>garde</b> le dénominateur. 5/9 + 7/9 = 12/9."],
+ full:`
+ <div class="fsec"><h3>1. Simplifier jusqu'au bout et expliquer</h3>
+  <p>La prof veut voir <b>comment</b> tu as fait, pas seulement le résultat.</p>
+  <div class="table-wrap"><table><tr><th>Fraction</th><th>Je montre</th><th>Irréductible</th></tr>
+   <tr><td>33/132</td><td>(1×33)/(4×33) ou (3×11)/(12×11) = 3/12 = 1/4</td><td>1/4</td></tr>
+   <tr><td>60/144</td><td>(5×12)/(12×12)</td><td>5/12</td></tr>
+   <tr><td>84/240</td><td>(7×12)/(20×12)</td><td>7/20</td></tr></table></div>
+  <p class="tip">60/144 = 30/72 est juste, mais <b>pas fini</b> : on peut encore simplifier.</p></div>
+ <div class="fsec"><h3>2. D'une proportion à un pourcentage</h3>
+  <div class="flow"><div class="st">1. La <b>partie</b> et le <b>tout</b> : 84 sur 240.</div><div class="ar">↓</div><div class="st">2. La fraction : 84/240.</div><div class="ar">↓</div><div class="st">3. Je simplifie : 7/20.</div><div class="ar">↓</div><div class="st">4. Sur 100 : 20 × <b>5</b> = 100, donc 7 × <b>5</b> = 35 → 35/100 = <b>35 %</b>.</div></div>
+  <p>Autre méthode : 7/20 × 100 = 35. Même résultat.</p>
+  <div class="box"><p class="mem">1/2 = 50 % · 1/4 = 25 % · 3/4 = 75 % · 1/5 = 20 % · 1/10 = 10 %</p><p>Rugby : 5 nouveaux sur 20 joueurs → 5/20 = 1/4 = <b>25 %</b>.</p></div></div>
+ <div class="fsec"><h3>3. Comparer des fractions</h3>
+  <ul><li>17/10 et 7/4 : dénominateur commun 20 → 34/20 et 35/20 → <b>17/10 &lt; 7/4</b>.</li>
+   <li>8/5 et 47/30 : 8/5 = 48/30 → <b>8/5 &gt; 47/30</b>.</li>
+   <li>3/7 et 5/14 : 3/7 = 6/14 → <b>5/14 &lt; 3/7</b>.</li></ul>
+  <p class="tip">Je prends le <b>plus petit</b> dénominateur commun possible (6 et 9 → 18). Si je ne trouve pas, je multiplie les deux dénominateurs (6 × 9 = 54) : ça marche aussi.</p>
+  <div class="box"><p class="key">Avec des négatifs</p><p>−5/6 = −15/18 et −7/9 = −14/18. −15 est plus loin de 0 que −14, donc <b>−5/6 &lt; −7/9</b>.</p></div>
+  <p class="tip">Même si tu trouves la réponse de tête, tu <b>écris la méthode</b>.</p></div>
+ <div class="fsec"><h3>4. Additionner et soustraire (même dénominateur)</h3>
+  <div class="box"><p class="mem">a/b + c/b = (a + c)/b · a/b − c/b = (a − c)/b</p><p>On ne touche <b>pas</b> au dénominateur.</p></div>
+  <ul><li>5/9 + 7/9 = 12/9 = 4/3.</li><li>11/5 − 17/5 = (11 − 17)/5 = <b>−6/5</b> (les relatifs reviennent !).</li><li>✗ 2/7 + 3/7 = 5/14 : faux, on n'additionne pas les dénominateurs.</li></ul></div>`},
+{id:"an-crime",s:"Anglais",t:"Short answers et décrire une scène de crime",src:"Cours du 16 novembre · vocabulaire + Recap pour le mercredi 18",
+ lumni:[["Les short answers",LUMNI("short answers anglais")],["Décrire une image en anglais",LUMNI("describe a picture")]],
+ short:[
+  "<b>Short answer</b> = Yes / No + sujet + <b>l'auxiliaire de la question</b>. Was he…? → Yes, he <b>was</b>. / No, he <b>wasn't</b>. Did he…? → Yes, he <b>did</b>. / No, he <b>didn't</b>.",
+  "Jamais « Yes, he didn't » : yes va avec une réponse positive, no avec une négative.",
+  "<b>Because</b> en début de phrase : oui à l'oral, <b>non à l'écrit</b>.",
+  "Le génitif : <b>my brother's gun</b> (apostrophe + s). On peut ne pas répéter le nom : It was my brother's.",
+  "Scène de crime : <b>a drawing</b> (pas a photograph), <b>the living room</b>, three <b>police officers</b>, <b>footprints</b>, <b>blood</b>, a « <b>Do not cross</b> » tape.",
+  "Enquête : <b>to investigate</b>, they are looking for <b>fingerprints</b>, <b>DNA</b>, <b>clues</b>, <b>evidence</b> (sans s ; une preuve = <b>a piece of evidence</b>)."],
+ full:`
+ <div class="fsec"><h3>1. Les réponses courtes (short answers)</h3>
+  <div class="table-wrap"><table><tr><th>Question</th><th>Oui</th><th>Non</th></tr>
+   <tr><td>Is he still alive?</td><td>Yes, he is.</td><td><b>No, he isn't.</b></td></tr>
+   <tr><td>Was he born in Tennessee?</td><td>Yes, he was.</td><td><b>No, he wasn't.</b> (in Indianapolis, Indiana)</td></tr>
+   <tr><td>Was he born on June 23rd, 1903?</td><td>Yes, he was.</td><td><b>No, he wasn't.</b> He was born on June 22nd.</td></tr>
+   <tr><td>Did he commit his crimes alone?</td><td>Yes, he did.</td><td><b>No, he didn't.</b> (he had a gang)</td></tr>
+   <tr><td>Did he escape from prison?</td><td><b>Yes, he did.</b></td><td>No, he didn't.</td></tr>
+   <tr><td>Could people drink alcohol in the 1920s?</td><td>Yes, they could.</td><td><b>No, they couldn't.</b> (Prohibition)</td></tr></table></div>
+  <div class="box"><p class="mem">JE REPRENDS LE PETIT MOT DE LA QUESTION : is · was · did · could</p><p>When did he become public enemy number one? → <b>In 1934.</b> (une question avec When / Where n'a pas de yes / no)</p></div></div>
+ <div class="fsec"><h3>2. Trois règles du cours</h3>
+  <ul><li><b>Because</b> : à l'oral, on peut commencer par because. À l'écrit, non : « He went to prison <b>because</b> he robbed banks. »</li>
+   <li><b>'s</b> : my brother<b>'s</b> gun, Dillinger<b>'s</b> gang.</li>
+   <li><b>to watch TV</b> (pas « look TV »).</li></ul></div>
+ <div class="fsec"><h3>3. Décrire la scène de crime</h3>
+  <div class="flow"><div class="st"><b>1. Le document</b> : It's a <b>drawing</b>, not a photograph.</div><div class="ar">↓</div><div class="st"><b>2. Le lieu</b> : The scene takes place in a flat, in the <b>living room</b>: I can see a <b>sofa</b>, a <b>TV</b> and a <b>coffee table</b>.</div><div class="ar">↓</div><div class="st"><b>3. Les personnages</b> : There are three <b>police officers</b>. They <b>are investigating</b>.</div><div class="ar">↓</div><div class="st"><b>4. Les indices</b> : There is a « Do not cross » tape, <b>footprints</b> and <b>blood</b>. The shape on the floor shows where the <b>body</b> was.</div><div class="ar">↓</div><div class="st"><b>5. Je déduis</b> : Papers are everywhere: the killer <b>must have been looking for</b> something. (ou plus simple : I think the killer was looking for something.)</div></div>
+  <div class="table-wrap"><table><tr><th>Anglais</th><th>Français</th></tr>
+   <tr><td>a crime scene</td><td>une scène de crime</td></tr><tr><td>a police officer</td><td>un policier</td></tr>
+   <tr><td>to investigate / to make an investigation</td><td>enquêter / mener une enquête</td></tr>
+   <tr><td>a fingerprint → fingerprints</td><td>une empreinte digitale</td></tr><tr><td>a footprint</td><td>une trace de pas</td></tr>
+   <tr><td>DNA</td><td>l'ADN</td></tr><tr><td>a clue → clues</td><td>un indice</td></tr>
+   <tr><td>evidence / a piece of evidence</td><td>des preuves / une preuve</td></tr>
+   <tr><td>blood · the body</td><td>du sang · le corps</td></tr><tr><td>to look for / to search for</td><td>chercher</td></tr>
+   <tr><td>a photograph · photography</td><td>une photo · la photographie (l'art)</td></tr></table></div>
+  <p class="tip">Pour mercredi : apprendre ce vocabulaire et faire le <b>Recap</b> (dans ton cahier ou ton livre). Si tu ne le trouves pas, demande à un camarade ou regarde Pronote.</p></div>`},
+{id:"es-oral",s:"Espagnol",t:"Examen oral du vendredi 20 : le dialogue",src:"Pronote · les examens oraux commencent le vendredi 20 novembre",
+ lumni:[["Le verbe soler",LUMNI("verbe soler espagnol")],["La routine en espagnol",LUMNI("routine quotidienne espagnol")]],
+ short:[
+  "On <b>ne lit pas</b> pendant l'examen. On a le droit de préparer une petite fiche avec quelques <b>mots-clés</b>.",
+  "4 choses à savoir faire : <b>1.</b> poser des questions sur la routine et répondre ; <b>2.</b> dire comment on se sent ; <b>3.</b> comparer ; <b>4.</b> utiliser <b>soler</b>.",
+  "<b>Soler</b> + infinitif = avoir l'habitude de : suelo, sueles, suele, solemos, soléis, suelen. <b>Suelo levantarme</b> a las siete.",
+  "Questions : ¿A qué hora <b>sueles</b> levantarte? ¿A qué hora <b>sueles</b> comer? ¿A qué hora <b>vuelves</b> a casa? ¿<b>Cómo estás</b>?",
+  "Émotions : <b>estoy</b> contento, cansado, nervioso, triste, enfadado.",
+  "Comparer : <b>más</b>… que, <b>menos</b>… que, <b>tan</b>… como, <b>mientras que</b>."],
+ full:`
+ <div class="fsec"><h3>1. Soler : le verbe de l'habitude</h3>
+  <div class="table-wrap"><table><tr><th>Personne</th><th>Soler</th><th>Exemple</th></tr>
+   <tr><td>yo</td><td>suelo</td><td>Suelo comer a las doce y media.</td></tr>
+   <tr><td>tú</td><td>sueles</td><td>¿A qué hora sueles levantarte?</td></tr>
+   <tr><td>él / ella</td><td>suele</td><td>William suele comer a la una.</td></tr>
+   <tr><td>nosotros</td><td>solemos</td><td>Solemos cenar a las ocho.</td></tr>
+   <tr><td>ellos</td><td>suelen</td><td>Los españoles suelen comer a las dos.</td></tr></table></div>
+  <p class="tip">Après soler, le verbe reste à l'<b>infinitif</b>. Et je conjugue soler selon <b>la personne</b> dont je parle (moi, toi, William).</p></div>
+ <div class="fsec"><h3>2. Un dialogue modèle (à adapter avec ta vraie journée)</h3>
+  <div class="box"><p>– Hola, ¿cómo estás? – Estoy un poco cansado, ¿y tú? – Estoy contento.</p><p>– ¿A qué hora sueles levantarte? – Suelo levantarme a las siete.</p><p>– ¿A qué hora sueles comer? – Suelo comer a las doce y media, en el comedor.</p><p>– ¿A qué hora vuelves a casa? – Vuelvo a casa a las cinco.</p><p>– En España la gente suele comer a las dos, mientras que en Francia solemos comer a las doce y media. ¡Comemos más temprano!</p></div></div>
+ <div class="fsec"><h3>3. Ma fiche de notes (autorisée pour préparer, pas pour lire)</h3>
+  <ul><li>Des <b>mots-clés</b>, pas des phrases : levantarme · comer · volver · cansado · más… que.</li><li>Les heures en chiffres : 7:00 → las siete ; 12:30 → las doce y media.</li><li>Une flèche pour chaque question / réponse.</li></ul></div>
+ <div class="fsec"><h3>4. Comment s'entraîner (3 fois 5 minutes par jour)</h3>
+  <div class="flow"><div class="st">1. Je lis le dialogue à voix haute.</div><div class="ar">↓</div><div class="st">2. Je le redis en regardant seulement ma fiche de mots-clés.</div><div class="ar">↓</div><div class="st">3. Je le dis sans rien, à maman ou papa (ou je m'enregistre avec le téléphone d'un parent et je réécoute).</div></div></div>`},
+{id:"pc-ctrl20",s:"Physique-Chimie",t:"Contrôle du vendredi 20 : ce que je dois savoir",src:"Pronote · contrôle sur les interactions + apporter le carnet de labo",
+ lumni:[["Les interactions",LUMNI("interaction physique collège")],["La gravitation",LUMNI("gravitation")]],
+ short:[
+  "Une action mécanique peut : <b>mettre en mouvement</b>, <b>modifier le mouvement</b> (vitesse ou direction) ou <b>déformer</b>.",
+  "Je classe chaque action, en <b>justifiant</b> : <b>contact</b> ou <b>à distance</b> ; <b>attractive</b> (attire) ou <b>répulsive</b> (repousse) ; <b>localisée</b> (petite zone) ou <b>répartie</b> (grande surface).",
+  "<b>DOI</b> : le système au centre (entouré), les objets autour, un trait par interaction. Trait plein = contact, pointillé = à distance.",
+  "<b>Gravitation</b> : interaction <b>à distance</b>, toujours <b>attractive</b>, entre deux objets qui ont une <b>masse</b>. Plus les masses sont grandes, plus elle est forte ; plus la distance est petite, plus elle est forte.",
+  "Apporter le <b>carnet de labo</b>."],
+ full:`
+ <div class="fsec"><h3>1. Les effets d'une action mécanique</h3>
+  <div class="table-wrap"><table><tr><th>Effet</th><th>Exemple</th></tr>
+   <tr><td>mettre en mouvement</td><td>le pied lance le ballon</td></tr>
+   <tr><td>modifier le mouvement</td><td>la raquette renvoie la balle (direction et vitesse changent)</td></tr>
+   <tr><td>déformer</td><td>la main écrase une balle en mousse</td></tr></table></div></div>
+ <div class="fsec"><h3>2. Classer une action (et justifier)</h3>
+  <div class="table-wrap"><table><tr><th>Critère</th><th>Question à se poser</th><th>Exemple</th></tr>
+   <tr><td>contact / à distance</td><td>Les objets se touchent-ils ?</td><td>main-ballon : contact · aimant-trombone : à distance</td></tr>
+   <tr><td>attractive / répulsive</td><td>Ça attire ou ça repousse ?</td><td>Terre-pomme : attractive · deux aimants nord-nord : répulsive</td></tr>
+   <tr><td>localisée / répartie</td><td>Sur un point ou sur une grande surface ?</td><td>pied sur le ballon : localisée · vent sur la voile : répartie</td></tr></table></div>
+  <p class="tip">Phrase de justification : « L'action de la Terre sur la pomme est <b>à distance</b> car elles ne se touchent pas, et <b>attractive</b> car la Terre attire la pomme. »</p></div>
+ <div class="fsec"><h3>3. Tracer un DOI</h3>
+  <div class="flow"><div class="st">1. J'écris le <b>système</b> au centre et je l'entoure.</div><div class="ar">↓</div><div class="st">2. J'écris autour <b>tous les objets</b> qui agissent sur lui (la Terre est presque toujours là).</div><div class="ar">↓</div><div class="st">3. Un trait par interaction : <b>plein</b> = contact, <b>pointillé</b> = à distance.</div></div></div>
+ <div class="fsec"><h3>4. L'interaction gravitationnelle</h3>
+  <div class="box"><p class="mem">À DISTANCE · ATTRACTIVE · MASSES · DISTANCE</p><p>Plus les masses sont grandes → plus l'interaction est forte. Plus les objets sont proches → plus elle est forte. Elle gouverne le mouvement de la Lune autour de la Terre et de la Terre autour du Soleil.</p></div></div>`},
+{id:"emc-droit2",s:"Histoire-Géo-EMC",t:"Le droit au quotidien, la justice et Le Loup et l'Agneau",src:"Cours du 16 novembre · leçon à RECOPIER (pas imprimer, pas coller) pour le mardi 17",
+ lumni:[["La justice en France",LUMNI("justice en France collège")],["Le Loup et l'Agneau",LUMNI("le loup et l'agneau")]],
+ short:[
+  "Le <b>droit</b> = l'ensemble des <b>règles écrites</b> qui s'imposent à <b>tous</b> dans les relations entre personnes (parents-enfants, employeurs-employés, sur la route, lors d'un achat, entre élèves…).",
+  "Il se voit : <b>carte d'identité</b>, <b>panneaux de signalisation</b>.",
+  "Il garantit des <b>libertés</b> et crée des <b>obligations</b> : Code de la route, règlement intérieur, réparer un dommage, payer ses impôts.",
+  "Pour régler un conflit, le <b>juge</b> dit le droit lors d'un <b>procès</b>. On ne se fait <b>pas justice soi-même</b>.",
+  "Par le droit, la société a <b>renoncé à la loi du plus fort</b> (≠ Le Loup et l'Agneau : « La raison du plus fort est toujours la meilleure »).",
+  "Textes : <b>DDHC</b> (1789), <b>Constitution</b>, <b>Code civil</b> (Napoléon Ier), <b>Code pénal</b>. Le Parlement = <b>Assemblée nationale</b> (députés, 5 ans) + <b>Sénat</b> (sénateurs)."],
+ full:`
+ <div class="fsec"><h3>1. La leçon à recopier (texte de Pronote)</h3>
+  <div class="box"><p>Le droit désigne l'ensemble des règles écrites qui s'imposent à tous dans les relations entre personnes. Dans la vie quotidienne, nous y sommes constamment confrontés : entre conjoints, entre parents et enfants, entre employeurs et employés, sur la route, lors d'un achat, entre élèves... Le droit est visible par des documents officiels (carte nationale d'identité par exemple) ou par des panneaux de signalisation.</p><p>Le droit garantit les libertés et les droits. Il crée aussi des obligations : respecter le code de la route, le règlement intérieur du collège, réparer le dommage causé à autrui, payer ses impôts… Pour résoudre les conflits, le juge, lors de procès, dit le droit en appliquant la loi. Par le droit, la société a renoncé à la loi du plus fort.</p></div>
+  <p class="tip">Le prof demande de <b>recopier</b> (ni imprimer ni coller). Méthode : 2 paragraphes = 2 fois 7 minutes. Je lis une phrase à voix haute, je la cache, je l'écris, je vérifie. Pause entre les deux.</p></div>
+ <div class="fsec"><h3>2. Le Loup et l'Agneau (La Fontaine, manuel p. 362)</h3>
+  <ul><li>La <b>morale</b> (une maxime) : « La raison du plus fort est toujours la meilleure. »</li>
+   <li>Le loup accuse l'agneau de troubler son eau. Mais l'agneau boit <b>plus bas</b> (vingt pas en aval) : l'accusation est <b>fausse</b>, c'est un <b>prétexte</b>.</li>
+   <li>Le loup a faim : ça explique son geste, mais ça ne le rend <b>pas juste</b>.</li>
+   <li>L'agneau l'appelle « Votre Majesté » : le loup représente un <b>puissant</b> → <b>abus de pouvoir</b>.</li>
+   <li>Mots trouvés en classe : mauvaise foi, injustice, abus de pouvoir, cruauté, violence, tyrannie. <b>Hautain</b> = qui méprise les autres ; <b>prétentieux</b> = qui se croit très important.</li></ul>
+  <div class="box"><p class="key">Et dans un État de droit ?</p><p>Le conflit irait devant la <b>justice</b> : un <b>procès équitable</b> examinerait les <b>preuves</b>. Et l'eau de la rivière est un <b>espace public</b> : elle n'appartient pas au loup.</p></div></div>
+ <div class="fsec"><h3>3. Ne pas se faire justice soi-même</h3>
+  <p>Quelqu'un entre dans mon jardin pour utiliser ma piscine : je peux m'y opposer et <b>porter plainte</b>, mais je n'ai pas le droit de lui faire du mal. C'est la <b>justice</b> qui établit les faits et décide de la sanction ou de la réparation.</p>
+  <p class="tip">Au collège : pendant une bagarre, je ne m'en mêle pas, je <b>préviens un adulte</b>.</p></div>
+ <div class="fsec"><h3>4. Le tableau de la séance</h3>
+  <div class="table-wrap"><table><tr><th>Droits et libertés</th><th>Textes officiels</th><th>Acteurs</th><th>But du droit</th></tr>
+   <tr><td>les libertés de chacun, qui doivent respecter celles des autres</td><td>DDHC (1789, toujours en vigueur) · Constitution (fonctionnement de la République) · Code civil (Napoléon Ier) · Code pénal</td><td>citoyens · juges · gouvernement · députés (Assemblée nationale, élus pour 5 ans) · sénateurs (Sénat, élus par les grands électeurs)</td><td>vivre ensemble, protéger les libertés, éviter la loi du plus fort</td></tr></table></div>
+  <p class="tip">La correction complète et la question F de la fiche 4 sont sur Pronote : à recopier aussi.</p></div>
+ <div class="fsec"><h3>5. Règlement intérieur ou loi ?</h3>
+  <ul><li><b>Règlement intérieur</b> : les règles du collège (ponctualité, respect, pas de violence).</li>
+   <li><b>Loi</b> : pour toute la société. Une violence physique peut relever <b>à la fois</b> du règlement (sanction au collège) et du <b>Code pénal</b> (plainte).</li>
+   <li>Exemples où le droit n'est pas respecté : absences injustifiées, dégradations, passer devant à la cantine, <b>harcèlement</b> (très grave).</li>
+   <li>Dans le bus : avoir un titre de transport validé, sinon amende.</li></ul></div>`}
+);
+QUIZ.push(
+{id:"q-frac2",s:"Maths",t:"Fractions : pourcentages, comparer, additionner",fiche:"ma-frac2",qs:[
+ ["84 chansons françaises sur 240 : en pourcentage ?",["35 %","84 %","24 %","7 %"],0,"84/240 = 7/20 = 35/100.","pourcentage"],
+ ["5 nouveaux joueurs sur 20 :",["25 %","5 %","20 %","50 %"],0,"5/20 = 1/4 = 25/100.","pourcentage"],
+ ["60/144 irréductible :",["5/12","30/72","10/24","6/14"],0,"Je divise par 12. 30/72 n'est pas fini.","simplifier"],
+ ["Comparer 17/10 et 7/4 :",["17/10 < 7/4","17/10 > 7/4","égales","impossible"],0,"34/20 < 35/20.","comparer"],
+ ["Comparer 3/7 et 5/14 :",["3/7 > 5/14","3/7 < 5/14","égales","impossible"],0,"3/7 = 6/14.","comparer"],
+ ["Comparer −5/6 et −7/9 :",["−5/6 < −7/9","−5/6 > −7/9","égales","impossible"],0,"−15/18 < −14/18.","négatifs"],
+ ["5/9 + 7/9 =",["12/9","12/18","35/81","2/9"],0,"On garde le dénominateur.","additionner"],
+ ["11/5 − 17/5 =",["−6/5","6/5","−6/0","28/5"],0,"11 − 17 = −6.","soustraire"]]},
+{id:"q-crime",s:"Anglais",t:"Short answers et scène de crime",fiche:"an-crime",qs:[
+ ["Was Dillinger born in Tennessee?",["No, he wasn't.","No, he didn't.","Yes, he wasn't.","No, he isn't."],0,"Question avec was → réponse avec was.","short answers"],
+ ["Did he commit his crimes alone?",["No, he didn't.","No, he wasn't.","Yes, he didn't.","No, he doesn't."],0,"did → didn't.","short answers"],
+ ["Could people drink alcohol in the 1920s?",["No, they couldn't.","No, they didn't.","Yes, they couldn't.","No, they can't."],0,"could → couldn't. C'était la Prohibition.","short answers"],
+ ["Is Dillinger still alive?",["No, he isn't.","No, he wasn't.","Yes, he isn't.","No, he didn't."],0,"is → isn't.","short answers"],
+ ["« des preuves » :",["evidence","evidences","an evidence","a clues"],0,"evidence sans s. Une preuve : a piece of evidence.","vocabulaire"],
+ ["« une empreinte digitale » :",["a fingerprint","a footprint","a clue","a body"],0,"footprint = trace de pas.","vocabulaire"],
+ ["Le document est un dessin :",["It's a drawing.","It's a photography.","It's a painting of a photo.","It's a picture of drawing."],0,"photography = l'art de la photo.","document"],
+ ["« Ils enquêtent » :",["They are investigating.","They are looking TV.","They investigate yesterday.","They are clue."],0,"to investigate.","vocabulaire"],
+ ["À l'écrit, je peux commencer une phrase par because ?",["Non","Oui","Seulement en majuscules","Seulement au prétérit"],0,"Oui à l'oral, non à l'écrit.","règle"]]},
+{id:"q-pc20",s:"Physique-Chimie",t:"Contrôle des interactions (vendredi 20)",fiche:"pc-ctrl20",qs:[
+ ["Un aimant attire un trombone sans le toucher : l'action est…",["à distance et attractive","de contact et attractive","à distance et répulsive","de contact et répartie"],0,"Ils ne se touchent pas, et ça attire.","classer"],
+ ["Le vent sur une voile : action…",["de contact, répartie","à distance, localisée","de contact, localisée","à distance, répartie"],0,"Le vent touche toute la voile.","classer"],
+ ["Le pied qui frappe le ballon : action…",["de contact, localisée","à distance","répartie","répulsive à distance"],0,"Petite zone de contact.","classer"],
+ ["Deux aimants nord contre nord :",["répulsive","attractive","de contact","sans effet"],0,"Ils se repoussent.","classer"],
+ ["Une action mécanique peut…",["mettre en mouvement, modifier le mouvement, déformer","seulement déformer","seulement chauffer","rien changer"],0,"Les 3 effets.","effets"],
+ ["La gravitation est…",["à distance et toujours attractive","de contact","parfois répulsive","sans lien avec la masse"],0,"Entre objets qui ont une masse.","gravitation"],
+ ["Si deux objets se rapprochent, la gravitation…",["augmente","diminue","ne change pas","disparaît"],0,"Plus proche = plus forte.","gravitation"],
+ ["Dans un DOI, une action à distance se trace…",["en pointillés","en trait plein","en rouge","on ne la trace pas"],0,"Plein = contact.","DOI"]]},
+{id:"q-droit2",s:"Histoire-Géo-EMC",t:"Le droit au quotidien et la justice",fiche:"emc-droit2",qs:[
+ ["Le droit, c'est…",["l'ensemble des règles écrites qui s'imposent à tous","les règles d'un jeu","ce que décide le plus fort","seulement les lois sur la route"],0,"Dans toutes les relations entre personnes.","définition"],
+ ["Pour régler un conflit, qui dit le droit ?",["le juge, lors d'un procès","la victime","le plus fort","le voisin"],0,"On ne se fait pas justice soi-même.","justice"],
+ ["« La raison du plus fort est toujours la meilleure » est…",["la morale (maxime) du Loup et l'Agneau","un article de la Constitution","une loi de 1789","une phrase du règlement intérieur"],0,"La Fontaine.","fable"],
+ ["Pourquoi l'accusation du loup est-elle fausse ?",["l'agneau boit plus bas, en aval","l'agneau boit plus haut","l'eau est au loup","l'agneau est un loup"],0,"Il ne peut pas troubler l'eau du loup.","fable"],
+ ["Le Code civil a été mis en place par…",["Napoléon Ier","Louis XIV","Simone Veil","le Sénat en 2021"],0,"Au début du XIXe siècle.","textes"],
+ ["Le Parlement, c'est…",["l'Assemblée nationale et le Sénat","le gouvernement","les juges","les maires"],0,"Députés + sénateurs.","acteurs"],
+ ["Les députés sont élus pour…",["5 ans","1 an","10 ans","toute la vie"],0,"Sauf dissolution.","acteurs"],
+ ["Une violence physique au collège peut relever…",["du règlement intérieur ET du Code pénal","seulement du règlement","de rien","seulement de la Constitution"],0,"Sanction au collège et plainte possible.","règlement / loi"]]}
+);
+function genAddF(){
+  const b=rnd(3,12), a=rnd(-12,15), c=rnd(1,15), plus=Math.random()<.5;
+  const fa=(a<0?"("+a+")":a)+"/"+b;
+  return plus?{q:"Calcule le numérateur : "+fa+" + "+c+"/"+b+" = ?/"+b,ans:a+c,ex:a+" + "+c+" = "+(a+c)+" ; on garde le dénominateur "+b+"."}
+             :{q:"Calcule le numérateur : "+fa+" − "+c+"/"+b+" = ?/"+b,ans:a-c,ex:a+" − "+c+" = "+(a-c)+" ; on garde le dénominateur "+b+"."};
+}
+const EX_ADD7=[
+{id:"ma-calc-addf",s:"Maths",fiche:"ma-frac2",kind:"fond",type:"calc",gen:"addf",n:6,t:"Additionner et soustraire (même dénominateur, toujours nouveau)"},
+{id:"ma-flash-pct",s:"Maths",fiche:"ma-frac2",kind:"fond",type:"flash",t:"Fraction → pourcentage",
+ note:"Dis le pourcentage à voix haute, puis retourne.",
+ cards:[["1/2","50 %"],["1/4","25 %"],["3/4","75 %"],["1/5","20 %"],["2/5","40 %"],["1/10","10 %"],["3/10","30 %"],["7/20","35 % (×5 en haut et en bas)"],["5/20","25 % (= 1/4)"],["84/240","7/20 = 35 %"]]},
+{id:"ma-order-pct",s:"Maths",fiche:"ma-frac2",kind:"forme",type:"order",t:"Passer d'une proportion à un pourcentage : les étapes",
+ steps:["Je repère la partie et le tout.","J'écris la fraction partie / tout.","Je simplifie en montrant les produits.","Je cherche la fraction égale sur 100.","J'écris le pourcentage et une phrase réponse."]},
+{id:"an-flash-crime",s:"Anglais",fiche:"an-crime",kind:"fond",type:"flash",t:"Le vocabulaire du crime (pour mercredi)",
+ note:"Dis le mot anglais à voix haute, puis retourne. Ensuite, refais-les dans l'autre sens.",
+ cards:[["une scène de crime","a crime scene"],["un policier","a police officer"],["enquêter","to investigate"],["mener une enquête","to make an investigation"],["une empreinte digitale","a fingerprint"],["une trace de pas","a footprint"],["l'ADN","DNA"],["un indice","a clue"],["des preuves","evidence (sans s)"],["une preuve","a piece of evidence"],["du sang","blood"],["le corps","the body"],["chercher","to look for / to search for"],["le salon","the living room"],["un canapé","a sofa / a couch"],["un dessin","a drawing"],["regarder la télé","to watch TV"]]},
+{id:"an-sort-short",s:"Anglais",fiche:"an-crime",kind:"forme",type:"sort",t:"Quelle short answer ?",
+ cats:["No, he wasn't.","No, he didn't.","No, he isn't.","No, they couldn't."],items:[["Was he born in Tennessee?",0],["Was he captured alive?",0],["Did he commit his crimes alone?",1],["Did he live in France?",1],["Is he still alive?",2],["Is he a policeman?",2],["Could people drink alcohol in the 1920s?",3],["Could gangsters sell beer legally?",3]],
+ expl:["Question avec was → wasn't.","Question avec did → didn't.","Question avec is → isn't.","Question avec could → couldn't."]},
+{id:"an-write-crime",s:"Anglais",fiche:"an-crime",kind:"forme",type:"write",t:"Décrire la scène de crime (oral)",
+ prompt:"Décris la scène de crime vue en classe en 5 phrases, à voix haute : le document, le lieu, les personnages, les indices, ce que tu en déduis.",
+ method:["It's a drawing…","The scene takes place in… I can see…","There are three police officers. They are…","There is / There are… (tape, footprints, blood)","I think the killer was looking for…"],
+ model:"It's a drawing, not a photograph.\nThe scene takes place in a flat, in the living room: I can see a sofa, a TV and a coffee table.\nThere are three police officers. They are investigating.\nThere is a « Do not cross » tape, there are footprints and there is blood on the floor.\nPapers are everywhere, so I think the killer was looking for something.",
+ check:["drawing (pas photograph)","living room + 2 objets","police officers + are investigating","3 indices","une déduction avec I think"]},
+{id:"es-oral-dial",s:"Espagnol",fiche:"es-oral",kind:"forme",type:"write",t:"Répéter le dialogue de l'examen (sans lire)",
+ prompt:"Dis à voix haute ton dialogue : 1 question + réponse sur ce que tu ressens, 3 questions + réponses sur ta routine avec soler, 1 comparaison. La 1re fois avec ta fiche de mots-clés, la 2e fois sans rien.",
+ method:["¿Cómo estás? – Estoy…","¿A qué hora sueles levantarte? – Suelo levantarme a las…","¿A qué hora sueles comer? – Suelo comer a las…","¿A qué hora vuelves a casa? – Vuelvo a casa a las…","Comparaison : … mientras que … / más … que"],
+ model:"– Hola, ¿cómo estás? – Estoy un poco cansado, ¿y tú? – Estoy contento.\n– ¿A qué hora sueles levantarte? – Suelo levantarme a las siete.\n– ¿A qué hora sueles comer? – Suelo comer a las doce y media.\n– ¿A qué hora vuelves a casa? – Vuelvo a casa a las cinco.\n– En España la gente suele comer a las dos, mientras que en Francia solemos comer a las doce y media.",
+ check:["J'ai dit comment je me sens (estoy…)","3 fois soler bien conjugué","Une comparaison","Je l'ai dit une fois sans regarder"]},
+{id:"es-flash-soler",s:"Espagnol",fiche:"es-oral",kind:"fond",type:"flash",t:"Soler et les questions de l'oral",
+ note:"Réponds à voix haute avant de retourner.",
+ cards:[["soler, yo","suelo"],["soler, tú","sueles"],["soler, él / ella","suele"],["soler, nosotros","solemos"],["soler, ellos","suelen"],["Demande : à quelle heure te lèves-tu d'habitude ?","¿A qué hora sueles levantarte?"],["Je me lève d'habitude à 7 h.","Suelo levantarme a las siete."],["Demande : à quelle heure rentres-tu ?","¿A qué hora vuelves a casa?"],["Je suis fatigué.","Estoy cansado."],["En Espagne on mange plus tard qu'en France.","En España se come más tarde que en Francia."]]},
+{id:"pc-sort-ctrl",s:"Physique-Chimie",fiche:"pc-ctrl20",kind:"fond",type:"sort",t:"Contact ou distance ? Attractive ou répulsive ?",
+ cats:["à distance, attractive","à distance, répulsive","contact, localisée","contact, répartie"],items:[["La Terre attire la pomme",0],["Un aimant attire un trombone",0],["La Terre attire la Lune",0],["Deux aimants nord contre nord",1],["Deux aimants sud contre sud",1],["Le pied frappe le ballon",2],["Le doigt appuie sur le bouton",2],["Le vent pousse la voile",3],["L'eau porte le bateau",3]],
+ expl:["Pas de contact, ça attire (gravitation ou aimant).","Pas de contact, ça repousse.","Contact sur une petite zone.","Contact sur une grande surface."]},
+{id:"emc-flash-droit2",s:"Histoire-Géo-EMC",fiche:"emc-droit2",kind:"fond",type:"flash",t:"Le droit au quotidien en cartes",
+ note:"Réponds à voix haute avant de retourner la carte.",
+ cards:[["Qu'est-ce que le droit ?","L'ensemble des règles écrites qui s'imposent à tous dans les relations entre personnes."],["Où voit-on le droit ?","Carte d'identité, panneaux de signalisation."],["2 obligations créées par le droit ?","Respecter le Code de la route, le règlement intérieur, réparer un dommage, payer ses impôts."],["Qui règle les conflits ?","Le juge, lors d'un procès, en appliquant la loi."],["À quoi la société a-t-elle renoncé ?","À la loi du plus fort."],["La morale du Loup et l'Agneau ?","La raison du plus fort est toujours la meilleure."],["4 textes officiels ?","DDHC (1789), Constitution, Code civil, Code pénal."],["Le Parlement ?","L'Assemblée nationale (députés) et le Sénat (sénateurs)."],["Règlement intérieur ou loi ?","Le règlement = le collège ; la loi = toute la société."]]}
+];
+EX.push(...EX_ADD7);
+CTRL.push(
+ {id:"c-es20",d:"2026-11-20",s:"Espagnol",t:"Examen oral : le dialogue (sans lire)",what:"Les examens oraux commencent le vendredi 20. Dialogue travaillé en classe : questions sur la routine, comment on se sent, comparaisons, soler. Fiche de notes pour préparer, mais interdit de lire pendant l'examen.",quiz:["q-es-seq"],ex:["es-flash-soler","es-oral-dial","es-oral-seq"],fiche:"es-oral",
+  cl:["Je conjugue soler à toutes les personnes.","Je pose 3 questions sur la routine et j'y réponds.","Je dis comment je me sens.","Je fais une comparaison.","J'ai dit tout le dialogue une fois sans regarder ma fiche."]},
+ {id:"c-pc20",d:"2026-11-20",s:"Physique-Chimie",t:"Contrôle : les interactions",what:"Effets d'une action mécanique ; classer une action en justifiant (contact / distance, attractive / répulsive, localisée / répartie) ; tracer un DOI ; interaction gravitationnelle. Apporter le carnet de labo.",quiz:["q-pc20","q-pc"],ex:["pc-sort-ctrl","pc-sort"],fiche:"pc-ctrl20",
+  cl:["Je cite les 3 effets d'une action mécanique.","Je classe une action avec les 3 critères et je justifie par une phrase.","Je trace un DOI (système entouré, traits pleins et pointillés).","Je donne les caractéristiques de la gravitation.","Mon carnet de labo est dans mon sac."]},
+ {id:"c-svt24",d:"2026-11-24",s:"SVT",t:"TP d'observation (évaluation de compétences)",what:"Mardi 24 novembre, 11 h-12 h 35, salle 120. Préparation microscopique, observation, dessin d'observation.",quiz:["q-svt","q-demarche"],ex:["svt-order","svt-dessin"],fiche:"svt",
+  cl:["Je dis les étapes d'une préparation microscopique.","Je commence au plus petit objectif.","Mon dessin a un titre, le grossissement, des légendes à la règle."]}
+);
+(function(){
+ const day=d=>PLAN.find(p=>p.d===d);
+ const B=(d,id)=>day(d).blocs.find(b=>b.id===id);
+ // Lundi 16 : recopier la leçon d'HG pour demain (remplace la révision d'anglais : le prétérit a été interrogé aujourd'hui)
+ const d16=day("2026-11-16");
+ d16.note="Ce soir 1 heure : veille de 3 évaluations + la leçon d'HG à recopier pour demain 9 h 30.";
+ d16.blocs=d16.blocs.filter(b=>b.id!=="f16d");
+ d16.blocs.push({id:"f16e",k:"devoir",s:"Histoire-Géo-EMC",t:"Recopier la leçon du jour (ne pas imprimer ni coller)",due:"2026-11-17",fiche:"emc-droit2",
+  st:["J'ouvre la fiche « Le droit au quotidien », partie 1 : le texte de la leçon.","Paragraphe 1 (7 min) : je lis une phrase à voix haute, je la cache, je l'écris, je vérifie.","Pause debout 2 minutes.","Paragraphe 2 (7 min), pareil.","Je souligne le titre et je vérifie les mots difficiles : conjoints, employeurs, obligations, autrui, impôts."],
+  c:"les 2 paragraphes sont recopiés dans mon cahier d'EMC."});
+ // Mardi 17 → lundi 23 : nouveau programme
+ const d17=day("2026-11-17");
+ d17.kind="Mardi · après 3 évaluations";
+ d17.note="Pour demain : verbes irréguliers + vocabulaire du crime et Recap.";
+ d17.blocs=[
+  B("2026-11-17","f17a"),
+  {id:"f17d",k:"devoir",s:"Anglais",t:"Vocabulaire du crime + faire le Recap",due:"2026-11-18",fiche:"an-crime",quiz:"q-crime",ex:["an-flash-crime","an-sort-short"],
+   st:["Je lis la fiche « Short answers et scène de crime ».","Je fais les cartes « Le vocabulaire du crime » dans les deux sens.","Je fais le Recap demandé par la prof (cahier ou livre).","Je fais « Quelle short answer ? »."],
+   c:"je dis 10 mots du crime sans regarder et j'ai fait le Recap."},
+  {id:"f17e",k:"controle",s:"Espagnol",t:"Oral de vendredi : je prépare ma fiche de mots-clés",due:"2026-11-20",fiche:"es-oral",ex:["es-flash-soler"],
+   st:["Je lis la fiche « Examen oral du vendredi 20 ».","Je fais les cartes « Soler et les questions de l'oral ».","J'écris ma fiche de notes : seulement des mots-clés (avec maman si c'est long à écrire)."],
+   c:"ma fiche de mots-clés est prête et je conjugue soler sans regarder."}];
+ PLAN.push(
+ {d:"2026-11-18",kind:"Mercredi",note:"",blocs:[
+  {id:"g18a",k:"devoir",s:"Anglais",t:"Verbes irréguliers : la liste du 19",due:"2026-11-19",fiche:"an",ex:["an-flash"],
+   st:["Je trouve la liste du 19 dans le planning.","Je dis les verbes 5 par 5 en tapant dans les mains.","Je les écris une fois (Cantoo si besoin)."],c:"toute la liste juste sans regarder."},
+  {id:"g18b",k:"controle",s:"Physique-Chimie",t:"Interactions : classer et justifier (J-2)",due:"2026-11-20",fiche:"pc-ctrl20",quiz:"q-pc20",ex:["pc-sort-ctrl"],
+   st:["Je lis la fiche « Contrôle du vendredi 20 ».","Je fais « Contact ou distance ? Attractive ou répulsive ? ».","J'écris 2 phrases de justification comme dans la fiche.","Je fais le quiz."],c:"au moins 7/8 au quiz."},
+  {id:"g18c",k:"controle",s:"Espagnol",t:"Oral : le dialogue avec ma fiche (J-2)",due:"2026-11-20",fiche:"es-oral",ex:["es-oral-dial"],
+   st:["Je lis le dialogue modèle et je l'adapte à ma vraie journée.","Je le dis 2 fois avec ma fiche de mots-clés.","Je le dis 1 fois à un parent."],c:"je dis le dialogue en regardant seulement ma fiche."},
+  {id:"g18d",k:"renfort",s:"Anglais",t:"Renforcement : « say it in English » (0/10 le 9 novembre)",fiche:"an-basics",ex:["an-flash-basics"],
+   st:["Je lis la partie « En classe » de la fiche « Jours, mois et anglais de la classe ».","Je fais les cartes à voix haute.","Je redis les phrases ratées 3 fois."],c:"toutes les cartes sues."}]},
+ {d:"2026-11-19",kind:"Jeudi · veille de 2 contrôles (espagnol oral, physique)",note:"1 heure : veille de 2 contrôles.",blocs:[
+  {id:"g19a",k:"controle",s:"Espagnol",t:"Oral : le dialogue sans lire",due:"2026-11-20",fiche:"es-oral",quiz:"q-es-seq",ex:["es-oral-dial","es-flash-soler"],
+   st:["Je dis le dialogue une fois avec ma fiche.","Je le dis 2 fois sans rien, à un parent.","Je mets ma fiche et mon dictionnaire dans mon sac."],c:"je dis tout le dialogue sans regarder."},
+  {id:"g19b",k:"controle",s:"Physique-Chimie",t:"Contrôle blanc : interactions, DOI, gravitation",due:"2026-11-20",fiche:"pc-ctrl20",quiz:"q-pc",ex:["pc-sort"],
+   st:["Sans fiche : je cite les 3 effets d'une action mécanique.","Je trace le DOI d'un ballon posé sur le sol (Terre, sol).","Je dis les caractéristiques de la gravitation.","Je vais dans « Contrôles » et je coche ce que je sais.","Je mets le carnet de labo dans mon sac."],c:"le contrôle de physique est « Prêt » et le carnet de labo est dans le sac."},
+  {id:"g19c",k:"revision",s:"Maths",t:"Révision : fractions, pourcentages, additions",fiche:"ma-frac2",quiz:"q-frac2",ex:["ma-calc-addf","ma-flash-pct"],
+   st:["Je lis « L'essentiel » de la fiche « Fractions : pourcentages, comparer, additionner ».","Je fais 6 additions et soustractions.","Je fais les cartes « Fraction → pourcentage »."],c:"au moins 5/6 aux calculs."},
+  {id:"g19d",k:"renfort",s:"Français",t:"Renforcement : le passé simple (3/10)",fiche:"fr-ps",quiz:"q-ps",ex:["fr-flash-ps"],
+   st:["Je relis les terminaisons du passé simple.","Je fais les cartes à voix haute."],c:"toutes les cartes sues."}]},
+ {d:"2026-11-20",kind:"Vendredi",note:"Le programme s'ajustera avec les devoirs donnés cette semaine.",blocs:[
+  {id:"g20a",k:"revision",s:"Histoire-Géo-EMC",t:"Révision : le droit au quotidien et la justice",fiche:"emc-droit2",quiz:"q-droit2",ex:["emc-flash-droit2"],
+   st:["Je lis « L'essentiel » de la fiche.","Je fais les cartes à voix haute.","Je fais le quiz."],c:"au moins 7/8 au quiz."},
+  {id:"g20b",k:"revision",s:"Anglais",t:"Révision : décrire la scène de crime",fiche:"an-crime",ex:["an-write-crime"],
+   st:["Je relis la partie 3 de la fiche.","Je fais l'entraînement « Décrire la scène de crime » à voix haute.","Je compare avec le modèle."],c:"5 phrases dites sans lire."},
+  {id:"g20c",k:"renfort",s:"Maths",t:"Renforcement : arithmétique (3,5/10)",fiche:"ma-base",quiz:"q-base",ex:["ma-sort-div"],
+   st:["Je lis la partie arithmétique de la fiche « Bases à reprendre ».","Je fais le classement des diviseurs.","Je fais le quiz."],c:"au moins 7/8 au classement."}]},
+ {d:"2026-11-21",kind:"Samedi",note:"",blocs:[
+  {id:"g21a",k:"controle",s:"SVT",t:"TP d'observation du 24 : la préparation microscopique",due:"2026-11-24",fiche:"svt",ex:["svt-order"],
+   st:["Je relis la fiche SVT : microscope et préparation.","Je fais « Préparation microscopique » dans l'ordre.","Je dis les étapes à voix haute sans regarder."],c:"les étapes dans l'ordre sans regarder."},
+  {id:"g21b",k:"revision",s:"Maths",t:"Révision espacée : statistiques et relatifs",fiche:"ma-stat2",ex:["ma-calc-med","ma-calc-rel"],
+   st:["Je fais 6 médianes.","Je fais 10 calculs avec les relatifs."],c:"au moins 5/6 et 8/10."},
+  {id:"g21c",k:"renfort",s:"Physique-Chimie",t:"Renforcement : mouvement et vitesse (7,5/20)",fiche:"pc-vitesse",ex:["pc-calc-vit"],
+   st:["Je lis la fiche « Mouvement et vitesse ».","Je fais 6 calculs de vitesse."],c:"au moins 5/6."}]},
+ {d:"2026-11-22",kind:"Dimanche",note:"",blocs:[
+  {id:"g22a",k:"controle",s:"SVT",t:"TP du 24 : le dessin d'observation",due:"2026-11-24",fiche:"svt-demarche",quiz:"q-demarche",ex:["svt-dessin"],
+   st:["Je relis la partie « dessin d'observation » (points perdus le 27 octobre).","Je fais un dessin d'observation sans modèle (5 min) et je coche la grille.","Je fais le quiz."],c:"grille du dessin complète."},
+  {id:"g22b",k:"revision",s:"Français",t:"Révision espacée : former des mots",fiche:"fr-deriv2",quiz:"q-deriv2",ex:["fr-sort-in2"],
+   st:["Je fais « in-, il-, ir- ou im- ? ».","Je fais le quiz « Former des mots »."],c:"au moins 8/10."},
+  {id:"g22c",k:"renfort",s:"Espagnol",t:"Renforcement : la routine (4/20)",fiche:"es-seq",ex:["es-flash-seq"],
+   st:["Je fais les cartes « L'heure, la routine et les émotions »."],c:"toutes les cartes sues."}]},
+ {d:"2026-11-23",kind:"Lundi · veille du TP de SVT",note:"",blocs:[
+  {id:"g23a",k:"controle",s:"SVT",t:"Je vérifie que je suis prêt pour le TP",due:"2026-11-24",fiche:"svt",quiz:"q-svt",ex:["svt-order","svt-dessin"],
+   st:["Sans fiche : je dis les étapes de la préparation.","Je fais un dessin d'observation et je coche la grille.","Je vais dans « Contrôles » et je coche ce que je sais."],c:"le TP de SVT est « Prêt » ou « Presque prêt »."},
+  {id:"g23b",k:"revision",s:"Histoire-Géo-EMC",t:"Révision espacée : l'État de droit",fiche:"emc-droit",quiz:"q-droit",ex:["emc-sort-pouvoirs"],
+   st:["Je fais « Quel pouvoir ? ».","Je fais le quiz « L'État de droit »."],c:"au moins 7/8."},
+  {id:"g23c",k:"renfort",s:"Anglais",t:"Renforcement : décrire un tableau (3,5/20)",fiche:"an-hopper",quiz:"q-hopper",
+   st:["Je relis les 4 étapes de la fiche Hopper.","Je fais le quiz."],c:"au moins 4/5."}]}
+ );
+ // Contrôles
+ const ca=CTRL.find(c=>c.id==="c-an18");
+ if(ca){ca.what+=" Et apprendre le vocabulaire du crime + faire le Recap."; ca.quiz.push("q-crime"); ca.ex.push("an-flash-crime"); ca.cl.push("Je dis 10 mots du crime sans regarder.","J'ai fait le Recap.");}
 })();
 
 /* ================= MON CARTABLE ================= */
