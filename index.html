@@ -185,7 +185,7 @@ ul.cl2{list-style:none;padding:0;display:flex;flex-direction:column;gap:4px} ul.
 <div class="app">
   <header class="top">
     <div class="stack" style="gap:4px">
-      <span class="tag">Hugo · 4e5 · semaine du 18 au 24 novembre · mis à jour le 18</span>
+      <span class="tag">Hugo · 4e5 · semaine du 18 au 24 novembre · mis à jour le 19</span>
       <h1>Mon plan de révision</h1>
     </div>
     <div class="progress" aria-live="polite">
@@ -2782,6 +2782,46 @@ CTRL.push(
    st:["Je refais les cartes du tableau.","Je fais « -emment, -amment ou autre -ment ? »."],c:"toutes les cartes sues."},
   {id:"h24c",k:"revision",s:"Maths",t:"Révision espacée : statistiques et relatifs",fiche:"ma-stat2",ex:["ma-calc-med","ma-calc-rel"],
    st:["Je fais 6 médianes.","Je fais 10 calculs avec les relatifs."],c:"au moins 5/6 et 8/10."}]});
+})();
+
+/* ---------- Ajouts du 19 novembre ---------- */
+(function(){
+ const j=FICHES.find(f=>f.id==="emc-justice");
+ if(j){
+  j.src+=" · cours du 19 novembre : B) les caractéristiques de la justice, les métiers · lexique à lire pour le lundi 23";
+  j.short.push("Pour lundi 23 : <b>lire le lexique de la justice</b> (dans le cahier d'EMC) et <b>apporter le cahier d'EMC et le cahier de géographie</b>.");
+  j.lumni.push(["Les métiers du droit et de la justice (ONISEP)","https://www.onisep.fr/metier/decouvrir-le-monde-professionnel/droit-et-justice"],["Le métier de magistrat (ONISEP)","https://www.onisep.fr/ressources/univers-metier/metiers/magistrat-magistrate"]);
+ }
+})();
+EX.push(
+{id:"emc-flash-lexique",s:"Histoire-Géo-EMC",fiche:"emc-justice",kind:"fond",type:"flash",t:"Le lexique de la justice en cartes",
+ note:"Dis la définition à voix haute avant de retourner la carte. Compare ensuite avec le lexique de ton cahier : c'est lui qui compte.",
+ cards:[["un magistrat","une personne qui rend la justice (juge) ou qui défend la société (procureur)"],["un juge","le magistrat qui tranche le conflit et décide (« dit le droit »)"],["le procureur","le magistrat qui représente la société et demande une peine"],["un avocat","il conseille et défend une personne devant la justice"],["un procès","le moment où le tribunal examine l'affaire et juge"],["l'accusé / le prévenu","la personne soupçonnée d'avoir commis une infraction"],["la victime","la personne qui a subi le dommage"],["un tribunal","le lieu et l'institution où l'on juge"],["la présomption d'innocence","on est considéré innocent tant qu'on n'a pas été jugé coupable"],["une peine","la sanction décidée par le tribunal (amende, prison…)"],["faire appel","demander à être jugé une deuxième fois par une autre juridiction"],["un jury populaire","des citoyens tirés au sort qui jugent les crimes, à la cour d'assises"]]}
+);
+(function(){
+ const day=d=>PLAN.find(p=>p.d===d);
+ const B=(d,id)=>day(d).blocs.find(b=>b.id===id);
+ // Jeudi 19 : Hugo est absent demain matin (8 h-12 h 55) : on garde l'oral d'espagnol et la physique (cet après-midi), le tableau de français ; les exercices de maths passent au samedi
+ const d19=day("2026-11-19");
+ d19.note="Demain matin, absence justifiée (8 h-12 h 55) : pas de maths ni de français demain. L'oral d'espagnol (15 h 05) et le contrôle de physique (16 h 05) ont bien lieu. Carnet de labo dans le sac !";
+ d19.blocs=d19.blocs.filter(b=>b.id!=="h19b");
+ // Samedi 21 : exercices 23 et 28 p. 62 (pour le prochain cours de maths, lundi 23 à 10 h 40) à la place du renforcement de physique
+ const d21=day("2026-11-21");
+ d21.blocs=d21.blocs.filter(b=>b.id!=="g21c");
+ d21.blocs.push({id:"i21a",k:"devoir",s:"Maths",t:"Exercices 23 et 28 page 62 (manuel)",due:"2026-11-23",fiche:"ma-frac2",quiz:"q-frac2",ex:["ma-calc-addf"],
+  st:["Je relis dans la fiche « Fractions » la partie sur l'addition et la soustraction (même dénominateur : on additionne les numérateurs, on garde le dénominateur).","Je fais l'entraînement « Additionner et soustraire » (5 min).","J'ouvre le manuel page 62 : exercices 23 et 28 sur le cahier d'exercices, en écrivant chaque étape.","Je simplifie le résultat jusqu'à la fraction irréductible.","Je mets le manuel dans le sac pour lundi."],
+  c:"les 2 exercices sont faits, chaque calcul est écrit, et le résultat est simplifié."});
+ // Dimanche 22 : lexique de la justice pour lundi 23 (HG à 11 h 40) à la place du renforcement passé simple
+ const d22=day("2026-11-22");
+ d22.blocs=d22.blocs.filter(b=>b.id!=="g19d");
+ d22.blocs.push({id:"i22a",k:"devoir",s:"Histoire-Géo-EMC",t:"Lire le lexique de la justice + cahiers d'EMC et de géo dans le sac",due:"2026-11-23",fiche:"emc-justice",quiz:"q-justice",ex:["emc-flash-lexique"],
+  st:["J'ouvre mon cahier d'EMC au lexique de la justice et je le lis à voix haute.","Je fais les cartes « Le lexique de la justice » et je compare avec mon cahier.","Je mets le cahier d'EMC ET le cahier de géographie dans le cartable (demandé pour lundi)."],
+  c:"j'explique sans regarder : juge, procureur, avocat, présomption d'innocence, et les 2 cahiers sont dans le sac."});
+ // Contrôles et rappels
+ const pc=CTRL.find(c=>c.id==="c-pc20"); if(pc){pc.cl=pc.cl||[]; if(!pc.cl.some(x=>/carnet de labo/i.test(x))) pc.cl.push("Mon carnet de labo est dans le sac.");}
+ const fr=CTRL.find(c=>c.id==="c-fr20"); if(fr){fr.what+=" Hugo est absent vendredi matin : le tableau sera sans doute interrogé au prochain cours de français."; fr.d="2026-11-24";}
+ CTRL.push({id:"c-hg23",d:"2026-11-23",s:"Histoire-Géo-EMC",t:"Lexique de la justice + cahiers d'EMC et de géographie",what:"Pronote : « Lire le lexique de la justice. AMENER le cahier d'EMC et de GÉOGRAPHIE. » HG lundi 23 à 11 h 40.",quiz:["q-justice"],ex:["emc-flash-lexique"],fiche:"emc-justice",
+  cl:["J'ai lu le lexique de la justice.","J'explique juge, procureur, avocat et présomption d'innocence.","Le cahier d'EMC et le cahier de géographie sont dans le sac."]});
 })();
 
 /* ================= MON CARTABLE ================= */
