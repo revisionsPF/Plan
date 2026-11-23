@@ -185,7 +185,7 @@ ul.cl2{list-style:none;padding:0;display:flex;flex-direction:column;gap:4px} ul.
 <div class="app">
   <header class="top">
     <div class="stack" style="gap:4px">
-      <span class="tag">Hugo · 4e5 · semaine du 18 au 24 novembre · mis à jour le 19</span>
+      <span class="tag">Hugo · 4e5 · semaine du 23 au 29 novembre · mis à jour le 23</span>
       <h1>Mon plan de révision</h1>
     </div>
     <div class="progress" aria-live="polite">
@@ -1594,7 +1594,7 @@ function ctrlHTML(c){
    '<h3>'+esc(c.t)+'</h3><p class="small muted">'+esc(c.what)+'</p>'+
    '<ul class="cl">'+c.cl.map((t,i)=>'<li><label for="ck-'+c.id+'-'+i+'"><input type="checkbox" id="ck-'+c.id+'-'+i+'" data-ck="'+c.id+'|'+i+'"'+(ch[i]?' checked':'')+'><span>'+esc(t)+'</span></label></li>').join("")+'</ul>'+
    (Rd.miss.length?'<p class="small"><b>Il manque :</b> '+esc(Rd.miss.join(" ; "))+'.</p>':'<p class="small"><b>Tout est bon.</b> Je dors bien la veille.</p>')+
-   '<div class="stack" style="gap:6px">'+c.quiz.map(q=>'<span class="row"><button type="button" class="btn small" data-play="'+q+'">Quiz : '+esc(QI(q).t)+'</button> '+pillQ(q)+'</span>').join("")+(c.ex||[]).map(e=>'<span class="row"><button type="button" class="btn ghost small" data-ex="'+e+'">'+esc(EI(e).t)+'</button> '+pillE(e)+'</span>').join("")+'<span><button type="button" class="btn ghost small" data-fiche="'+c.fiche+'">Fiche</button></span></div></section>';
+   '<div class="stack" style="gap:6px">'+c.quiz.map(q=>'<span class="row"><button type="button" class="btn small" data-play="'+q+'">Quiz : '+esc(QI(q).t)+'</button> '+pillQ(q)+'</span>').join("")+(c.ex||[]).map(e=>'<span class="row"><button type="button" class="btn ghost small" data-ex="'+e+'">'+esc(EI(e).t)+'</button> '+pillE(e)+'</span>').join("")+(c.fiche?'<span><button type="button" class="btn ghost small" data-fiche="'+c.fiche+'">Fiche</button></span>':'')+'</div></section>';
 }
 
 /* ---- Bilan ---- */
@@ -2822,6 +2822,194 @@ EX.push(
  const fr=CTRL.find(c=>c.id==="c-fr20"); if(fr){fr.what+=" Hugo est absent vendredi matin : le tableau sera sans doute interrogé au prochain cours de français."; fr.d="2026-11-24";}
  CTRL.push({id:"c-hg23",d:"2026-11-23",s:"Histoire-Géo-EMC",t:"Lexique de la justice + cahiers d'EMC et de géographie",what:"Pronote : « Lire le lexique de la justice. AMENER le cahier d'EMC et de GÉOGRAPHIE. » HG lundi 23 à 11 h 40.",quiz:["q-justice"],ex:["emc-flash-lexique"],fiche:"emc-justice",
   cl:["J'ai lu le lexique de la justice.","J'explique juge, procureur, avocat et présomption d'innocence.","Le cahier d'EMC et le cahier de géographie sont dans le sac."]});
+})();
+
+/* ---------- Ajouts du 23 novembre ---------- */
+FICHES.push(
+{id:"ma-pyth-contra",s:"Maths",t:"Pythagore : prouver qu'un triangle N'EST PAS rectangle (contraposée)",src:"Cours du 23 novembre · leçon + ex. 35 p. 204 et ex. 35 p. 63 pour le jeudi 26",
+ lumni:[["Réciproque et contraposée de Pythagore",LUMNI("contraposée théorème de Pythagore")]],
+ short:[
+  "Rappel du théorème : si un triangle est <b>rectangle</b>, alors le carré de l'<b>hypoténuse</b> = la somme des carrés des deux autres côtés.",
+  "<b>Contraposée</b> : si le carré du <b>plus grand côté</b> n'est <b>pas égal</b> à la somme des carrés des deux autres, alors le triangle <b>n'est pas rectangle</b>.",
+  "Méthode en 4 lignes : 1. je repère le plus grand côté ; 2. je calcule son carré ; 3. je calcule la somme des carrés des 2 autres ; 4. je compare et je conclus.",
+  "Exemple : côtés 4 cm, 5 cm, 7 cm. 7² = 49. 4² + 5² = 16 + 25 = 41. 49 ≠ 41, donc le triangle <b>n'est pas rectangle</b>.",
+  "On calcule les deux côtés <b>séparément</b>, puis on compare. On n'écrit pas « 49 = 41 »."],
+ full:`
+ <div class="fsec"><h3>1. Ce que dit la contraposée</h3>
+  <div class="box"><p class="mem">plus grand côté² ≠ somme des 2 autres côtés² → PAS rectangle</p><p>C'est le théorème de Pythagore « à l'envers » : il sert à <b>démontrer qu'un triangle n'est pas rectangle</b>.</p></div></div>
+ <div class="fsec"><h3>2. La rédaction attendue (à recopier)</h3>
+  <div class="flow">
+   <div class="st">Dans le triangle ABC, le plus grand côté est [AC].</div><div class="ar">↓</div>
+   <div class="st">D'une part : AC² = 7² = 49.</div><div class="ar">↓</div>
+   <div class="st">D'autre part : AB² + BC² = 4² + 5² = 16 + 25 = 41.</div><div class="ar">↓</div>
+   <div class="st">Donc AC² ≠ AB² + BC².</div><div class="ar">↓</div>
+   <div class="st">D'après la <b>contraposée du théorème de Pythagore</b>, le triangle ABC <b>n'est pas rectangle</b>.</div></div>
+  <p class="tip">« D'une part… D'autre part… » : on fait les deux calculs chacun de son côté. Le mot « contraposée » doit apparaître dans la conclusion.</p></div>
+ <div class="fsec"><h3>3. Les pièges</h3>
+  <ul><li>Prendre le <b>plus grand côté</b> pour le premier calcul (c'est lui qui serait l'hypoténuse).</li><li>Mettre au <b>carré</b> avant d'additionner : 4² + 5² = 16 + 25, pas (4 + 5)².</li><li>Les longueurs doivent être dans la <b>même unité</b>.</li><li>Avec la calculatrice : 6,5² = 42,25.</li></ul></div>`},
+{id:"an-costello",s:"Anglais",t:"The Joe Costello case : interroger un suspect",src:"Cours du 19 et du 23 novembre · revoir l'affaire Costello + le prétérit pour le mercredi 25",
+ lumni:[["Le prétérit en be + ing",LUMNI("past continuous anglais")],["Poser des questions au passé",LUMNI("questions prétérit anglais")]],
+ short:[
+  "L'affaire Costello : une enquête. <b>Joe Costello</b> est la victime ; on écoute les <b>suspects</b> interrogés par l'enquêteur.",
+  "Les questions du cours : <b>Who was Joe Costello?</b> · <b>Who is the first suspect?</b> · <b>Where was he?</b> · <b>What was he doing when the crime was committed?</b>",
+  "<b>Where were you?</b> → I <b>was</b> at home. (be au prétérit : was / were)",
+  "<b>What were you doing?</b> → I <b>was watching</b> TV. (prétérit be + V-ing = « j'étais en train de »)",
+  "<b>Did you see / hear…?</b> → Yes, I did. / No, I didn't. (réponses courtes)",
+  "Mots de l'enquête : victim, suspect, investigator, witness, alibi, to question, to kill, crime, gun, clue."],
+ full:`
+ <div class="fsec"><h3>1. Les questions de l'enquêteur</h3>
+  <div class="table-wrap"><table><tr><th>Question</th><th>Réponse type</th><th>Temps</th></tr>
+   <tr><td>Who was Joe Costello?</td><td>He was the victim. He was a gangster.</td><td>prétérit de be</td></tr>
+   <tr><td>Where were you at 10 pm?</td><td>I was at the club.</td><td>prétérit de be</td></tr>
+   <tr><td>What were you doing when the crime was committed?</td><td>I was playing cards with friends.</td><td>prétérit be + V-ing</td></tr>
+   <tr><td>Did you see Joe that night?</td><td>Yes, I did. / No, I didn't.</td><td>réponse courte</td></tr>
+   <tr><td>What time did you leave?</td><td>I left at 11.</td><td>prétérit simple</td></tr></table></div>
+  <p class="tip">Compare avec tes notes du cours : les noms des suspects et ce qu'ils faisaient sont dans ton cahier.</p></div>
+ <div class="fsec"><h3>2. Prétérit simple ou be + V-ing ?</h3>
+  <div class="box"><p class="mem">I was watching TV (en train de) WHEN the killer came in (action courte)</p><p>L'action longue, en cours → was / were + V-ing. L'action courte qui la coupe → prétérit simple.</p></div></div>
+ <div class="fsec"><h3>3. Le vocabulaire de l'enquête</h3>
+  <ul><li><b>a victim</b> : une victime · <b>a suspect</b> : un suspect · <b>a witness</b> : un témoin</li><li><b>an investigator</b> : un enquêteur · <b>to question</b> : interroger</li><li><b>an alibi</b> : un alibi · <b>a clue</b> : un indice · <b>evidence</b> : des preuves</li><li><b>to commit a crime</b> : commettre un crime · <b>to be killed</b> : être tué</li></ul></div>`},
+{id:"geo-urb",s:"Histoire-Géo-EMC",t:"Géographie : urbanisation, métropoles, centres et périphéries",src:"Géographie chapitre I · cours du 23 novembre (documents p. 188-189, 197, 198-199)",
+ lumni:[["L'urbanisation du monde",LUMNI("urbanisation du monde")],["Qu'est-ce qu'une métropole ?",LUMNI("métropole géographie")]],
+ short:[
+  "Nouveau chapitre : <b>Espaces et paysages de l'urbanisation : centres et périphéries</b>.",
+  "<b>Urbanisation</b> = l'augmentation de la part de la population qui vit en ville. Aujourd'hui, plus de la moitié des humains vivent en ville.",
+  "<b>Métropole</b> = une très grande ville qui concentre la population, les activités et les <b>pouvoirs de décision</b>, et qui a une influence sur un large territoire (parfois le monde).",
+  "<b>Mondialisation</b> = la mise en relation des territoires du monde par les échanges (marchandises, personnes, informations). Les métropoles en sont les centres.",
+  "<b>Centre</b> : cœur de la ville (quartier d'affaires, pouvoirs). <b>Périphérie</b> : autour (banlieues, zones commerciales, quartiers pavillonnaires).",
+  "Pour lundi et mardi : <b>apporter le cahier de géographie</b>."],
+ full:`
+ <div class="fsec"><h3>1. Les mots du chapitre</h3>
+  <div class="table-wrap"><table><tr><th>Mot</th><th>Définition</th></tr>
+   <tr><td><b>Urbanisation</b></td><td>Augmentation de la part de la population qui vit en ville, et extension des villes.</td></tr>
+   <tr><td><b>Métropole</b></td><td>Très grande ville qui concentre habitants, emplois, entreprises et pouvoirs de décision, et qui rayonne sur un vaste territoire.</td></tr>
+   <tr><td><b>Mondialisation</b></td><td>Mise en relation des différentes parties du monde par les échanges.</td></tr>
+   <tr><td><b>Centre (ville-centre)</b></td><td>Le cœur de l'agglomération : quartier des affaires, commerces, monuments, pouvoirs.</td></tr>
+   <tr><td><b>Périphérie</b></td><td>Les espaces autour du centre : banlieues, zones d'activités, zones commerciales, lotissements.</td></tr>
+   <tr><td><b>Étalement urbain</b></td><td>La ville s'étend de plus en plus loin sur la campagne.</td></tr></table></div>
+  <p class="tip">Compare avec les définitions de ton cahier : ce sont elles qui comptent pour une évaluation.</p></div>
+ <div class="fsec"><h3>2. Analyser un document de géographie</h3>
+  <div class="flow"><div class="st">1. Nature, titre, date, lieu (où est-ce ?).</div><div class="ar">↓</div><div class="st">2. Je décris : au premier plan, à l'arrière-plan, au centre, en périphérie.</div><div class="ar">↓</div><div class="st">3. J'explique avec les mots du chapitre (métropole, urbanisation, mondialisation).</div></div></div>`}
+);
+QUIZ.push(
+{id:"q-contra",s:"Maths",t:"Pythagore : la contraposée",fiche:"ma-pyth-contra",qs:[
+ ["La contraposée sert à démontrer qu'un triangle…",["n'est pas rectangle","est rectangle","est isocèle","est équilatéral"],0,"Elle conclut « n'est pas rectangle ».","sens"],
+ ["Côtés 4 ; 5 ; 7. Le premier calcul porte sur…",["7² (le plus grand côté)","4²","5²","4 + 5"],0,"Le plus grand côté.","méthode"],
+ ["4² + 5² = ?",["41","81","20","9"],0,"16 + 25.","calcul"],
+ ["7² = 49 et 4² + 5² = 41. Conclusion :",["le triangle n'est pas rectangle","le triangle est rectangle","on ne peut rien dire","il est isocèle"],0,"49 ≠ 41.","conclusion"],
+ ["Côtés 6 ; 7 ; 9 : 9² = ?",["81","18","63","49"],0,"9 × 9.","calcul"],
+ ["6² + 7² = ?",["85","169","42","13"],0,"36 + 49 = 85 ≠ 81 → pas rectangle.","calcul"],
+ ["La rédaction commence par :",["« D'une part… D'autre part… »","« Donc le triangle est rectangle »","« 49 = 41 »","« On voit que »"],0,"Deux calculs séparés, puis on compare.","rédaction"]]},
+{id:"q-costello",s:"Anglais",t:"The Joe Costello case",fiche:"an-costello",qs:[
+ ["« Où étais-tu ? »",["Where were you?","Where was you?","Where did you were?","Where you were?"],0,"you → were.","be au prétérit"],
+ ["« Qu'est-ce que tu étais en train de faire ? »",["What were you doing?","What did you doing?","What you were doing?","What was you do?"],0,"were + V-ing.","be + V-ing"],
+ ["I ___ TV when the killer came in.",["was watching","watched","am watching","were watching"],0,"Action en cours (I → was).","be + V-ing"],
+ ["« Did you see Joe? » Réponse courte négative :",["No, I didn't.","No, I don't.","No, I wasn't.","No, I didn't see."],0,"did → didn't.","short answers"],
+ ["« un témoin » :",["a witness","a suspect","a victim","a clue"],0,"","vocabulaire"],
+ ["« un indice » :",["a clue","an alibi","evidence","a gun"],0,"","vocabulaire"]]},
+{id:"q-urb",s:"Histoire-Géo-EMC",t:"Urbanisation et métropoles",fiche:"geo-urb",qs:[
+ ["L'urbanisation, c'est…",["l'augmentation de la part de la population qui vit en ville","la construction d'une route","le retour à la campagne","un quartier d'affaires"],0,"","urbanisation"],
+ ["Une métropole concentre…",["habitants, activités et pouvoirs de décision","seulement des champs","seulement des maisons","seulement des touristes"],0,"","métropole"],
+ ["La mondialisation, c'est…",["la mise en relation des territoires par les échanges","un pays très peuplé","la pollution","une ville nouvelle"],0,"","mondialisation"],
+ ["Les banlieues et zones commerciales sont…",["en périphérie","au centre","à la campagne isolée","dans le quartier d'affaires"],0,"","centre / périphérie"],
+ ["Le quartier d'affaires se trouve souvent…",["au centre ou près du centre","en pleine campagne","dans les lotissements","au bord des autoroutes seulement"],0,"","centre / périphérie"]]}
+);
+EX.push(
+{id:"ma-sort-contra",s:"Maths",fiche:"ma-pyth-contra",kind:"fond",type:"sort",t:"L'égalité de Pythagore est-elle vérifiée ?",
+ cats:["Égalité vérifiée","Pas vérifiée → pas rectangle (contraposée)"],items:[
+ ["3 ; 4 ; 5",0],["6 ; 8 ; 10",0],["5 ; 12 ; 13",0],["8 ; 15 ; 17",0],["4 ; 5 ; 7",1],["5 ; 6 ; 8",1],["6 ; 7 ; 9",1],["2 ; 3 ; 4",1]],
+ expl:["Le carré du plus grand = la somme des carrés des deux autres.","Ex. 6 ; 7 ; 9 : 81 ≠ 36 + 49 = 85, donc le triangle n'est pas rectangle."]},
+{id:"ma-write-contra",s:"Maths",fiche:"ma-pyth-contra",kind:"forme",type:"write",t:"Rédiger une contraposée",
+ prompt:"Le triangle EFG a pour côtés EF = 5 cm, FG = 6 cm et EG = 8 cm. Est-il rectangle ? Rédige la démonstration (à l'oral ou par écrit), puis compare.",
+ method:["Je repère le plus grand côté.","D'une part : son carré.","D'autre part : la somme des carrés des deux autres.","Je compare avec ≠.","Je conclus avec « contraposée du théorème de Pythagore »."],
+ model:"Dans le triangle EFG, le plus grand côté est [EG].\nD'une part : EG² = 8² = 64.\nD'autre part : EF² + FG² = 5² + 6² = 25 + 36 = 61.\nDonc EG² ≠ EF² + FG².\nD'après la contraposée du théorème de Pythagore, le triangle EFG n'est pas rectangle.",
+ check:["J'ai nommé le plus grand côté","Deux calculs séparés (d'une part, d'autre part)","Le signe ≠","Le mot « contraposée »","La phrase de conclusion"]},
+{id:"an-flash-costello",s:"Anglais",fiche:"an-costello",kind:"fond",type:"flash",t:"Interroger un suspect",
+ note:"Dis la phrase en anglais à voix haute, puis retourne la carte.",
+ cards:[["Qui était Joe Costello ?","Who was Joe Costello?"],["Qui est le premier suspect ?","Who is the first suspect?"],["Où étais-tu à 10 heures ?","Where were you at 10 pm?"],["J'étais au club.","I was at the club."],["Qu'est-ce que tu faisais quand le crime a été commis ?","What were you doing when the crime was committed?"],["Je regardais la télé.","I was watching TV."],["As-tu vu Joe ? – Non.","Did you see Joe? – No, I didn't."],["un témoin","a witness"],["un alibi","an alibi"],["un enquêteur","an investigator"]]},
+{id:"geo-flash-urb",s:"Histoire-Géo-EMC",fiche:"geo-urb",kind:"fond",type:"flash",t:"Les mots de la géographie urbaine",
+ cards:[["urbanisation","augmentation de la part de la population qui vit en ville"],["métropole","très grande ville qui concentre habitants, activités et pouvoirs, et rayonne loin"],["mondialisation","mise en relation des territoires du monde par les échanges"],["centre","cœur de la ville : affaires, commerces, pouvoirs"],["périphérie","espaces autour du centre : banlieues, zones commerciales"],["étalement urbain","la ville s'étend sur la campagne"]]},
+{id:"fr-write-cafetiere",s:"Français",fiche:"fr-peur",kind:"forme",type:"write",t:"Rédaction : la suite de « La Cafetière » (exprimer la peur)",
+ prompt:"Sujet donné en classe le 20 (Hugo était absent) : inventer la suite de « La Cafetière » (une vingtaine de lignes) en exprimant la peur. Début : « Tout à coup le feu prit un étrange degré d'activité ; une lueur blafarde illumina la chambre… ». Entraîne-toi d'abord à l'oral en 6 phrases.",
+ method:["Je continue au passé : imparfait pour le décor, passé simple pour les actions soudaines.","J'utilise au moins 5 mots du tableau de la peur (effroi, épouvante, terrifié, menaçant…).","Je décris le corps : je tremblais, mon cœur battait, mes cheveux se dressaient.","Une figure de style : une anaphore (« Je… je… je… ») ou une comparaison.","Des phrases exclamatives ou interrogatives (« Qu'était-ce donc ? »).","Une fin qui laisse un doute (rêve ou surnaturel ?)."],
+ model:"Tout à coup le feu prit un étrange degré d'activité ; une lueur blafarde illumina la chambre. Je me redressai, saisi d'effroi. Les objets semblaient bouger d'eux-mêmes. Qu'était-ce donc ? Mon cœur battait si fort que je l'entendais dans mes oreilles, et mes mains tremblaient sur le drap. Une ombre menaçante glissa le long du mur. Je voulus crier, je voulus fuir, je voulus fermer les yeux, mais j'étais comme paralysé. Le lendemain matin, tout était à sa place. Avais-je rêvé ?",
+ check:["Au moins 5 mots de la peur","Une réaction du corps","Une anaphore ou une comparaison","Une phrase interrogative ou exclamative","Imparfait + passé simple","Une fin avec un doute"]}
+);
+(function(){
+ const day=d=>PLAN.find(p=>p.d===d);
+ const B=(d,id)=>day(d).blocs.find(b=>b.id===id);
+ // Lundi 23 (veille du TP de SVT + devoirs pour demain) : 1 heure
+ const d23=day("2026-11-23");
+ d23.kind="Lundi · veille du TP de SVT et de 3 devoirs";
+ d23.note="1 heure : veille du TP de SVT. Dans le sac pour demain : cahier de géographie, livre de physique, feuille de SVT.";
+ d23.blocs=[B("2026-11-23","g23a"),B("2026-11-23","h23a"),
+  {id:"j23a",k:"devoir",s:"Physique-Chimie",t:"Exercices 16 p. 336, 20 p. 337 et 26 p. 339 (livre cycle 4)",due:"2026-11-24",fiche:"pc-tension",quiz:"q-tension",
+   st:["J'ouvre le livre de physique (cycle 4) page 336.","Je relis l'essentiel de la fiche « La tension électrique » (le voltmètre, l'unité, tension nulle ou non).","Je fais les 3 exercices sur mon cahier, en écrivant les unités (V).","Je range le livre dans le sac."],
+   c:"les 3 exercices sont écrits, avec les unités."},
+  {id:"j23b",k:"controle",s:"Français",t:"Revoir le tableau de la peur (« TB revoir »)",due:"2026-11-24",fiche:"fr-peur",quiz:"q-peur",ex:["fr-flash-peur"],
+   st:["Je fais les cartes « Le tableau de la peur » à voix haute.","Je refais celles que j'ai ratées.","Je fais le quiz."],
+   c:"je dis le nom, l'adjectif et le verbe de crainte, effroi, terreur et épouvante sans regarder."}];
+ // Mardi 24 (après le TP) : anglais pour mercredi + leçon de maths du jour
+ const d24=day("2026-11-24");
+ d24.kind="Mardi · après le TP de SVT";
+ d24.note="";
+ d24.blocs=[
+  {id:"j24a",k:"devoir",s:"Anglais",t:"Revoir l'affaire Costello + le prétérit + les verbes du 25",due:"2026-11-25",fiche:"an-costello",quiz:"q-costello",ex:["an-flash-costello","an-flash"],
+   st:["Je lis la fiche « The Joe Costello case » et je compare avec mon cahier (noms des suspects).","Je fais les cartes « Interroger un suspect » à voix haute.","Je dis les verbes irréguliers de la liste du 25, 5 par 5."],
+   c:"je réponds sans regarder à « Where were you? » et « What were you doing? », et je sais la liste du 25."},
+  {id:"j24b",k:"devoir",s:"Maths",t:"Leçon : la contraposée de Pythagore",due:"2026-11-26",fiche:"ma-pyth-contra",quiz:"q-contra",ex:["ma-sort-contra"],
+   st:["Je lis la fiche « Pythagore : prouver qu'un triangle n'est pas rectangle » et ma leçon du cahier.","Je fais « L'égalité de Pythagore est-elle vérifiée ? ».","Je fais le quiz."],
+   c:"je récite la contraposée et je fais 6 ; 7 ; 9 sans regarder."},
+  B("2026-11-24","h24a")];
+ PLAN.push(
+ {d:"2026-11-25",kind:"Mercredi · 1 heure",note:"Mercredi : 1 heure.",blocs:[
+  {id:"j25a",k:"devoir",s:"Maths",t:"Finir l'ex. 35 p. 204 + faire l'ex. 35 p. 63",due:"2026-11-26",fiche:"ma-pyth-contra",ex:["ma-write-contra"],
+   st:["Je fais l'entraînement « Rédiger une contraposée » (modèle de rédaction).","Ex. 35 p. 204 sur le cahier, avec « D'une part… D'autre part… ».","Ex. 35 p. 63 (fractions) : je relis la fiche « Fractions » si besoin."],
+   c:"les 2 exercices sont finis et la conclusion contient le mot « contraposée »."},
+  {id:"j25b",k:"devoir",s:"Anglais",t:"Verbes irréguliers : la liste du 26",due:"2026-11-26",fiche:"an",ex:["an-flash"],
+   st:["Je trouve la liste du 26 dans le planning.","Je dis les verbes 5 par 5.","Je les écris une fois."],c:"toute la liste juste sans regarder."},
+  {id:"j25c",k:"devoir",s:"Musique",t:"« L'oiseau et l'enfant » : apprendre les couplets 1 et 2",due:"2026-11-27",
+   st:["J'écoute le chant une fois en suivant les paroles.","J'apprends le couplet 1 phrase par phrase, puis le couplet 2.","Je les chante ou je les récite à maman."],c:"je dis les couplets 1 et 2 sans regarder."},
+  {id:"j25d",k:"revision",s:"Histoire-Géo-EMC",t:"Géographie : les mots de l'urbanisation",fiche:"geo-urb",quiz:"q-urb",ex:["geo-flash-urb"],
+   st:["Je lis la fiche et je compare avec mon cahier de géographie.","Je fais les cartes.","Je fais le quiz."],c:"au moins 4/5 au quiz."}]},
+ {d:"2026-11-26",kind:"Jeudi",note:"",blocs:[
+  {id:"j26a",k:"devoir",s:"Musique",t:"Couplets 3 et 4 + DM Beethoven à rendre vendredi",due:"2026-11-27",
+   st:["J'apprends les couplets 3 et 4, puis je redis les 4 couplets.","DM : je suis les consignes du digipad de la classe (lien sur Pronote, avec maman), sur feuille, seul ou à 2.","Je mets le DM dans le cartable."],c:"je dis les 4 couplets et le DM est dans le sac."},
+  {id:"j26b",k:"revision",s:"Anglais",t:"Révision espacée : Costello et be + V-ing",fiche:"an-costello",quiz:"q-costello",ex:["an-flash-costello"],
+   st:["Je refais les cartes.","Je fais le quiz."],c:"au moins 5/6."},
+  {id:"j26c",k:"renfort",s:"Français",t:"Renforcement : le passé simple (3/10)",fiche:"fr-ps",quiz:"q-ps",ex:["fr-flash-ps"],
+   st:["Je fais les cartes du passé simple.","Je fais le quiz."],c:"au moins 7/8."}]},
+ {d:"2026-11-27",kind:"Vendredi",note:"",blocs:[
+  {id:"j27a",k:"revision",s:"Maths",t:"Révision espacée : la contraposée",fiche:"ma-pyth-contra",quiz:"q-contra",ex:["ma-write-contra"],
+   st:["Je refais la rédaction de la contraposée sans regarder le modèle.","Je fais le quiz."],c:"rédaction complète et au moins 6/7."},
+  {id:"j27b",k:"revision",s:"Histoire-Géo-EMC",t:"Révision espacée : le lexique de la justice",fiche:"emc-justice",ex:["emc-flash-lexique"],
+   st:["Je refais les cartes du lexique."],c:"toutes les cartes sues."},
+  {id:"j27c",k:"renfort",s:"Physique-Chimie",t:"Renforcement : mouvement et vitesse (7,5/20)",fiche:"pc-vitesse",ex:["pc-calc-vit"],
+   st:["Je relis la formule v = d ÷ t.","Je fais 6 calculs."],c:"au moins 5/6."}]},
+ {d:"2026-11-28",kind:"Samedi",note:"",blocs:[
+  {id:"j28a",k:"revision",s:"Français",t:"Entraînement : écrire la peur (« La Cafetière »)",fiche:"fr-peur",ex:["fr-write-cafetiere"],
+   st:["Je lis le sujet et la méthode de l'entraînement.","Je dis à l'oral 6 phrases de la suite, avec au moins 5 mots de la peur.","Je compare avec le modèle et je coche la grille."],c:"5 cases de la grille cochées sur 6."},
+  {id:"j28b",k:"revision",s:"SVT",t:"Révision espacée : mycorhizes et nodosités",fiche:"svt-asso",quiz:"q-asso",ex:["svt-sort-asso"],
+   st:["Je refais le classement.","Je fais le quiz."],c:"au moins 6/7."},
+  {id:"j28c",k:"renfort",s:"Maths",t:"Renforcement : arithmétique (3,5/10)",fiche:"ma-base",quiz:"q-base",ex:["ma-sort-div"],
+   st:["Je relis les critères de divisibilité.","Je fais « Premier ou pas premier ? ».","Je fais le quiz."],c:"au moins 8/10."}]},
+ {d:"2026-11-29",kind:"Dimanche",note:"Le programme de la semaine suivante arrivera avec la prochaine mise à jour de Pronote.",blocs:[
+  {id:"j29a",k:"revision",s:"Histoire-Géo-EMC",t:"Révision espacée : urbanisation et métropoles",fiche:"geo-urb",quiz:"q-urb",ex:["geo-flash-urb"],
+   st:["Je refais les cartes.","Je fais le quiz."],c:"au moins 4/5."},
+  {id:"j29b",k:"revision",s:"Maths",t:"Révision espacée : fractions",fiche:"ma-frac2",quiz:"q-frac2",ex:["ma-calc-addf"],
+   st:["Je fais 6 additions de fractions.","Je fais le quiz."],c:"au moins 5/6."},
+  {id:"j29c",k:"renfort",s:"Anglais",t:"Renforcement : décrire un tableau (3,5/20)",fiche:"an-hopper",quiz:"q-hopper",ex:["an-write-hopper"],
+   st:["Je relis les 4 étapes.","Je décris un tableau de Hopper à voix haute."],c:"les 6 cases de la grille cochées."}]}
+ );
+ CTRL.push(
+  {id:"c-an25",d:"2026-11-25",s:"Anglais",t:"Affaire Costello + prétérit + verbes",what:"Pronote : revoir l'affaire Costello et le cours sur le prétérit simple ; apprendre les verbes irréguliers du planning.",quiz:["q-costello","q-pret"],ex:["an-flash-costello","an-flash"],fiche:"an-costello",
+   cl:["Je réponds à « Where were you? » et « What were you doing? ».","Je sais les verbes de la liste du 25.","Je fais une question au prétérit avec did."]},
+  {id:"c-ma26",d:"2026-11-26",s:"Maths",t:"Leçon : contraposée de Pythagore + ex. 35 p. 204 et ex. 35 p. 63",what:"Leçon à savoir pour jeudi 26 (interrogation possible).",quiz:["q-contra"],ex:["ma-sort-contra","ma-write-contra"],fiche:"ma-pyth-contra",
+   cl:["Je récite la contraposée.","Je rédige avec « D'une part… D'autre part… ».","Les 2 exercices sont faits."]},
+  {id:"c-mu27",d:"2026-11-27",s:"Musique",t:"4 couplets de « L'oiseau et l'enfant » + DM Beethoven",what:"Apprendre 4 couplets et rendre le DM sur feuille (seul ou à 2), consignes sur le digipad de la classe (Pronote).",quiz:[],ex:[],fiche:null,
+   cl:["Je dis les 4 couplets sans regarder.","Le DM est fait et dans le sac."]}
+ );
+ const ct=CTRL.find(c=>c.id==="c-fr20"); if(ct){ct.what+=" Pronote du 23 : « TB revoir le tableau » pour mardi 24.";}
 })();
 
 /* ================= MON CARTABLE ================= */
