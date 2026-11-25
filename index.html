@@ -185,7 +185,7 @@ ul.cl2{list-style:none;padding:0;display:flex;flex-direction:column;gap:4px} ul.
 <div class="app">
   <header class="top">
     <div class="stack" style="gap:4px">
-      <span class="tag">Hugo · 4e5 · semaine du 23 au 29 novembre · mis à jour le 23</span>
+      <span class="tag">Hugo · 4e5 · semaine du 25 novembre au 1er décembre · mis à jour le 25</span>
       <h1>Mon plan de révision</h1>
     </div>
     <div class="progress" aria-live="polite">
@@ -1495,7 +1495,7 @@ function startEx(id){
   R={id,i:0,score:0,ans:null,err:0,done:false,miss:[]};
   if(e.type==="sort") R.items=shuffle(e.items);
   if(e.type==="order"){R.pool=shuffle(e.steps); R.placed=[]; R.wrong=null;}
-  if(e.type==="calc"){R.qs=Array.from({length:e.n},()=>e.gen==="rel"?genRel():e.gen==="moy"?genMoy():e.gen==="med"?genMed():e.gen==="vit"?genVit():e.gen==="pyth"?genPyth():e.gen==="frac"?genFrac():e.gen==="addf"?genAddF():genFreq()); R.val="";}
+  if(e.type==="calc"){R.qs=Array.from({length:e.n},()=>e.gen==="rel"?genRel():e.gen==="moy"?genMoy():e.gen==="med"?genMed():e.gen==="vit"?genVit():e.gen==="pyth"?genPyth():e.gen==="frac"?genFrac():e.gen==="addf"?genAddF():e.gen==="addf2"?genAddF2():genFreq()); R.val="";}
   if(e.type==="write"){R.shown=false; R.ck={};}
   if(e.type==="flash"){R.queue=shuffle(e.cards.map((_,k)=>k)); R.first={}; R.flip=false; R.total=e.cards.length;}
   render(); window.scrollTo(0,0);
@@ -3010,6 +3010,284 @@ EX.push(
    cl:["Je dis les 4 couplets sans regarder.","Le DM est fait et dans le sac."]}
  );
  const ct=CTRL.find(c=>c.id==="c-fr20"); if(ct){ct.what+=" Pronote du 23 : « TB revoir le tableau » pour mardi 24.";}
+})();
+
+
+/* ---------- Ajouts du 25 novembre ---------- */
+FICHES.push(
+{id:"emc-bilan",s:"Histoire-Géo-EMC",t:"Évaluation du vendredi 27 : tout le chapitre I d'EMC",src:"Pronote · évaluation sur le chapitre I d'EMC le vendredi 27 novembre · fiche de synthèse",
+ lumni:[["L'État de droit",LUMNI("état de droit")],["La justice en France",LUMNI("justice en France collège")],["Simone Veil",LUMNI("Simone Veil")]],
+ short:[
+  "<b>I. Les libertés</b> : la DDHC de <b>1789</b> (« Les hommes naissent et demeurent libres et égaux en droits »). Les libertés ont été conquises (exemple : <b>Simone Veil</b>, loi de 1975 sur l'IVG). Ma liberté s'arrête où commence celle des autres.",
+  "<b>Libertés numériques</b> : on n'est jamais anonyme sur Internet (adresse IP) ; protéger ses données personnelles ; la <b>CNIL</b> ; le droit à l'oubli.",
+  "<b>II. L'État de droit</b> : tout le monde respecte la loi, <b>même l'État</b>. 3 piliers : séparation des pouvoirs (législatif = voter les lois, exécutif = les appliquer, judiciaire = juger), égalité devant la loi, Constitution au sommet. Exemple : l'<b>Affaire du siècle</b> (2021).",
+  "<b>Le droit au quotidien</b> : l'ensemble des règles écrites qui s'imposent à tous ; il garantit des libertés et crée des obligations ; le juge dit le droit ; on a renoncé à la <b>loi du plus fort</b> (Le Loup et l'Agneau).",
+  "<b>III. La justice</b> : civile (conflit entre personnes), pénale (infraction : contravention → tribunal de police, délit → tribunal correctionnel, crime → cour d'assises), administrative (conflit avec l'État). Appel, cassation.",
+  "Principes : justice <b>indépendante</b>, <b>présomption d'innocence</b>, droit à un <b>avocat</b>, <b>procès équitable</b>. On ne se fait pas justice soi-même."],
+ full:`
+ <div class="fsec"><h3>Le plan du chapitre (pour se repérer)</h3>
+  <div class="flow"><div class="st"><b>I. Les libertés</b> : comment elles ont été acquises (1789, Simone Veil) · risques sur les réseaux sociaux.</div><div class="ar">↓</div><div class="st"><b>II. L'ordre public dans un État de droit</b> : A) qu'est-ce que l'État de droit ? B) le droit dans notre quotidien.</div><div class="ar">↓</div><div class="st"><b>III. La justice, garante de l'État de droit</b> : A) son organisation, B) ses caractéristiques et ses métiers.</div></div></div>
+ <div class="fsec"><h3>Les 10 définitions à savoir par cœur</h3>
+  <div class="table-wrap"><table><tr><th>Mot</th><th>Définition courte</th></tr>
+   <tr><td>Liberté fondamentale</td><td>une liberté garantie à tous par les textes (s'exprimer, se déplacer, croire…)</td></tr>
+   <tr><td>DDHC</td><td>Déclaration des droits de l'homme et du citoyen, 1789, toujours en vigueur</td></tr>
+   <tr><td>Données personnelles</td><td>les informations qui permettent de m'identifier (nom, photo, adresse…)</td></tr>
+   <tr><td>CNIL</td><td>l'organisme qui protège nos données et notre vie privée</td></tr>
+   <tr><td>État de droit</td><td>un État où tout le monde, même l'État, respecte la loi</td></tr>
+   <tr><td>Séparation des pouvoirs</td><td>législatif (voter les lois), exécutif (les appliquer), judiciaire (juger) : 3 pouvoirs séparés</td></tr>
+   <tr><td>Constitution</td><td>le texte le plus haut : il organise la République</td></tr>
+   <tr><td>Droit</td><td>l'ensemble des règles écrites qui s'imposent à tous</td></tr>
+   <tr><td>Présomption d'innocence</td><td>on est innocent tant que la justice n'a pas prouvé le contraire</td></tr>
+   <tr><td>Faire appel</td><td>demander un nouveau jugement si on n'est pas d'accord</td></tr></table></div></div>
+ <div class="fsec"><h3>Les exemples à citer (le prof les a donnés)</h3>
+  <ul><li><b>Simone Veil</b> : rescapée d'Auschwitz, ministre de la Santé, loi de 1975 sur l'IVG.</li>
+   <li><b>L'Affaire du siècle (2021)</b> : l'État condamné pour ne pas avoir tenu ses engagements pour le climat → l'État n'est pas au-dessus de la loi.</li>
+   <li><b>Le Loup et l'Agneau</b> : « La raison du plus fort est toujours la meilleure » → le contraire de l'État de droit.</li>
+   <li><b>Le jardin et la piscine</b> : on porte plainte, on ne se fait pas justice soi-même.</li></ul></div>
+ <div class="fsec"><h3>Quelle justice ? (le tableau qui tombe souvent)</h3>
+  <div class="table-wrap"><table><tr><th>Situation</th><th>Justice</th><th>Tribunal</th></tr>
+   <tr><td>Deux voisins se disputent pour un mur</td><td>civile</td><td>tribunal judiciaire</td></tr>
+   <tr><td>Un excès de vitesse léger</td><td>pénale (contravention)</td><td>tribunal de police</td></tr>
+   <tr><td>Un vol</td><td>pénale (délit)</td><td>tribunal correctionnel</td></tr>
+   <tr><td>Un meurtre</td><td>pénale (crime)</td><td>cour d'assises (avec des jurés)</td></tr>
+   <tr><td>Un conflit avec une mairie</td><td>administrative</td><td>tribunal administratif</td></tr></table></div></div>
+ <div class="fsec"><h3>Le jour de l'évaluation</h3>
+  <ul><li>Je lis toute la feuille, je surligne le mot important de chaque question.</li>
+   <li>Je réponds par des <b>phrases complètes</b> qui reprennent la question (méthode R.E.P.).</li>
+   <li>Pour un document : <b>nature, auteur, date, sujet</b>.</li>
+   <li>Je donne <b>un exemple</b> à chaque fois que je peux (Simone Veil, Affaire du siècle…).</li></ul></div>`},
+{id:"ma-eval1",s:"Maths",t:"Évaluation du mardi 1er décembre : fractions + Pythagore",src:"Pronote · évaluation : addition et soustraction de fractions + théorème de Pythagore, réciproque et contraposée",
+ lumni:[["Additionner des fractions",LUMNI("addition de fractions")],["Réciproque de Pythagore",LUMNI("réciproque théorème de Pythagore")]],
+ short:[
+  "<b>Même dénominateur</b> : j'additionne (ou je soustrais) les numérateurs, je garde le dénominateur. 5/9 + 7/9 = 12/9 = 4/3.",
+  "<b>Dénominateurs différents</b> : je mets d'abord sur le <b>même dénominateur</b>. 1/2 + 3/8 = 4/8 + 3/8 = 7/8. Je simplifie à la fin.",
+  "Avec des négatifs : 11/5 − 17/5 = (11 − 17)/5 = −6/5.",
+  "<b>Théorème</b> (on sait que le triangle est rectangle) → on <b>calcule une longueur</b>.",
+  "<b>Réciproque</b> (on veut prouver qu'il EST rectangle) : si le carré du plus grand côté = la somme des carrés des deux autres, alors il est rectangle.",
+  "<b>Contraposée</b> (on veut prouver qu'il N'EST PAS rectangle) : si ce n'est pas égal, alors il n'est pas rectangle."],
+ full:`
+ <div class="fsec"><h3>1. Additionner et soustraire des fractions</h3>
+  <div class="flow"><div class="st">1. Même dénominateur ? Sinon, je multiplie en haut et en bas pour l'obtenir (souvent, un dénominateur est un multiple de l'autre).</div><div class="ar">↓</div><div class="st">2. J'additionne ou je soustrais les <b>numérateurs</b>. Je <b>garde</b> le dénominateur.</div><div class="ar">↓</div><div class="st">3. Je simplifie si possible.</div></div>
+  <ul><li>2/3 + 5/6 = 4/6 + 5/6 = <b>9/6 = 3/2</b></li><li>7/10 − 1/5 = 7/10 − 2/10 = <b>5/10 = 1/2</b></li><li>−3/4 + 1/8 = −6/8 + 1/8 = <b>−5/8</b></li></ul>
+  <p class="tip">Piège : ✗ 1/2 + 1/3 = 2/5. On n'additionne jamais les dénominateurs.</p></div>
+ <div class="fsec"><h3>2. Pythagore : lequel choisir ?</h3>
+  <div class="table-wrap"><table><tr><th>Je sais…</th><th>Je cherche…</th><th>J'utilise…</th></tr>
+   <tr><td>le triangle est rectangle</td><td>une longueur</td><td>le <b>théorème</b></td></tr>
+   <tr><td>les 3 longueurs</td><td>prouver qu'il <b>est</b> rectangle</td><td>la <b>réciproque</b></td></tr>
+   <tr><td>les 3 longueurs</td><td>prouver qu'il <b>n'est pas</b> rectangle</td><td>la <b>contraposée</b></td></tr></table></div>
+  <div class="box"><p class="key">Rédaction type (réciproque et contraposée)</p><p>Dans le triangle ABC, le plus grand côté est [AC].<br>AC² = 10² = 100.<br>AB² + BC² = 6² + 8² = 36 + 64 = 100.<br>Donc AC² = AB² + BC². D'après la <b>réciproque</b> du théorème de Pythagore, le triangle ABC est rectangle en B.</p><p>(Si j'avais trouvé deux résultats différents : « AC² ≠ AB² + BC². D'après la <b>contraposée</b>… le triangle n'est pas rectangle. »)</p></div>
+  <div class="box"><p class="key">Rédaction type (théorème)</p><p>Le triangle DEF est rectangle en E. D'après le théorème de Pythagore : DF² = DE² + EF² = 3² + 4² = 9 + 16 = 25. Donc DF = √25 = <b>5 cm</b>.</p></div>
+  <p class="tip">Toujours : calculer les deux côtés <b>séparément</b>, puis comparer. L'angle droit est en face du plus grand côté.</p></div>`},
+{id:"fr-cond",s:"Français",t:"Le conditionnel présent (séance 7) et faire un résumé (séance 6)",src:"Cours du 24 et du 25 novembre · Le Horla",
+ lumni:[["Le conditionnel présent",LUMNI("conditionnel présent")],["Faire un résumé",LUMNI("faire un résumé")]],
+ short:[
+  "Le <b>conditionnel</b> est un mode à 2 temps : conditionnel <b>présent</b> (temps simple) et conditionnel <b>passé</b> (temps composé).",
+  "Il exprime l'<b>incertitude</b>, l'hypothèse : c'est pour ça qu'on le trouve dans le récit fantastique.",
+  "Formation : <b>radical du futur + terminaisons de l'imparfait</b> : -ais, -ais, -ait, -ions, -iez, -aient. Je danser<b>ais</b>, nous grandir<b>ions</b>.",
+  "Irréguliers : aller → <b>j'irais</b> ; avoir → <b>j'aurais</b> ; être → <b>je serais</b>.",
+  "Valeurs : <b>potentiel</b> (possible) : Si le professeur acceptait, Adam <b>pourrait</b> corriger. <b>Irréel du présent</b> (impossible) : Si Solal était là, il <b>écrirait</b> le cours.",
+  "Résumer : raconter l'essentiel en peu de mots, <b>sans citer</b>, avec ses propres mots, dans l'ordre."],
+ full:`
+ <div class="fsec"><h3>1. Former le conditionnel présent</h3>
+  <div class="box"><p class="mem">FUTUR (radical) + IMPARFAIT (terminaisons)</p><p>je danser<b>ai</b> (futur) + j'étais (imparfait) → je danser<b>ais</b></p></div>
+  <div class="table-wrap"><table><tr><th></th><th>danser</th><th>grandir</th><th>aller</th><th>avoir</th><th>être</th></tr>
+   <tr><td>je</td><td>danserais</td><td>grandirais</td><td>irais</td><td>aurais</td><td>serais</td></tr>
+   <tr><td>tu</td><td>danserais</td><td>grandirais</td><td>irais</td><td>aurais</td><td>serais</td></tr>
+   <tr><td>il / elle</td><td>danserait</td><td>grandirait</td><td>irait</td><td>aurait</td><td>serait</td></tr>
+   <tr><td>nous</td><td>danserions</td><td>grandirions</td><td>irions</td><td>aurions</td><td>serions</td></tr>
+   <tr><td>vous</td><td>danseriez</td><td>grandiriez</td><td>iriez</td><td>auriez</td><td>seriez</td></tr>
+   <tr><td>ils / elles</td><td>danseraient</td><td>grandiraient</td><td>iraient</td><td>auraient</td><td>seraient</td></tr></table></div>
+  <p class="tip">Piège d'orthographe : je serai (futur, « demain ») ≠ je serais (conditionnel, « si… »). Astuce : je remplace par « tu » : tu seras / tu serais.</p></div>
+ <div class="fsec"><h3>2. À quoi sert le conditionnel ?</h3>
+  <ul><li><b>Potentiel</b> : c'est encore possible. « Si le professeur acceptait sa demande, Adam <b>pourrait</b> aller corriger au tableau. »</li>
+   <li><b>Irréel du présent</b> : c'est impossible maintenant. « Si Solal était là, il <b>écrirait</b> le cours. »</li>
+   <li><b>Dans Le Horla</b> : « Qui serait-ce ? » → le narrateur ne sait pas, il doute : le conditionnel crée l'<b>incertitude</b> du fantastique.</li></ul>
+  <div class="box"><p class="mem">SI + IMPARFAIT → CONDITIONNEL</p><p>Si j'avais le temps, je <b>lirais</b>. (✗ si j'aurais)</p></div></div>
+ <div class="fsec"><h3>3. Faire un résumé (séance 6 : l'expérience de la carafe, 5-10 juillet)</h3>
+  <div class="flow"><div class="st">1. Je lis et je souligne les <b>actions importantes</b> de chaque date.</div><div class="ar">↓</div><div class="st">2. Je fais une <b>liste</b> de 4 ou 5 étapes, avec mes mots.</div><div class="ar">↓</div><div class="st">3. J'écris un petit paragraphe, au même temps que le texte, avec des mots de liaison (d'abord, ensuite, alors, finalement).</div></div>
+  <p class="tip">Dans un résumé : pas de citation, pas d'avis personnel, pas de « je pense ». Avec la dysgraphie : je peux dicter mes 5 étapes à un parent, puis recopier.</p></div>`},
+{id:"svt-bilan5",s:"SVT",t:"Bilan 5 : la symbiose (à apprendre pour le mardi 1er décembre)",src:"Cours du 24 novembre · correction des questions 3 à 6 sur les nodosités + bilan 5",
+ lumni:[["La symbiose",LUMNI("symbiose")],["Mycorhizes",LUMNI("mycorhize")]],
+ short:[
+  "Une <b>symbiose</b> = une association entre deux êtres vivants <b>différents</b> où <b>chacun y gagne</b> (bénéfices réciproques).",
+  "<b>Mycorhize</b> : racines + <b>champignon</b>. Le champignon donne <b>eau et sels minéraux</b> ; la plante donne de la <b>matière organique</b> (sucres).",
+  "<b>Nodosités</b> : petites boules sur les racines des <b>légumineuses</b> (pois, haricot, trèfle). Des <b>bactéries</b> y donnent de l'<b>azote</b> à la plante ; la plante leur donne de la matière organique.",
+  "Grâce à ces associations, la plante pousse mieux, même dans un sol pauvre.",
+  "La matière organique fabriquée dans les feuilles (photosynthèse) circule dans toute la plante, jusqu'aux racines."],
+ full:`
+ <div class="fsec"><h3>Le bilan en un schéma</h3>
+  <div class="flow"><div class="st"><b>Plante</b> (photosynthèse dans les feuilles) → fabrique la <b>matière organique</b>.</div><div class="ar">⇅</div><div class="st"><b>Champignon</b> (mycorhize) ou <b>bactéries</b> (nodosités) → apportent <b>eau, sels minéraux, azote</b>.</div></div>
+  <div class="box"><p class="mem">SYMBIOSE = DONNANT-DONNANT</p><p>Chacun donne quelque chose à l'autre, et chacun y gagne.</p></div></div>
+ <div class="fsec"><h3>Qui donne quoi à qui ?</h3>
+  <div class="table-wrap"><table><tr><th>Association</th><th>Le partenaire donne à la plante</th><th>La plante donne au partenaire</th></tr>
+   <tr><td>Mycorhize (champignon)</td><td>eau + sels minéraux</td><td>matière organique (sucres)</td></tr>
+   <tr><td>Nodosités (bactéries)</td><td>azote</td><td>matière organique (sucres)</td></tr></table></div>
+  <p class="tip">Phrase-réponse : « Il s'agit d'une symbiose car la plante et le champignon échangent des éléments : chacun y gagne. »</p></div>`},
+{id:"geo-shanghai",s:"Histoire-Géo-EMC",t:"Shanghai : comment s'organise l'espace d'une mégapole ?",src:"Cours du 24 novembre · I. A) l'organisation de l'espace shanghaien · fiche 1 à finir pour le lundi 30",
+ lumni:[["Shanghai",LUMNI("Shanghai")],["Les métropoles",LUMNI("métropole mondialisation")]],
+ short:[
+  "<b>Shanghai</b> (Chine) : une <b>mégapole</b> de plus de <b>20 millions</b> d'habitants, au bord de la mer, à l'embouchure du Yangzi.",
+  "Le <b>centre</b> : <b>Puxi</b> (la ville ancienne, le Bund) et <b>Pudong</b> (le quartier d'affaires de Lujiazui, construit depuis 1990 avec ses gratte-ciel).",
+  "Les <b>périphéries</b> : immeubles d'habitation, usines, zones commerciales, villes nouvelles, aéroports.",
+  "Le <b>port</b> de Shanghai est l'un des plus grands du monde (conteneurs) : Shanghai est ouverte sur la <b>mondialisation</b>.",
+  "Bouleversements : la ville s'étale très vite, des quartiers anciens sont détruits, beaucoup d'habitants arrivent de la campagne."],
+ full:`
+ <div class="fsec"><h3>Les mots du chapitre</h3>
+  <div class="table-wrap"><table><tr><th>Mot</th><th>Sens</th></tr>
+   <tr><td>Mégapole</td><td>une très grande ville (plus de 10 millions d'habitants)</td></tr>
+   <tr><td>Métropole</td><td>une grande ville qui commande un territoire (affaires, pouvoir, culture)</td></tr>
+   <tr><td>Centre / CBD</td><td>le cœur de la ville, avec les bureaux et les gratte-ciel (CBD = quartier des affaires)</td></tr>
+   <tr><td>Périphérie</td><td>les espaces autour du centre</td></tr>
+   <tr><td>Étalement urbain</td><td>la ville grignote la campagne autour d'elle</td></tr>
+   <tr><td>Mondialisation</td><td>la mise en relation des pays du monde (échanges de marchandises, de personnes, d'argent)</td></tr></table></div></div>
+ <div class="fsec"><h3>Lire l'organisation de Shanghai (pour la fiche 1)</h3>
+  <div class="flow"><div class="st"><b>Au centre</b> : le Bund (bâtiments anciens) face à Pudong (gratte-ciel du quartier d'affaires).</div><div class="ar">↓</div><div class="st"><b>Autour</b> : quartiers d'habitation, usines, zones commerciales.</div><div class="ar">↓</div><div class="st"><b>Vers l'extérieur</b> : port, aéroports, villes nouvelles : les liens avec le monde.</div></div>
+  <p class="tip">Méthode pour un document : je dis sa nature (photo, carte, texte), je décris ce que je vois (au premier plan, à l'arrière-plan), puis j'explique avec un mot du cours (centre, périphérie, mondialisation). Diaporama du cours sur Pronote : « C G I Espaces et paysages ».</p></div>`}
+);
+QUIZ.push(
+{id:"q-emc-bilan",s:"Histoire-Géo-EMC",t:"Évaluation d'EMC (vendredi 27)",fiche:"emc-bilan",qs:[
+ ["La DDHC date de…",["1789","1958","1975","2021"],0,"Pendant la Révolution française.","libertés"],
+ ["Simone Veil a fait voter en 1975…",["la loi sur l'IVG","le droit de vote des femmes","la DDHC","la Constitution"],0,"Elle était ministre de la Santé.","libertés"],
+ ["Qui protège nos données personnelles en France ?",["la CNIL","le Sénat","la cour d'assises","l'Assemblée nationale"],0,"Commission nationale de l'informatique et des libertés.","numérique"],
+ ["Dans un État de droit…",["même l'État doit respecter la loi","le président est au-dessus des lois","le plus fort décide","les juges votent les lois"],0,"Personne n'est au-dessus de la loi.","État de droit"],
+ ["Le pouvoir judiciaire sert à…",["juger","voter les lois","appliquer les lois","élire le président"],0,"Les juges, les tribunaux.","pouvoirs"],
+ ["Un vol est jugé par…",["le tribunal correctionnel","la cour d'assises","le tribunal administratif","le Conseil constitutionnel"],0,"C'est un délit.","justice"],
+ ["Un meurtre est jugé par…",["la cour d'assises","le tribunal de police","le tribunal administratif","le maire"],0,"C'est un crime, avec des jurés.","justice"],
+ ["La présomption d'innocence veut dire…",["on est innocent tant que la culpabilité n'est pas prouvée","on est coupable si on est accusé","on n'a pas droit à un avocat","on ne peut pas faire appel"],0,"Un principe de la justice.","justice"],
+ ["Pas d'accord avec un jugement ? On peut…",["faire appel","se faire justice soi-même","changer de juge tout seul","rien faire"],0,"Cour d'appel, puis cassation.","justice"],
+ ["« La raison du plus fort est toujours la meilleure » montre…",["le contraire de l'État de droit","un principe de la Constitution","une loi de 1789","le rôle de la CNIL"],0,"Le droit a remplacé la loi du plus fort.","droit"]]},
+{id:"q-eval1",s:"Maths",t:"Évaluation du 1er décembre : fractions + Pythagore",fiche:"ma-eval1",qs:[
+ ["1/2 + 3/8 =",["7/8","4/10","4/8","3/16"],0,"1/2 = 4/8.","fractions"],
+ ["2/3 + 5/6 =",["3/2","7/9","7/6","10/18"],0,"4/6 + 5/6 = 9/6 = 3/2.","fractions"],
+ ["7/10 − 1/5 =",["1/2","6/5","6/10","8/10"],0,"7/10 − 2/10 = 5/10 = 1/2.","fractions"],
+ ["−3/4 + 1/8 =",["−5/8","−2/4","−4/12","5/8"],0,"−6/8 + 1/8.","fractions"],
+ ["Triangle 6, 8, 10 cm. Est-il rectangle ?",["Oui : 10² = 6² + 8² (réciproque)","Non (contraposée)","On ne peut pas savoir","Oui car 6 + 8 > 10"],0,"100 = 36 + 64.","réciproque"],
+ ["Triangle 4, 5, 7 cm :",["Pas rectangle (contraposée)","Rectangle (réciproque)","Rectangle (théorème)","Isocèle"],0,"49 ≠ 41.","contraposée"],
+ ["Je sais que le triangle est rectangle et je cherche une longueur : j'utilise…",["le théorème","la réciproque","la contraposée","Thalès"],0,"Le théorème calcule.","choisir"],
+ ["Dans la rédaction, j'écris…",["AC² = 100 et AB² + BC² = 100, puis je compare","100 = 100 = 100","AC = AB + BC","AC² = AB² + BC² dès la 1re ligne"],0,"Calculs séparés, puis comparaison.","rédaction"]]},
+{id:"q-cond",s:"Français",t:"Le conditionnel présent",fiche:"fr-cond",qs:[
+ ["Le conditionnel présent se forme avec…",["le radical du futur + les terminaisons de l'imparfait","le radical du présent + -ai","avoir + participe passé","le radical de l'imparfait + -ons"],0,"Futur + imparfait.","formation"],
+ ["aller, je :",["j'irais","j'allerais","j'irai (sans s)","j'allais"],0,"Radical ir-.","irréguliers"],
+ ["être, nous :",["nous serions","nous serons","nous étions","nous serrions"],0,"ser- + -ions.","irréguliers"],
+ ["grandir, ils :",["ils grandiraient","ils grandissaient","ils grandiront","ils grandirons"],0,"grandir- + -aient.","formation"],
+ ["« Si Solal était là, il écrirait le cours » exprime…",["l'irréel du présent","le potentiel","le passé","un ordre"],0,"Il n'est pas là : impossible.","valeurs"],
+ ["Si j'avais le temps, je…",["lirais","lirai","lisais","aurais lu demain"],0,"Si + imparfait → conditionnel.","si"],
+ ["Pourquoi le conditionnel dans le récit fantastique ?",["pour exprimer l'incertitude","pour donner des ordres","pour raconter au passé simple","pour décrire"],0,"Le narrateur doute.","Horla"]]},
+{id:"q-bilan5",s:"SVT",t:"Bilan 5 : la symbiose",fiche:"svt-bilan5",qs:[
+ ["Une symbiose est une association où…",["chacun des deux êtres vivants y gagne","un seul gagne","les deux perdent","la plante mange le champignon"],0,"Bénéfices réciproques.","définition"],
+ ["Dans une mycorhize, le champignon apporte…",["de l'eau et des sels minéraux","des sucres","de la lumière","du dioxygène"],0,"Ses filaments explorent le sol.","mycorhize"],
+ ["La plante donne au champignon…",["de la matière organique (sucres)","de l'azote","du sable","rien"],0,"Fabriquée par photosynthèse.","mycorhize"],
+ ["Les nodosités se trouvent sur les racines…",["des légumineuses (pois, haricot)","de tous les arbres","des champignons","des cactus"],0,"Elles contiennent des bactéries.","nodosités"],
+ ["Les bactéries des nodosités apportent à la plante…",["de l'azote","du sucre","de la chlorophylle","de l'amidon"],0,"Elles captent l'azote.","nodosités"]]},
+{id:"q-shanghai",s:"Histoire-Géo-EMC",t:"Shanghai et les mots de la ville",fiche:"geo-shanghai",qs:[
+ ["Une mégapole, c'est…",["une ville de plus de 10 millions d'habitants","un petit village","un pays","un quartier"],0,"Shanghai en est une.","mots"],
+ ["Pudong, c'est…",["le quartier d'affaires aux gratte-ciel","la vieille ville","un port de pêche","une campagne"],0,"Construit depuis 1990.","Shanghai"],
+ ["Les périphéries, ce sont…",["les espaces autour du centre","le cœur de la ville","la mer","les gratte-ciel"],0,"Habitations, usines, zones commerciales.","mots"],
+ ["Le port de Shanghai montre…",["l'ouverture sur la mondialisation","que la ville est isolée","qu'il n'y a pas d'échanges","que la ville est petite"],0,"Un des plus grands ports du monde.","mondialisation"],
+ ["L'étalement urbain, c'est…",["la ville qui grignote la campagne","la ville qui rétrécit","un parc","une autoroute"],0,"La ville s'étend.","mots"]]}
+);
+function genAddF2(){
+  const pairs=[[2,4],[2,6],[3,6],[2,8],[4,8],[3,9],[5,10],[2,10],[4,12],[3,12],[6,12]];
+  const [d1,d2]=pairs[rnd(0,pairs.length-1)], k=d2/d1, a=rnd(1,d1-1)*(Math.random()<.25?-1:1), plus=Math.random()<.5; let c=rnd(1,d2-1); if(c%k===0) c=c===d2-1?1:c+1;
+  const fa=(a<0?"("+a+")":a)+"/"+d1, n=a*k;
+  return plus?{q:"Calcule le numérateur : "+fa+" + "+c+"/"+d2+" = ?/"+d2,ans:n+c,ex:a+"/"+d1+" = "+n+"/"+d2+" ; "+n+" + "+c+" = "+(n+c)+"."}
+             :{q:"Calcule le numérateur : "+fa+" − "+c+"/"+d2+" = ?/"+d2,ans:n-c,ex:a+"/"+d1+" = "+n+"/"+d2+" ; "+n+" − "+c+" = "+(n-c)+"."};
+}
+const EX_ADD1125=[
+{id:"ma-calc-addf2",s:"Maths",fiche:"ma-eval1",kind:"fond",type:"calc",gen:"addf2",n:6,t:"Fractions de dénominateurs différents (toujours nouveau)"},
+{id:"ma-sort-pyth3",s:"Maths",fiche:"ma-eval1",kind:"fond",type:"sort",t:"Théorème, réciproque ou contraposée ?",
+ cats:["Théorème (calculer une longueur)","Réciproque (il EST rectangle)","Contraposée (il N'EST PAS rectangle)"],items:[["ABC rectangle en B, AB = 3, BC = 4 : calcule AC.",0],["DEF rectangle en E : calcule DF.",0],["Côtés 6, 8, 10 : est-il rectangle ?",1],["Côtés 5, 12, 13 : est-il rectangle ?",1],["Côtés 4, 5, 7 : est-il rectangle ?",2],["Côtés 3, 5, 6 : est-il rectangle ?",2]],
+ expl:["On sait qu'il est rectangle : on calcule.","Les deux calculs sont égaux : 100 = 100, 169 = 169.","Les deux calculs sont différents : 49 ≠ 41, 36 ≠ 34."]},
+{id:"ma-write-pyth3",s:"Maths",fiche:"ma-eval1",kind:"forme",type:"write",t:"Rédiger une réciproque comme au contrôle",
+ prompt:"Le triangle RST a pour côtés RS = 5 cm, ST = 12 cm, RT = 13 cm. Est-il rectangle ? Rédige comme au contrôle (à l'écrit ou à l'oral).",
+ method:["Je repère le plus grand côté : [RT].","Je calcule RT² seul.","Je calcule RS² + ST² seul.","Je compare et je conclus en citant la réciproque (ou la contraposée)."],
+ model:"Dans le triangle RST, le plus grand côté est [RT].\nRT² = 13² = 169.\nRS² + ST² = 5² + 12² = 25 + 144 = 169.\nDonc RT² = RS² + ST².\nD'après la réciproque du théorème de Pythagore, le triangle RST est rectangle en S.",
+ check:["J'ai nommé le plus grand côté","Deux calculs séparés","J'ai comparé","J'ai cité la réciproque","J'ai dit en quel point est l'angle droit (en face du plus grand côté)"]},
+{id:"fr-flash-cond",s:"Français",fiche:"fr-cond",kind:"fond",type:"flash",t:"Conjuguer au conditionnel présent",
+ note:"Dis la forme à voix haute, puis retourne. Attention à la terminaison.",
+ cards:[["danser, je","je danserais"],["danser, nous","nous danserions"],["grandir, il","il grandirait"],["grandir, vous","vous grandiriez"],["aller, je","j'irais"],["aller, ils","ils iraient"],["avoir, tu","tu aurais"],["avoir, nous","nous aurions"],["être, je","je serais"],["être, elles","elles seraient"],["pouvoir, il","il pourrait"],["voir, je","je verrais"],["faire, nous","nous ferions"],["venir, tu","tu viendrais"]]},
+{id:"fr-sort-cond",s:"Français",fiche:"fr-cond",kind:"forme",type:"sort",t:"Futur ou conditionnel ?",
+ cats:["Futur (demain, c'est sûr)","Conditionnel (si…, peut-être)"],items:[["Demain, je serai en retard.",0],["Si j'étais riche, je serais heureux.",1],["Nous irons à la mer cet été.",0],["Si tu venais, nous irions au cinéma.",1],["Il aura 14 ans en mars.",0],["Qui serait-ce ?",1],["Je pourrai te le dire lundi.",0],["Il pourrait pleuvoir.",1]],
+ expl:["Futur : terminaisons -ai, -as, -a, -ons, -ez, -ont.","Conditionnel : -ais, -ais, -ait, -ions, -iez, -aient."]},
+{id:"svt-sort-bilan5",s:"SVT",fiche:"svt-bilan5",kind:"fond",type:"sort",t:"Qui donne quoi ?",
+ cats:["Le champignon donne à la plante","Les bactéries donnent à la plante","La plante donne à son partenaire"],items:[["de l'eau",0],["des sels minéraux",0],["de l'azote",1],["des sucres",2],["de la matière organique",2]],
+ expl:["Mycorhize : eau et sels minéraux.","Nodosités : azote.","La plante donne la matière organique fabriquée par photosynthèse."]},
+{id:"emc-write-bilan",s:"Histoire-Géo-EMC",fiche:"emc-bilan",kind:"forme",type:"write",t:"Question type de l'évaluation : expliquer l'État de droit",
+ prompt:"Question : « Montrez que la justice protège l'État de droit. » Réponds en 4 phrases avec un exemple (à l'oral d'abord, puis à l'écrit si tu peux).",
+ method:["R : je reprends la question.","E : la justice règle les conflits et sanctionne ceux qui ne respectent pas la loi.","E : elle est indépendante, avec des principes (présomption d'innocence, avocat, procès équitable).","P : un exemple (l'Affaire du siècle, ou le jardin et la piscine)."],
+ model:"La justice protège l'État de droit car elle fait respecter la loi par tous.\nElle règle les conflits entre les personnes et sanctionne ceux qui commettent des infractions.\nElle est indépendante et respecte des principes : la présomption d'innocence, le droit à un avocat et à un procès équitable.\nPar exemple, en 2021, la justice a condamné l'État lui-même dans l'Affaire du siècle : personne n'est au-dessus de la loi.",
+ check:["Ma 1re phrase reprend la question","J'ai dit à quoi sert la justice","J'ai cité au moins un principe","J'ai donné un exemple","4 phrases complètes"]}
+];
+EX.push(...EX_ADD1125);
+CTRL.push(
+ {id:"c-hg27",d:"2026-11-27",s:"Histoire-Géo-EMC",t:"Évaluation : chapitre I d'EMC",what:"Pronote : évaluation sur le chapitre I d'EMC (libertés, libertés numériques, État de droit, droit au quotidien, justice).",quiz:["q-emc-bilan","q-droit","q-droit2","q-justice","q-emcnum"],ex:["emc-sort-justice","emc-sort-pouvoirs","emc-write-bilan","emc-flash-lexique"],fiche:"emc-bilan",
+  cl:["Je donne les 10 définitions de la fiche sans regarder.","Je cite les 3 pouvoirs et qui les exerce.","Je dis quel tribunal juge une contravention, un délit, un crime.","Je cite 3 principes de la justice.","Je donne les exemples : Simone Veil, l'Affaire du siècle, Le Loup et l'Agneau.","Je réponds par des phrases complètes (R.E.P.)."]},
+ {id:"c-ma1",d:"2026-12-01",s:"Maths",t:"Évaluation : fractions + Pythagore, réciproque, contraposée",what:"Addition et soustraction de fractions ; théorème de Pythagore, réciproque et contraposée. Calculatrice.",quiz:["q-eval1","q-contra","q-frac2"],ex:["ma-calc-addf2","ma-calc-addf","ma-sort-pyth3","ma-write-pyth3"],fiche:"ma-eval1",
+  cl:["J'additionne des fractions de même dénominateur.","Je mets deux fractions au même dénominateur avant d'additionner.","Je simplifie le résultat.","Je sais choisir : théorème, réciproque ou contraposée.","Je rédige une réciproque en 5 lignes.","Je calcule une longueur avec le théorème (et la racine carrée)."]},
+ {id:"c-svt1",d:"2026-12-01",s:"SVT",t:"Bilan 5 à savoir (la symbiose)",what:"Pronote : apprendre le bilan 5.",quiz:["q-bilan5","q-asso"],ex:["svt-sort-bilan5","svt-sort-asso"],fiche:"svt-bilan5",
+  cl:["Je définis une symbiose.","Je dis qui donne quoi dans une mycorhize.","Je dis qui donne quoi dans les nodosités."]}
+);
+(function(){
+ const day=d=>PLAN.find(p=>p.d===d);
+ const B=(d,id)=>day(d).blocs.find(b=>b.id===id);
+ // Mercredi 25 : l'évaluation d'EMC de vendredi remplace la révision de géographie
+ const d25=day("2026-11-25");
+ d25.note="Mercredi : 1 heure. Nouveau sur Pronote : évaluation d'EMC vendredi.";
+ d25.blocs=d25.blocs.filter(b=>b.id!=="j25d");
+ d25.blocs.push({id:"k25a",k:"controle",s:"Histoire-Géo-EMC",t:"Évaluation d'EMC vendredi : je lis la fiche de synthèse (J-2)",due:"2026-11-27",fiche:"emc-bilan",quiz:"q-emc-bilan",
+  st:["Je lis la fiche « Évaluation du vendredi 27 » à voix haute (le plan + les 10 définitions).","Je relis mon cahier d'EMC, partie I (les libertés).","Je fais le quiz « Évaluation d'EMC »."],c:"au moins 7/10 au quiz."});
+ // Jeudi 26 : veille de l'évaluation d'EMC (1 heure)
+ const d26=day("2026-11-26");
+ d26.kind="Jeudi · veille de l'évaluation d'EMC"; d26.note="1 heure : veille de l'évaluation d'EMC.";
+ d26.blocs=d26.blocs.filter(b=>b.id!=="j26b");
+ d26.blocs.splice(1,0,
+  {id:"k26a",k:"controle",s:"Histoire-Géo-EMC",t:"EMC : la justice et l'État de droit",due:"2026-11-27",fiche:"emc-justice",quiz:"q-justice",ex:["emc-sort-justice","emc-sort-pouvoirs"],
+   st:["Je fais « Quelle justice ? » (le classement).","Je fais « Quel pouvoir ? ».","Je fais le quiz « L'organisation de la justice »."],c:"au moins 8/9 aux classements."},
+  {id:"k26b",k:"controle",s:"Histoire-Géo-EMC",t:"EMC : contrôle blanc",due:"2026-11-27",fiche:"emc-bilan",quiz:"q-emc-bilan",ex:["emc-write-bilan","emc-flash-lexique"],
+   st:["Sans fiche : je dis les 10 définitions à un parent.","Je fais la question type « Montrez que la justice protège l'État de droit » (à l'oral, puis j'écris 2 phrases).","Je refais le quiz.","Je vais dans « Contrôles » et je coche ce que je sais."],c:"l'évaluation d'EMC est « Prête » ou « Presque prête »."});
+ // Vendredi 27
+ const d27=day("2026-11-27");
+ d27.blocs=[
+  {id:"k27a",k:"controle",s:"Maths",t:"Évaluation du 1er décembre : additionner des fractions (J-4)",due:"2026-12-01",fiche:"ma-eval1",quiz:"q-eval1",ex:["ma-calc-addf","ma-calc-addf2"],
+   st:["Je lis la partie 1 de la fiche « Évaluation du 1er décembre ».","Je fais 6 additions de même dénominateur.","Je fais 6 additions de dénominateurs différents."],c:"au moins 5/6 aux deux."},
+  {id:"k27b",k:"revision",s:"Français",t:"Le conditionnel présent (cours du 25)",fiche:"fr-cond",quiz:"q-cond",ex:["fr-flash-cond","fr-sort-cond"],
+   st:["Je lis la fiche « Le conditionnel présent ».","Je fais les cartes de conjugaison à voix haute.","Je fais « Futur ou conditionnel ? »."],c:"au moins 7/8 au classement."},
+  B("2026-11-27","j27c")];
+ // Samedi 28
+ const d28=day("2026-11-28");
+ d28.note="Un devoir pour lundi (géographie) et deux contrôles mardi (maths, SVT).";
+ d28.blocs=[
+  {id:"k28a",k:"devoir",s:"Histoire-Géo-EMC",t:"Géographie : finir la fiche 1 (Shanghai)",due:"2026-11-30",fiche:"geo-shanghai",quiz:"q-shanghai",
+   st:["Je lis la fiche « Shanghai ».","Je regarde le diaporama « C G I Espaces et paysages » sur Pronote avec un parent.","Je finis la fiche 1 : phrases courtes mais complètes.","Je mets la fiche dans le cahier de géographie."],c:"la fiche 1 est finie."},
+  {id:"k28b",k:"devoir",s:"SVT",t:"Apprendre le bilan 5 (la symbiose)",due:"2026-12-01",fiche:"svt-bilan5",quiz:"q-bilan5",ex:["svt-sort-bilan5"],
+   st:["Je lis le bilan 5 dans mon cahier, puis la fiche.","Je fais « Qui donne quoi ? ».","Je fais le quiz."],c:"au moins 4/5 au quiz."},
+  B("2026-11-28","j28c")];
+ // Dimanche 29
+ const d29=day("2026-11-29");
+ d29.note="";
+ d29.blocs=[
+  {id:"k29a",k:"controle",s:"Maths",t:"Pythagore : théorème, réciproque ou contraposée ? (J-2)",due:"2026-12-01",fiche:"ma-eval1",quiz:"q-contra",ex:["ma-sort-pyth3","ma-write-pyth3"],
+   st:["Je lis la partie 2 de la fiche (le tableau « lequel choisir ? »).","Je fais le classement.","Je rédige la réciproque du triangle RST."],c:"6/6 au classement et rédaction complète."},
+  {id:"k29b",k:"revision",s:"Histoire-Géo-EMC",t:"Révision espacée : urbanisation et Shanghai",fiche:"geo-urb",quiz:"q-urb",ex:["geo-flash-urb"],
+   st:["Je fais les cartes de géographie.","Je fais le quiz « Urbanisation et métropoles »."],c:"au moins 4/5."},
+  B("2026-11-29","j29c")];
+ // Lundi 30 et mardi 1er décembre
+ PLAN.push(
+ {d:"2026-11-30",kind:"Lundi · veille de 2 contrôles (maths, SVT)",note:"1 heure : veille de 2 contrôles.",blocs:[
+  {id:"k30a",k:"controle",s:"Maths",t:"Contrôle blanc : fractions + Pythagore",due:"2026-12-01",fiche:"ma-eval1",quiz:"q-eval1",ex:["ma-calc-addf2","ma-write-pyth3"],
+   st:["Sans fiche : 6 additions de fractions.","Je rédige une réciproque.","Je fais le quiz « Évaluation du 1er décembre ».","Je mets la calculatrice dans mon sac."],c:"au moins 7/8 au quiz."},
+  {id:"k30b",k:"controle",s:"SVT",t:"Bilan 5 : je vérifie que je le sais",due:"2026-12-01",fiche:"svt-bilan5",quiz:"q-bilan5",ex:["svt-sort-bilan5"],
+   st:["Je récite le bilan 5 à un parent.","Je refais le quiz."],c:"5/5 au quiz."},
+  {id:"k30c",k:"revision",s:"Français",t:"Révision espacée : le conditionnel",fiche:"fr-cond",ex:["fr-flash-cond"],
+   st:["Je refais les cartes de conjugaison."],c:"toutes les cartes sues."},
+  {id:"k30d",k:"renfort",s:"Espagnol",t:"Renforcement : les comparaisons (1/4 au bonus du 23)",fiche:"es-seq",ex:["es-flash-seq"],
+   st:["Je relis « Comparer » dans la fiche « Toute la séquence ».","Je fais les cartes."],c:"je fais 3 comparaisons avec más… que, menos… que, tan… como."}]},
+ {d:"2026-12-01",kind:"Mardi · contrôles de maths et de SVT",note:"Le programme suivant arrivera avec la prochaine mise à jour de Pronote.",blocs:[
+  {id:"k01a",k:"revision",s:"Histoire-Géo-EMC",t:"Révision espacée : Shanghai",fiche:"geo-shanghai",quiz:"q-shanghai",
+   st:["Je relis l'essentiel de la fiche.","Je fais le quiz."],c:"au moins 4/5."},
+  {id:"k01b",k:"renfort",s:"Physique-Chimie",t:"Renforcement : la tension électrique",fiche:"pc-tension",quiz:"q-tension",ex:["pc-sort-tension"],
+   st:["Je relis la fiche « La tension électrique ».","Je fais le classement et le quiz."],c:"au moins 5/6."}]}
+ );
 })();
 
 /* ================= MON CARTABLE ================= */
