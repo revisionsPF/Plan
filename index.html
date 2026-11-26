@@ -3536,6 +3536,8 @@ function cartLine(k){const d=cartDone(k), st=(S.cart||{})[k]||{p:{}}; const PL=p
   const plaud=PL.findIndex(x=>x[0].startsWith("Je mets l'enregistreur"));
   return "Cartable : vidé "+(d.v?"oui":"non")+", préparé pour demain "+(d.p?"oui":"non")+", enregistreur dans le sac "+(st.p&&st.p[plaud]?"oui":"non");}
 
+/* Jour affiché à l'ouverture : recalculé après tous les ajouts au programme */
+sel=(PLAN.find(p=>p.d===todayKey)||(todayKey<PLAN[0].d?PLAN[0]:todayKey>PLAN[PLAN.length-1].d?PLAN[PLAN.length-1]:PLAN.find(p=>p.d>todayKey))).d;
 render();
 
 </script>
